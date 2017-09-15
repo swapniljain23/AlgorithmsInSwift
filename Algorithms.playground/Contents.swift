@@ -698,3 +698,13 @@ func getSubstringAfterString(sourceString: String, afterString str: String) -> S
 //print(getSubstringFromString(sourceString: "Swapnil:Jain", beforeString: "Jain"))
 //print(getSubstringAfterString(sourceString: "Swapnil:Jain", afterString: "Ja"))
 
+// Write a function which takes two integer parameters for time in hours and miniutes and return the minimum angle between two.
+// Assumption: Shoule accept hours in 24hr format.
+// Input: 12, 45
+// Output: 113 (rounded up to Int)
+
+//func calculateAngle(hours: Int, mins: Int) -> Int{
+//
+//}
+
+
