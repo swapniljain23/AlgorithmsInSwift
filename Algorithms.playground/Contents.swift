@@ -134,6 +134,15 @@ func reverseStringInPlace(string: String) -> String{
 }
 //print(reverseString(string: "AppleelppA Apple Apple"))
 
+func reverseStringUsingIndex(string: String) -> String{
+    var reverseString = String()
+    for character in string.characters{
+        reverseString.insert(character, at: reverseString.startIndex)
+    }
+    return reverseString
+}
+//print(reverseStringUsingIndex(string: "Apple"))
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 /* Check if String One is Permutation of Other String */
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -681,16 +690,14 @@ func numberOfPossibility(num: Int) -> Int{
 
 func getSubstringFromString(sourceString: String, beforeString str: String) -> String{
     if let range = sourceString.range(of: str){
-        let index = sourceString.index(before: range.lowerBound)
-        return sourceString.substring(to: index)
+        return String(sourceString[..<range.lowerBound])
     }
     return ""
 }
 
 func getSubstringAfterString(sourceString: String, afterString str: String) -> String{
     if let range = sourceString.range(of: str){
-        let index = sourceString.index(after: range.upperBound)
-        return sourceString.substring(from: index)
+        return String(sourceString[range.upperBound...sourceString.index(before: sourceString.endIndex)])
     }
     return ""
 }
@@ -703,8 +710,41 @@ func getSubstringAfterString(sourceString: String, afterString str: String) -> S
 // Input: 12, 45
 // Output: 113 (rounded up to Int)
 
-//func calculateAngle(hours: Int, mins: Int) -> Int{
-//
-//}
+func calculateAngle(hours: Int, mins: Int) -> Int{
+    // Constants
+    let fullCircle = 360.0
+    let halfCircle = 180.0
+    
+    // Angle for a min
+    let minsHandAngleForAmin = fullCircle / 60  // Complete a full circle in 60 mins
+    let hrsHandAngleForAmin = fullCircle / 720 // Complete a full circle in 720 mins
+    
+    // Handle 24hr time
+    let hours = (hours >= 12) ? hours - 12 : hours
+    
+    // Calculate angle from 12:00
+    let minsHandAngle = minsHandAngleForAmin * Double(mins)
+    let hrsHandAngle = (Double(hours) * 60 * hrsHandAngleForAmin) + (Double(mins) * hrsHandAngleForAmin)
+    
+    // Angle between hands
+    var angleBtwHands = 0.0
+    if (hrsHandAngle > minsHandAngle){
+        angleBtwHands = hrsHandAngle - minsHandAngle
+    }else{
+        angleBtwHands = minsHandAngle - hrsHandAngle
+    }
+    
+    // Return minimum
+    if angleBtwHands > halfCircle{
+        return Int(round(fullCircle - angleBtwHands))
+    }else{
+        return Int(round(angleBtwHands))
+    }
+}
 
+//print(calculateAngle(hours: 12, mins: 45))
+//print(calculateAngle(hours: 12, mins: 0))
+//print(calculateAngle(hours: 18, mins: 30))
+//print(calculateAngle(hours: 20, mins: 20))
+//print(calculateAngle(hours: 23, mins: 10))
 
