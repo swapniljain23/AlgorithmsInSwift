@@ -122,4 +122,77 @@ func setZeros( anArray: [[Int]]) -> [[Int]]{
 }
 //print(setZeros(anArray: [[0,1,2],[3,4,5],[6,7,8]]))
 
+/*
+     
+*/
+struct Worker{
+    var workerId: Int?
+    var type = ""
+    var name = ""
+    var salary = ""
+    var workHours: Int?
+    var computedSalary = 0
+}
+
+func sortedListOfSalaries(workers: [[String]]) -> [Int] {
+    var listOfSalaries = [Int]()
+    var workersArray = [Worker]()
+    for worker in workers{
+        var workerObj = Worker()
+        for index in 0..<worker.count{
+            switch index{
+            case 0: workerObj.workerId = Int(worker[index])
+            case 1: workerObj.type = worker[index]
+            case 2: workerObj.name = worker[index]
+            case 3: workerObj.salary = worker[index]
+            case 4: workerObj.workHours = Int(worker[index])
+            default: break
+            }
+        }
+        
+        if workerObj.type == "Contractor"{
+            if let hourlyRate = Int(workerObj.salary), let hours = workerObj.workHours{
+                let salary = hourlyRate * hours * 52
+                workerObj.computedSalary = salary
+            }
+        }else if workerObj.type == "FTE"{
+            if let salary = Int(workerObj.salary){
+                workerObj.computedSalary = salary
+            }
+        }
+        workersArray.append(workerObj)
+    }
+    
+    // Now let's iterate workers array to calculate managers salary
+    for worker in workersArray{
+        var wokkerO = worker
+        if worker.type == "Manager"{
+            let listOfWorkerIds = worker.salary.split(separator:",")
+            for workerId in listOfWorkerIds{
+                for innerWorker in workersArray{
+                    if let innerWorkerId = innerWorker.workerId, String(innerWorkerId) == workerId{
+                        wokkerO.computedSalary += innerWorker.computedSalary
+                    }
+                }
+            }
+        }
+        listOfSalaries.append(wokkerO.computedSalary)
+    }
+    
+    // Sort salaries array, default acending.
+    return listOfSalaries.sorted()
+}
+
+let workersArray = [["1","Contractor","Apple","50","12"],
+                    ["2","Manager","Apple","1,4,5","X"],
+                    ["3","Manager","Apple","1,4","X"],
+                    ["4","FTE","Apple","50000","X"],
+                    ["5","FTE","Apple","140000","X"]]
+//print(sortedListOfSalaries(workers: workersArray))
+
+// 1 -> 31,200
+// 2 -> 221,200
+// 3 -> 81,200
+// 4 -> 50,000
+// 5 -> 140,000
 //: [Next](@next)

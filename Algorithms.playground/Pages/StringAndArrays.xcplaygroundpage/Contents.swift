@@ -81,9 +81,11 @@ func reverseNSString(string: NSString){
 
 // using reversed()
 func reverseString(string: String) -> String{
-    //    return String(string.characters.reversed())
-    return String(Array(string.characters).reversed())
+    //return String(string.characters.reversed())
+    //return String(Array(string.characters).reversed())
+    return String(string.reversed())
 }
+//print(reverseString(string: "AppleelppA Apple Apple"))
 
 // Swap in place, using char array
 func reverseStringInPlace(string: String) -> String{
@@ -102,7 +104,6 @@ func reverseStringInPlace(string: String) -> String{
     }
     return String(newString)
 }
-//print(reverseString(string: "AppleelppA Apple Apple"))
 
 func reverseStringUsingIndex(string: String) -> String{
     var reverseString = String()
