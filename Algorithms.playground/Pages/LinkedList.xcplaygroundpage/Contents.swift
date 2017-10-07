@@ -1,7 +1,11 @@
-//: [Previous](@previous)
-
 import Foundation
-
+//: [Previous](@previous)
+/*:
+ # Linked List
+ */
+/*:
+ ## Node Class
+ */
 class Node{
     var next: Node?
     var data: Int
@@ -10,8 +14,9 @@ class Node{
         data = value
     }
 }
-
-/* Creating Linked List */
+/*:
+ ## Linked List Operations
+ */
 class LinkedList {
     
     var head: Node?
@@ -68,8 +73,8 @@ class LinkedList {
         return
     }
 }
-
-var linkedList: LinkedList = LinkedList()
+// Test Cases:
+//var linkedList: LinkedList = LinkedList()
 //linkedList.appendToTail(value: 5)
 //linkedList.appendToTail(value: 5)
 //linkedList.appendToTail(value: 5)
@@ -90,9 +95,10 @@ var linkedList: LinkedList = LinkedList()
 //print(linkedList.traverseLinkedList())
 //linkedList.deleteNode(value: 15)
 //print(linkedList.traverseLinkedList())
-
-/* Remove duplicates from unsorted linked list */
-// Approach I: With temporary buffer
+/*:
+ ## Remove duplicates from unsorted linked list
+ Approach I: With temporary buffer
+ */
 func removeDuplicates(linkedList: LinkedList) -> LinkedList{
     // Incase head is nil, return
     guard let head = linkedList.head else{
@@ -100,7 +106,6 @@ func removeDuplicates(linkedList: LinkedList) -> LinkedList{
     }
     // Incase linked list has some node
     var dictionary = Dictionary<Int, Bool>()
-    
     var this = head
     dictionary[this.data] = true
     while this.next != nil{
@@ -113,9 +118,12 @@ func removeDuplicates(linkedList: LinkedList) -> LinkedList{
     }
     return linkedList
 }
+// Test Cases:
 //removeDuplicates(linkedList: linkedList).traverseLinkedList()
-
-// Approach II: Without temporary buffer
+/*:
+ ## Remove duplicates from unsorted linked list
+ Approach II: Without temporary buffer
+ */
 func removeDuplicates_(linkedList: LinkedList) -> LinkedList{
     // Incase head is nil, return
     guard let head = linkedList.head else{
@@ -142,7 +150,9 @@ func removeDuplicates_(linkedList: LinkedList) -> LinkedList{
 }
 //removeDuplicates_(linkedList: linkedList).traverseLinkedList()
 
-/* Implement an algorithm to find the nth to last element of a singly linked list */
+/*:
+ ## Implement an algorithm to find the nth to last element of a singly linked list
+ */
 func nThToLast(linkedList: LinkedList, n: Int) -> Node?{
     // Incase head is nil, return
     guard let head = linkedList.head else{
@@ -165,6 +175,7 @@ func nThToLast(linkedList: LinkedList, n: Int) -> Node?{
     }
     return p1.next
 }
+// Test Cases:
 //print(linkedList.traverseLinkedList())
 //print(nThToLast(linkedList: linkedList, n: 1)?.data ?? "Invalid Input")
 

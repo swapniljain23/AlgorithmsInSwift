@@ -1,7 +1,11 @@
-//: [Previous](@previous)
-
 import Foundation
-
+//: [Previous](@previous)
+/*:
+ # Stack and Queue
+ */
+/*:
+ ## Node Class
+ */
 class Node{
     var next: Node?
     var data: Int
@@ -10,8 +14,9 @@ class Node{
         data = value
     }
 }
-
-/* Stack */
+/*:
+ ## Stack Operations
+ */
 class Stack {
     var top: Node?
     
@@ -44,27 +49,24 @@ class Stack {
         print(this.data, separator: "", terminator: "")
     }
 }
-
-let stack = Stack()
+// Test Cases:
+//let stack = Stack()
 //print(stack.traverseStack())
-
-stack.pop()
+//stack.pop()
 //print(stack.traverseStack())
-
-stack.push(value: 5)
-stack.push(value: 10)
-stack.push(value: 15)
-stack.push(value: 20)
+//stack.push(value: 5)
+//stack.push(value: 10)
+//stack.push(value: 15)
+//stack.push(value: 20)
 //print(stack.traverseStack())
-
-stack.pop()
-stack.pop()
+//stack.pop()
+//stack.pop()
 //print(stack.traverseStack())
-
-/* Queue */
+/*:
+ ## Queue Operations
+ */
 class Queue {
     var first, last: Node?
-    
     func enQueue(item: Int){
         let node = Node(value: item)
         guard let _ = first else{
@@ -75,14 +77,12 @@ class Queue {
         self.last?.next = node
         self.last = node
     }
-    
     func deQueue(){
         guard let first = first else{
             return
         }
         self.first = first.next
     }
-    
     func traverseQueue(){
         guard let first = first else{
             return
@@ -95,21 +95,18 @@ class Queue {
         print("\(this.data) => ", separator: "", terminator: "")
     }
 }
-
-let queue = Queue()
-
-queue.deQueue()
+// Test Cases:
+//let queue = Queue()
+//queue.deQueue()
 //print(queue.traverseQueue())
-
-queue.enQueue(item: 5)
-queue.enQueue(item: 15)
-queue.enQueue(item: 25)
-queue.enQueue(item: 35)
-queue.enQueue(item: 45)
+//queue.enQueue(item: 5)
+//queue.enQueue(item: 15)
+//queue.enQueue(item: 25)
+//queue.enQueue(item: 35)
+//queue.enQueue(item: 45)
 //print(queue.traverseQueue())
-
-queue.deQueue()
-queue.deQueue()
+//queue.deQueue()
+//queue.deQueue()
 //print(queue.traverseQueue())
 
 //: [Next](@next)

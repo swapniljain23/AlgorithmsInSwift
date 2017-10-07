@@ -1,7 +1,11 @@
-//: [Previous](@previous)
-
 import Foundation
-
+//: [Previous](@previous)
+/*:
+ # Thesis
+*/
+/*:
+ ## Number of possibility
+ */
 // Define f(0)=1 and f(n)  to be the number of different ways  can be expressed as a sum of integer powers of 2 using each power no more than twice.
 // Formula: f(0)=1 and f(2n+1) = f(n), f(2n) = f(n) + f(n-1)
 func numberOfPossibility(num: Int) -> Int{
@@ -15,11 +19,15 @@ func numberOfPossibility(num: Int) -> Int{
     }
 }
 //print(numberOfPossibility(num: 8))
-
-// Write a function which takes two integer parameters for time in hours and miniutes and return the minimum angle between two.
-// Assumption: Shoule accept hours in 24hr format.
-// Input: 12, 45
-// Output: 113 (rounded up to Int)
+/*:
+ ## Calculate angle between clock hands
+ */
+/*
+ Write a function which takes two integer parameters for time in hours and miniutes and return the minimum angle between two.
+ Assumption: Shoule accept hours in 24hr format.
+ Input: 12, 45
+ Output: 113 (rounded up to Int)
+*/
 func calculateAngle(hours: Int, mins: Int) -> Int{
     // Constants
     let fullCircle = 360.0
@@ -51,13 +59,15 @@ func calculateAngle(hours: Int, mins: Int) -> Int{
         return Int(round(angleBtwHands))
     }
 }
+// Test Cases:
 //print(calculateAngle(hours: 12, mins: 45))
 //print(calculateAngle(hours: 12, mins: 0))
 //print(calculateAngle(hours: 18, mins: 30))
 //print(calculateAngle(hours: 20, mins: 20))
 //print(calculateAngle(hours: 23, mins: 10))
-
-/* Check if two NSRange intersect each other */
+/*:
+ ## Check if two NSRange intersect each other
+ */
 func hasIntersection(range1: NSRange, range2: NSRange) -> Bool{
     if range1.location >= range2.location && range1.location <= (range2.location + range2.length){
         return true
@@ -67,9 +77,14 @@ func hasIntersection(range1: NSRange, range2: NSRange) -> Bool{
     }
     return false
 }
-//print(hasIntersection(range1: NSRange.init(location: 10, length: 250), range2: NSRange.init(location: 100, length: 500)))
-
-/* Rotate the image by 90 degree */
+// Test Caes:
+// print(hasIntersection(range1: NSRange.init(location: 10, length: 250), range2: NSRange.init(location: 100, length: 500)))
+/*:
+ ## Matrix Rotation
+ */
+/*
+ Rotate the image by 90 degree
+ */
 func performRotation( matrix: [[Int]], size: Int) -> [[Int]]{
     var matrix = matrix
     for layer in 0...size/2-1{
@@ -96,13 +111,18 @@ func performRotation( matrix: [[Int]], size: Int) -> [[Int]]{
     }
     return matrix
 }
+// Test Cases:
 //print(performRotation(matrix: [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]], size: 4))
-
-/* Set zeros: If an element is zero set its entire row and column to zero */
+/*:
+ ## Matrix manipulation
+ */
+/*
+ Set zeros: If an element is zero set its entire row and column to zero
+ */
 func setZeros( anArray: [[Int]]) -> [[Int]]{
     var anArray = anArray
-    var rowArr: [Bool] = Array.init(repeating: false, count: anArray.count)
-    var colArr: [Bool] = Array.init(repeating: false, count: anArray[0].count)
+    var rowArr: [Bool] = Array(repeating: false, count: anArray.count)
+    var colArr: [Bool] = Array(repeating: false, count: anArray[0].count)
     for rowIndex in 0...anArray.count-1{
         for colIndex in 0...anArray[rowIndex].count-1{
             if anArray[rowIndex][colIndex] == 0{
@@ -120,10 +140,19 @@ func setZeros( anArray: [[Int]]) -> [[Int]]{
     }
     return anArray
 }
+// Test Caes:
 //print(setZeros(anArray: [[0,1,2],[3,4,5],[6,7,8]]))
-
+/*:
+ ## Employee/Manager Problem
+ */
 /*
-     
+ Calculate the salary of Worker based on type
+ Input:
+     If type = "Contractor" then salary = hourly rate
+     If type = "FTE" then salary = salary
+     If type = "Manager" then salary = worker id who reports to manager
+ Output:
+     Array of salary in ascending order
 */
 struct Worker{
     var workerId: Int?
@@ -133,7 +162,6 @@ struct Worker{
     var workHours: Int?
     var computedSalary = 0
 }
-
 func sortedListOfSalaries(workers: [[String]]) -> [Int] {
     var listOfSalaries = [Int]()
     var workersArray = [Worker]()
@@ -178,18 +206,16 @@ func sortedListOfSalaries(workers: [[String]]) -> [Int] {
         }
         listOfSalaries.append(wokkerO.computedSalary)
     }
-    
     // Sort salaries array, default acending.
     return listOfSalaries.sorted()
 }
-
-let workersArray = [["1","Contractor","Apple","50","12"],
-                    ["2","Manager","Apple","1,4,5","X"],
-                    ["3","Manager","Apple","1,4","X"],
-                    ["4","FTE","Apple","50000","X"],
-                    ["5","FTE","Apple","140000","X"]]
+// Test Cases:
+//let workersArray = [["1","Contractor","Apple","50","12"],
+//                    ["2","Manager","Apple","1,4,5","X"],
+//                    ["3","Manager","Apple","1,4","X"],
+//                    ["4","FTE","Apple","50000","X"],
+//                    ["5","FTE","Apple","140000","X"]]
 //print(sortedListOfSalaries(workers: workersArray))
-
 // 1 -> 31,200
 // 2 -> 221,200
 // 3 -> 81,200
