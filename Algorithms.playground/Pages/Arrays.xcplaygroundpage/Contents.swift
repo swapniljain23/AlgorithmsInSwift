@@ -56,4 +56,87 @@ func factorial(_ number: Int) -> Int{
 //print(products(number: 3))
 //print(products(number: 4))
 //print(products(number: 5))
+/*:
+ ## Rotate an array by Delta
+ With buffer array
+ */
+/*
+ Input: [1, 4, 7, 3, 2, 9], 3
+ Output: [3, 2, 9, 1, 4, 7]
+ */
+func rotateArrayByDelta(array: [Int], delta: Int) -> [Int]{
+    var newDelta = delta
+    if delta >= array.count{
+        newDelta = delta % array.count
+    }
+    var outputArray = [Int]()
+    var arrayIndex = newDelta
+    for index in 0..<array.count{
+        if index+newDelta == array.count{
+            arrayIndex = 0
+        }
+        outputArray.append(array[arrayIndex])
+        arrayIndex += 1
+    }
+    return outputArray
+}
+// Test Cases:
+//print(rotateArrayByDelta(array: [1, 4, 7, 3, 2, 9], delta: 5))
+/*:
+ ## Rotate an array by Delta
+ Without buffer array
+ */
+/*
+ Input: [1, 4, 7, 3, 2, 9], 4
+ Output: [ 2, 9, 1, 4, 7, 3]
+ */
+func rotateArrayByDeltaWithNoBuffer(array: [Int], delta: Int) -> [Int]{
+    var array = array
+    var newDelta = delta
+    if delta >= array.count{
+        newDelta = delta % array.count
+    }
+    // Reverse the first half
+    for index in 0..<newDelta/2{
+        (array[index], array[newDelta-1-index]) = (array[newDelta-1-index], array[index])
+    }
+    // Reverse the second half
+    for index in newDelta..<newDelta+((array.count-newDelta)/2){
+        (array[index], array[array.count-1-(index-newDelta)]) = (array[array.count-1-(index-newDelta)], array[index])
+    }
+    return array.reversed()
+}
+// Test Cases:
+//let array = [1, 4, 7, 3, 2, 9]
+//print(rotateArrayByDeltaWithNoBuffer(array: array, delta: 0))
+//print(rotateArrayByDeltaWithNoBuffer(array: array, delta: 1))
+//print(rotateArrayByDeltaWithNoBuffer(array: array, delta: 2))
+//print(rotateArrayByDeltaWithNoBuffer(array: array, delta: 3))
+//print(rotateArrayByDeltaWithNoBuffer(array: array, delta: 4))
+//print(rotateArrayByDeltaWithNoBuffer(array: array, delta: 5))
+//print(rotateArrayByDeltaWithNoBuffer(array: array, delta: 6))
+/*:
+ ## Reverse partial range in array
+ */
+/*
+ Input: [1, 4, 7, 3, 2, 9], 1, 4
+ Output: [1, 2, 3, 7, 4, 9]
+ */
+func reverseSubArray(array: [Int], startIndex: Int, endIndex: Int) -> [Int]{
+    var startIndex = startIndex
+    var endIndex = endIndex
+    var array = array
+    if startIndex >= array.count-1 || startIndex < 0 || endIndex <= 0 || endIndex >= array.count-1 || startIndex >= endIndex{
+        return array
+    }
+    while startIndex < endIndex{
+        (array[startIndex], array[endIndex]) = (array[endIndex], array[startIndex])
+        startIndex += 1
+        endIndex -= 1
+    }
+    return array
+}
+// Test Cases:
+//let array = [1, 4, 7, 3, 2, 9]
+//print(reverseSubArray(array: array, startIndex: 1, endIndex: 4))
 //: [Next](@next)
