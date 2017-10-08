@@ -221,4 +221,91 @@ func sortedListOfSalaries(workers: [[String]]) -> [Int] {
 // 3 -> 81,200
 // 4 -> 50,000
 // 5 -> 140,000
+/*:
+ ## Implement numeric addition of two Strings
+ */
+/*
+ Input: "12345", "123"
+ Output: "12468"
+ */
+func addTwoNumbers(string1: String, string2: String) -> String{
+    var resultString = ""
+    let smallerNum = (string1.count < string2.count) ? string1 : string2
+    let biggerNum = (string1.count >= string2.count) ? string1 : string2
+    var carryForward = 0
+    // Sum
+    for index in 1...biggerNum.count{
+        var total = 0
+        let biggerNumIndex = biggerNum.index(biggerNum.endIndex, offsetBy: -index)
+        let biggerNumVal = Int(String(biggerNum[biggerNumIndex]))!
+        var smallerNumVal = 0
+        if index <= smallerNum.count{
+            let smallerNumIndex = smallerNum.index(smallerNum.endIndex, offsetBy: -index)
+            smallerNumVal = Int(String(smallerNum[smallerNumIndex]))!
+        }
+        total =  biggerNumVal + smallerNumVal + carryForward
+        carryForward = 0
+        if total > 9{
+            carryForward = total / 10
+            total = total % 10
+        }
+        resultString.append(String(total))
+    }
+    if carryForward > 0{
+        resultString.append(String(carryForward))
+    }
+    return String(resultString.reversed())
+}
+//print(addTwoNumbers(string1: "12345", string2: "123"))
+//print(addTwoNumbers(string1: "9999", string2: "99"))
+//print(addTwoNumbers(string1: "99999", string2: "99999"))
+//print(addTwoNumbers(string1: "10000", string2: "11"))
+//print(addTwoNumbers(string1: "90", string2: "1000"))
+//print(addTwoNumbers(string1: "101010", string2: "100000"))
+/*:
+ ## Implement numeric subtraction of two Strings
+ */
+/*
+ Input: "12345", "123"
+ Output: "12222"
+ */
+func subtractTwoNumbers(string1: String, string2: String){
+    
+}
+/*:
+ ## Convert Int into formatted String
+ */
+/*
+ Input:
+ Output:
+ Input:
+ Output:
+ */
+func intToString(number: Int, isLakhs: Bool=false) -> String{
+    var outputString = ""
+    var inputString = String(number)
+    var commaIndex = 1
+    var commaDiv = 3
+    var modVal = 0
+    for char in inputString.reversed(){
+        if commaIndex >= commaDiv && commaIndex % commaDiv == modVal && commaIndex != inputString.count {
+            outputString.append("\(char),")
+        }else{
+            outputString.append(char)
+        }
+        if isLakhs && commaIndex == commaDiv{
+            commaDiv = 2
+            modVal = 1
+        }
+        commaIndex += 1
+    }
+    return String(outputString.characters.reversed())
+}
+//print(intToString(number: 123456789, isLakhs: true))
+//print(intToString(number: 123456789))
+//print(intToString(number: 1))
+//print(intToString(number: 12, isLakhs: true))
+//print(intToString(number: 123456, isLakhs: true))
+//print(intToString(number: 123456))
+
 //: [Next](@next)

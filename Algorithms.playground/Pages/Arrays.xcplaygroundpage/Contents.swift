@@ -104,6 +104,7 @@ func rotateArrayByDeltaWithNoBuffer(array: [Int], delta: Int) -> [Int]{
     for index in newDelta..<newDelta+((array.count-newDelta)/2){
         (array[index], array[array.count-1-(index-newDelta)]) = (array[array.count-1-(index-newDelta)], array[index])
     }
+    // Return the whole array and return
     return array.reversed()
 }
 // Test Cases:
@@ -126,7 +127,7 @@ func reverseSubArray(array: [Int], startIndex: Int, endIndex: Int) -> [Int]{
     var startIndex = startIndex
     var endIndex = endIndex
     var array = array
-    if startIndex >= array.count-1 || startIndex < 0 || endIndex <= 0 || endIndex >= array.count-1 || startIndex >= endIndex{
+    if startIndex >= array.count-1 || startIndex < 0 || endIndex <= 0 || endIndex > array.count-1 || startIndex >= endIndex{
         return array
     }
     while startIndex < endIndex{
@@ -138,5 +139,6 @@ func reverseSubArray(array: [Int], startIndex: Int, endIndex: Int) -> [Int]{
 }
 // Test Cases:
 //let array = [1, 4, 7, 3, 2, 9]
-//print(reverseSubArray(array: array, startIndex: 1, endIndex: 4))
+//print(reverseSubArray(array: array, startIndex: 0, endIndex: 2))
+
 //: [Next](@next)
