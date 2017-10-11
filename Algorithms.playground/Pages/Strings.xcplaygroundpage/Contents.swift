@@ -4,6 +4,22 @@ import Foundation
  # Strings
  */
 /*:
+ ## Sting extension
+ */
+extension String{
+    var asciiValue: [UInt32]{
+        return self.unicodeScalars.filter{$0.isASCII}.map{$0.value}
+    }
+}
+/*:
+ ## Character extension
+ */
+extension Character{
+    var asciiValue: UInt32?{
+        return String(self).unicodeScalars.filter{$0.isASCII}.first?.value
+    }
+}
+/*:
  ## Substring
  */
 func getSubstringFromString(sourceString: String, beforeString str: String) -> String{
@@ -18,6 +34,8 @@ func getSubstringAfterString(sourceString: String, afterString str: String) -> S
     }
     return ""
 }
+
+
 // Test Cases:
 //print(getSubstringFromString(sourceString: "Swapnil:Jain", beforeString: "Jain"))
 //print(getSubstringAfterString(sourceString: "Swapnil:Jain", afterString: "Ja"))
@@ -234,4 +252,48 @@ func isSubstring(s1: NSString, s2: NSString) -> Bool{
 // Test Cases:
 //print(isSubstring(s1: "SwapnilJain", s2: "jain"))
 //print(isRotation(s1: "SwapnilJain", s2: "JainSwapnil"))
+/*:
+ ## Convert String to Int
+ */
+func stringToInt(_ string: String) -> Int?{
+    var number = 0
+    var multipler = 1
+    for char in string.reversed(){
+        if let asciiVal = char.asciiValue, asciiVal >= 48, asciiVal <= 57{
+            number = number + (Int(String(char))! * multipler)
+        }else{
+            return nil
+        }
+        multipler *= 10
+    }
+    return number
+}
+// Test Cases:
+//print(stringToInt("1"))
+//print(stringToInt("99"))
+//print(stringToInt("101"))
+//print(stringToInt("1009"))
+//print(stringToInt("10900"))
+/*:
+ ## Check if the string is Palindrome
+ */
+func isPalindrome(string: String) -> Bool {
+    for index in 0..<string.characters.count/2{
+        let charFromStart = string[string.index(string.startIndex, offsetBy: index)]
+        let charFromLast = string[string.index(string.endIndex, offsetBy: -index-1)]
+        if charFromStart != charFromLast{
+            return false
+        }
+        /* // Case insensitive matching
+         if String(charFromStart).lowercased() != String(charFromLast).lowercased(){
+         return false
+         }
+         */
+    }
+    return true
+}
+// Test Cases:
+//print(isPalindrome(string: "AppleXelppA"))
+//print(isPalindrome(string: "civic"))
+//print(isPalindrome(string: "Apple"))
 //: [Next](@next)
