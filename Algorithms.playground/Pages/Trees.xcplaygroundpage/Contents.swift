@@ -8,7 +8,6 @@ import Foundation
  */
 /*
  Print the binary tree where all nodes in the same hierarchy (depth) should be printed in the same line.
- Similar question: Print UIView hierarchy with idention.
  Input:
  1 -> 2, 3
  2 -> 4, 5
