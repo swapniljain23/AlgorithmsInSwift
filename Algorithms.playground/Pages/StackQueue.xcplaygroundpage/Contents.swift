@@ -22,43 +22,34 @@ class Stack {
     
     func push(value: Int){
         let node = Node(value: value)
-        guard let top = top else{
-            self.top = node
-            return
-        }
         node.next = top
-        self.top = node
+        top = node
     }
     
     func pop(){
-        guard let top = top else{
-            return
-        }
-        self.top = top.next
+        top = top?.next
     }
     
     func traverseStack(){
-        guard let top = top else{
-            return
-        }
         var this = top
-        while this.next != nil{
-            print("\(this.data) => ", separator: "", terminator: "")
-            this = this.next!
+        while this != nil{
+            print("\(this!.data) => ", separator: "", terminator: "")
+            this = this!.next
         }
-        print(this.data, separator: "", terminator: "")
     }
 }
 // Test Cases:
 //let stack = Stack()
-//print(stack.traverseStack())
-//stack.pop()
 //print(stack.traverseStack())
 //stack.push(value: 5)
 //stack.push(value: 10)
 //stack.push(value: 15)
 //stack.push(value: 20)
 //print(stack.traverseStack())
+//stack.pop()
+//stack.pop()
+//print(stack.traverseStack())
+//stack.pop()
 //stack.pop()
 //stack.pop()
 //print(stack.traverseStack())
@@ -69,30 +60,23 @@ class Queue {
     var first, last: Node?
     func enQueue(item: Int){
         let node = Node(value: item)
-        guard let _ = first else{
-            self.first = node
-            self.last = self.first
-            return
+        if let _ = first{
+            last?.next = node
+            last = node
+        }else{
+            first = node
+            last = first
         }
-        self.last?.next = node
-        self.last = node
     }
     func deQueue(){
-        guard let first = first else{
-            return
-        }
-        self.first = first.next
+        first = first?.next
     }
     func traverseQueue(){
-        guard let first = first else{
-            return
-        }
         var this = first
-        while this.next != nil{
-            print("\(this.data) => ", separator: "", terminator: "")
-            this = this.next!
+        while this != nil{
+            print("\(this!.data) => ", separator: "", terminator: "")
+            this = this?.next
         }
-        print("\(this.data) => ", separator: "", terminator: "")
     }
 }
 // Test Cases:

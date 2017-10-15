@@ -37,17 +37,11 @@ class LinkedList {
     }
     
     func traverseLinkedList(){
-        // Incase head is nil, print nothing
-        guard let head = head else{
-            return
-        }
-        // Incase linked list has some node
         var this = head
-        while this.next != nil{
-            print("\(this.data) => ", separator: "", terminator: "")
-            this = this.next!
+        while this != nil{
+            print("\(this!.data) => ", separator: "", terminator: "")
+            this = this?.next
         }
-        print(this.data, separator: "", terminator: "")
     }
     
     func deleteNode(value: Int){
@@ -70,7 +64,6 @@ class LinkedList {
             }
             this = this.next!
         }
-        return
     }
 }
 // Test Cases:
@@ -88,7 +81,7 @@ class LinkedList {
 //linkedList.appendToTail(value: 25)
 //linkedList.appendToTail(value: 30)
 //print(linkedList.traverseLinkedList())
-
+//
 //linkedList.deleteNode(value: 5)
 //print(linkedList.traverseLinkedList())
 //linkedList.deleteNode(value: 30)
@@ -105,78 +98,74 @@ func removeDuplicates(linkedList: LinkedList) -> LinkedList{
         return linkedList
     }
     // Incase linked list has some node
-    var dictionary = Dictionary<Int, Bool>()
+    var dataSet = Set<Int>()
     var this = head
-    dictionary[this.data] = true
+    dataSet.insert(this.data)
     while this.next != nil{
-        if let _ = dictionary[this.next!.data]{
+        if dataSet.contains(this.next!.data){
             this.next = this.next?.next
         }else{
-            dictionary[this.next!.data] = true
+            dataSet.insert(this.next!.data)
             this = this.next!
         }
     }
     return linkedList
 }
+// Space:
+// Time: O(n)
 // Test Cases:
-//removeDuplicates(linkedList: linkedList).traverseLinkedList()
+//print(removeDuplicates(linkedList: linkedList).traverseLinkedList())
 /*:
  ## Remove duplicates from unsorted linked list
  Approach II: Without temporary buffer
  */
 func removeDuplicates_(linkedList: LinkedList) -> LinkedList{
-    // Incase head is nil, return
-    guard let head = linkedList.head else{
-        return linkedList
-    }
-    var current = head
-    var previous = head
-    while current.next != nil{
-        var runner = head
-        while runner !== current{
-            if current.data == runner.data{
-                previous.next = current.next
-                current = current.next!
-                break
+    var current = linkedList.head
+    while current != nil{
+        var runner = current!
+        // Remove all future nodes that have the same value.
+        while runner.next != nil{
+            if current!.data == runner.next!.data{
+                runner.next = runner.next!.next
+            }else{
+                runner = runner.next!
             }
-            runner = runner.next!
         }
-        if runner === current{
-            previous = current
-            current = current.next!
-        }
+        current = current?.next
     }
     return linkedList
 }
-//removeDuplicates_(linkedList: linkedList).traverseLinkedList()
-
+// Space: O(1)
+// Time: O(n^2)
+// Test Cases:
+//print(removeDuplicates_(linkedList: linkedList).traverseLinkedList())
 /*:
  ## Implement an algorithm to find the nth to last element of a singly linked list
  */
 func nThToLast(linkedList: LinkedList, n: Int) -> Node?{
-    // Incase head is nil, return
-    guard let head = linkedList.head else{
-        return nil
-    }
     if n<1 { return nil }
     
-    var p1 = head
-    var p2 = head
-    for _ in 1...n{
-        if p2.next != nil{
-            p2 = p2.next!
+    var p1 = linkedList.head
+    var p2 = linkedList.head
+    for _ in 1..<n{
+        if p2?.next != nil{
+            p2 = p2?.next
         }else{
             return nil
         }
     }
-    while p2.next != nil{
-        p1 = p1.next!
-        p2 = p2.next!
+    while p2?.next != nil{
+        p1 = p1?.next
+        p2 = p2?.next
     }
-    return p1.next
+    return p1
 }
+// Time: O(n)
+// Space: O(1)
 // Test Cases:
 //print(linkedList.traverseLinkedList())
 //print(nThToLast(linkedList: linkedList, n: 1)?.data ?? "Invalid Input")
-
+//print(nThToLast(linkedList: linkedList, n: 9)?.data ?? "Invalid Input")
+//print(nThToLast(linkedList: linkedList, n: 10)?.data ?? "Invalid Input")
+//print(nThToLast(linkedList: linkedList, n: 4)?.data ?? "Invalid Input")
 //: [Next](@next)

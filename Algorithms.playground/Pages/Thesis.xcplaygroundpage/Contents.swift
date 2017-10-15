@@ -283,7 +283,7 @@ func subtractTwoNumbers(string1: String, string2: String){
  */
 func intToString(number: Int, isLakhs: Bool=false) -> String{
     var outputString = ""
-    var inputString = String(number)
+    let inputString = String(number)
     var commaIndex = 1
     var commaDiv = 3
     var modVal = 0
