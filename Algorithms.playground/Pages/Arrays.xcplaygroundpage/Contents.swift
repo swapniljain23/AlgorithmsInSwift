@@ -13,20 +13,21 @@ import Foundation
  Output:
  true/false
  */
-func isCountOfAnyTwoElementIsEqualToN(_ anArray: [Int], _ n: Int) -> Bool{
-    let aSet = Set(anArray)
+func isSumOfAnyTwoElementIsEqualToN(_ anArray: [Int], _ n: Int) -> Bool{
+    var aSet = Set<Int>()
     for index in 0..<anArray.count{
         let diffVal = n - anArray[index]
         if aSet.contains(diffVal){
             return true
         }
+        aSet.insert(anArray[index])
     }
     return false
 }
 // Test Cases:
 //let arrayOne = [2, 4, 8, 18, 13, 9, 15]
-//print(isCountOfAnyTwoElementIsEqualToN(arrayOne, 10))
-//print(isCountOfAnyTwoElementIsEqualToN(arrayOne, 9))
+//print(isSumOfAnyTwoElementIsEqualToN(arrayOne, 10))
+//print(isSumOfAnyTwoElementIsEqualToN(arrayOne, 9))
 /*:
  ## Skip multiplication in factorial
  */

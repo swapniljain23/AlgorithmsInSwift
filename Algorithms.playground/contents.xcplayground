@@ -11,5 +11,7 @@
         <page name='Graphs'/>
         <page name='HashMap_Set'/>
         <page name='UsingNSString'/>
+        <page name='Mathematics'/>
+        <page name='General'/>
     </pages>
 </playground>
