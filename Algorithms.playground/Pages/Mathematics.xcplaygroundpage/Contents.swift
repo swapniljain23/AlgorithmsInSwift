@@ -301,7 +301,7 @@ func fibonacciSum(n: Int) -> Int{
     var sum = 0
     var previous = 0
     var current = 1
-    for num in 2...n{
+    for _ in 2...n{
         sum = previous + current
         previous = current
         current = sum
@@ -313,5 +313,44 @@ func fibonacciSum(n: Int) -> Int{
 //print(fibonacciSum(n: 1))
 //print(fibonacciSum(n: 2))
 //print(fibonacciSum(n: 10))
+/*:
+ ## Check if the number is prime or not
+ * primality test: trial division
+ * https://en.wikipedia.org/wiki/Primality_test#Fast_deterministic_tests
+ *       All integers can be formed by 6k + i
+         where i = -1, 0, 1, 2, 3, 4
+         6k + 0, 6k + 2 and 6k + 4 = All divisible by 2
+         6k + 3 = divisble by 3
+         Only 6k - 1 and 6k + 1 = Can be prime?
+ */
+func isPrime(_ number: Int) -> Bool{
+    if number <= 1{
+        return false
+    }else if number <= 3{
+        return true
+    }else if number % 2 == 0 || number % 3 == 0{
+        return false
+    }
+    var index = 5 // 6k-1(6*1-1)
+    while index * index <= number{
+        if number % index == 0 || number % (index+2) == 0{
+            return false
+        }
+        index += 6
+    }
+    return true
+}
+/*:
+ ## Print the list of all PRIME numbers between num1 and num2
+ */
+func printAllPrimeBetween(lower: Int, upper: Int){
+    for number in lower...upper{
+        if isPrime(number){
+            print(number, separator: "", terminator: " ")
+        }
+    }
+}
+//print(printAllPrimeBetween(lower: 1, upper: 100))
+//print(printAllPrimeBetween(lower: 100, upper: 200))
 
 //: [Next](@next)

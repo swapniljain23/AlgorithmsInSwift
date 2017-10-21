@@ -296,4 +296,92 @@ func isPalindrome(string: String) -> Bool {
 //print(isPalindrome(string: "AppleXelppA"))
 //print(isPalindrome(string: "civic"))
 //print(isPalindrome(string: "Apple"))
+/*:
+ ## String comparison
+ * Write a comparator that takes two strings and returns a standard integer value:
+ *          something negative if the first string is "smaller,"
+ *          zero if they are "equal,"
+ *          and something positive if the first string is "larger."
+ * We want to agree with the standard comparator for all cases except one:
+ * if we encounter a consecutive string of integers, we want to read it for its numeric value,
+ * and use that as the comparison.
+ *
+ * For instance, in the standard string comparator, "a10b" comes before "a2b", because 'a' == 'a' and '1' < '2'.
+ * In our string ordering, I want to reverse this, instead parsing it so that we see 'a' == 'a', but 10 > 2.
+ *
+ */
+func compareStrings(stringA: String, stringB: String) -> Int{
+    if stringA.isEmpty || stringB.isEmpty{
+        return -9
+    }
+    var indexA = 0, indexB = 0
+    var intA = "", intB = ""
+    while indexA != stringA.count && indexB != stringB.count {
+        let charA = stringA[stringA.index(stringA.startIndex, offsetBy: indexA)]
+        let charB = stringB[stringB.index(stringB.startIndex, offsetBy: indexB)]
+        var isaNumber = false
+        
+        if charA.asciiValue! >= UInt32(48) && charA.asciiValue! <= UInt(57){
+            intA.append(charA)
+            indexA += 1
+            isaNumber = true
+        }
+        if charB.asciiValue! >= UInt32(48) && charB.asciiValue! <= UInt(57){
+            intB.append(charB)
+            indexB += 1
+            isaNumber = true
+        }
+        
+        if !isaNumber{ // Both are non-digit characters
+            if !intA.isEmpty && !intB.isEmpty{
+                let intValA = stringToInt(intA)!
+                let intValB = stringToInt(intB)!
+                if intValA > intValB{
+                    return 1
+                }else if intValA < intValB{
+                    return -1
+                }
+                intA = ""
+                intB = ""
+            }
+            if charA > charB{
+                return 1
+            }else if charA < charB{
+                return -1
+            }
+            indexA += 1
+            indexB += 1
+        }
+    }
+    
+    if stringA.count > stringB.count{
+        return 1
+    }else if stringA.count < stringB.count{
+        return -1
+    }else if !intA.isEmpty && !intB.isEmpty{
+        let intValA = stringToInt(intA)!
+        let intValB = stringToInt(intB)!
+        if intValA > intValB{
+            return 1
+        }else if intValA < intValB{
+            return -1
+        }
+    }
+    return 0
+}
+// Test Cases:
+//print(compareStrings(stringA: "", stringB: ""))
+//print(compareStrings(stringA: "a2b", stringB: "a2b"))
+//print(compareStrings(stringA: "a10b", stringB: "a2b"))
+//print(compareStrings(stringA: "a10b", stringB: "a11b"))
+//print(compareStrings(stringA: "a99b", stringB: "a999b"))
+//print(compareStrings(stringA: "a1000b4321", stringB: "a1000b1234"))
+//print(compareStrings(stringA: "a1000b4321", stringB: "a1000b12345"))
+//print(compareStrings(stringA: "12345", stringB: "12345"))
+//print(compareStrings(stringA: "10", stringB: "101010"))
+//print(compareStrings(stringA: "99xx99", stringB: "99yy99"))
+//print(compareStrings(stringA: "99xx99", stringB: "99xx99"))
+//print(compareStrings(stringA: "abcde", stringB: "abcde"))
+//print(compareStrings(stringA: "abcdezy", stringB: "abcde"))
+
 //: [Next](@next)
