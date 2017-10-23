@@ -143,7 +143,7 @@ func merge(_ leftArray: [Int], _ rightArray: [Int]) -> [Int]{
  ### Runtime: Avg case O(n log(n)), worst case: O(n^2)
  ### Memory: O(log(n))
  */
-func quickSort(_ unsortedArr: inout [Int], left: Int, right: Int) -> [Int]{
+func quickSort(_ unsortedArr: inout [Int], left: Int = 0, right: Int) -> [Int]{
     let pivotIndex = partition(&unsortedArr, left: left, right: right)
     // sort left half
     if left < pivotIndex-1{
@@ -175,5 +175,5 @@ func partition(_ unsortedArr: inout [Int], left: Int, right: Int) -> Int{
     return left
 }
 // Test Cases:
-//print(quickSort(&unSortedArray, left: 0, right: unSortedArray.count-1))
+//print(quickSort(&unSortedArray, right: unSortedArray.count-1))
 //: [Next](@next)

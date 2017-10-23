@@ -105,7 +105,7 @@ func rotateArrayByDeltaWithNoBuffer(array: [Int], delta: Int) -> [Int]{
     for index in newDelta..<newDelta+((array.count-newDelta)/2){
         (array[index], array[array.count-1-(index-newDelta)]) = (array[array.count-1-(index-newDelta)], array[index])
     }
-    // Return the whole array and return
+    // Reverse the whole array and return
     return array.reversed()
 }
 // Test Cases:

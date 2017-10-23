@@ -43,9 +43,9 @@ func lcmOfTwoNumbers(_ n1: Int, _ n2: Int) -> Int{
     if n1 == 0 || n2 == 0{
         return 0
     }
-    var minNo = n1 <= n2 ? n1 : n2
+    let minNo = n1 <= n2 ? n1 : n2
     var maxNo = n1 > n2 ? n1 : n2
-    var maxOffset = maxNo
+    let maxOffset = maxNo
     var remainder = maxNo % minNo
     while remainder != 0{
         maxNo = maxNo + maxOffset
