@@ -13,5 +13,6 @@
         <page name='UsingNSString'/>
         <page name='Mathematics'/>
         <page name='HackerRank'/>
+        <page name='LeetCode'/>
     </pages>
 </playground>

@@ -308,4 +308,114 @@ func intToString(number: Int, isLakhs: Bool=false) -> String{
 //print(intToString(number: 123456, isLakhs: true))
 //print(intToString(number: 123456))
 
+/*:
+ ## Popular Colors
+ 1. Accept an array of Strings
+ ex. ["Green", "Blue", "Red", "Green", "Green", "Red"]
+ 2. Return the color that appears most often
+ 3. If there is a tie, return the tied colors in an array
+ 
+         ["Green", "Blue", "Red", "Green", "Green", "Red", "Red"]
+         -> ["Green", "Red"]
+ */
+func mostOftenColors(anArray: [String]) -> [String]{
+    var aDict = Dictionary<String, Int>()
+    for string in anArray{
+        if var val = aDict[string]{
+            val += 1
+            aDict[string] = val
+        }else{
+            aDict[string] = 1
+        }
+    }
+    var outputArr = [String]()
+    var maxCount = 1
+    for (_, value) in aDict{
+        if value > maxCount{
+            maxCount = value
+        }
+    }
+    for (key, value) in aDict{
+        if value == maxCount{
+            outputArr.append(key)
+        }
+    }
+    return outputArr
+}
+//print(mostOftenColors(anArray: ["Green", "Blue", "Red", "Green", "Green", "Red", "Red"]))
+//print(mostOftenColors(anArray: ["Green", "Blue", "Green", "Green", "Red", "Red"]))
+//print(mostOftenColors(anArray: ["Green", "Blue"]))
+//print(mostOftenColors(anArray: []))
+
+/*:
+ ## Implement UIControl Class
+ */
+enum Event{
+    case touchUpInside
+    case touchDownInside
+    case touchUpOutside
+    case touchDownOutside
+}
+class MyAction: Equatable{
+    var message = ""
+    init(_ message: String){
+        self.message = message
+    }
+    func executeAction(){
+        print(message)
+    }
+    public static func ==(lhs: MyAction, rhs: MyAction) -> Bool{
+        if lhs.message == rhs.message{
+            return true
+        }
+        return false
+    }
+}
+class MyControl{
+    var eventsActions = Dictionary<Event,[MyAction]>()
+    func addTarget(_ event: Event, action: MyAction){
+        if var actions = eventsActions[event]{
+            actions.append(action)
+            eventsActions[event] = actions
+        }else{
+            eventsActions[event] = [action]
+        }
+    }
+    func removeTarget(_ action: MyAction){
+        for (evnt, actions) in eventsActions{
+            var listOfActions = actions
+            for (index, value) in actions.enumerated(){
+                if value == action{
+                    listOfActions.remove(at: index)
+                }
+            }
+            eventsActions[evnt] = listOfActions
+        }
+    }
+    func takeAction(_ event: Event){
+        for (evnt, actions) in eventsActions{
+            if event == evnt{
+                for action in actions{
+                    action.executeAction()
+                }
+            }
+        }
+    }
+}
+//// Test Cases:
+//let action1 = MyAction("Action1")
+//let action2 = MyAction("Action2")
+//
+//let control = MyControl()
+//control.addTarget(.touchUpInside, action: action1)
+//control.addTarget(.touchUpInside, action: action2)
+//control.addTarget(.touchDownInside, action: action1)
+//
+////control.takeAction(.touchUpInside)
+////control.takeAction(.touchDownInside)
+//
+//control.removeTarget(action1)
+//control.takeAction(.touchUpInside)
+//control.takeAction(.touchDownInside)
+
 //: [Next](@next)
