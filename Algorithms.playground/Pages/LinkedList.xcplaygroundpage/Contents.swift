@@ -144,7 +144,6 @@ func removeDuplicates_(linkedList: LinkedList) -> LinkedList{
  */
 func nThToLast(linkedList: LinkedList, n: Int) -> Node?{
     if n<1 { return nil }
-    
     var p1 = linkedList.head
     var p2 = linkedList.head
     for _ in 1..<n{
