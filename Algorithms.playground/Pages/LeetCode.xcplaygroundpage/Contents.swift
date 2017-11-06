@@ -1,5 +1,36 @@
 import Foundation
 
+class ListNode {
+    var val: Int
+    var next: ListNode?
+    init(_ val: Int) {
+        self.val = val
+    }
+    func traverse(){
+        var runner: ListNode?
+        runner = self
+        while runner != nil{
+            print(runner!.val)
+            runner = runner!.next
+        }
+    }
+}
+let l1 = ListNode(1)
+let l2 = ListNode(2)
+let l3 = ListNode(3)
+let l4 = ListNode(4)
+let l5 = ListNode(5)
+let l6 = ListNode(6)
+let l7 = ListNode(7)
+let l8 = ListNode(8)
+l1.next = l2
+l2.next = l3
+l3.next = l4
+l4.next = l5
+l5.next = l6
+l6.next = l7
+l7.next = l8
+
 //: [Previous](@previous)
 /*:
  # LeetCode Challenges
@@ -109,6 +140,191 @@ func compress(_ chars: inout [Character]) -> Int {
 //print(compress(&charArr))
 //print(charArr)
 /*:
+ ### Roman to Int
+ Given a roman numeral, convert it to an integer.
+ Input is guaranteed to be within the range from 1 to 3999.
+ */
+func getDigit(char: Character) -> Int{
+    if char == "I"{
+        return 1
+    }else if char == "V"{
+        return 5
+    }else if char == "X"{
+        return 10
+    }else if char == "L"{
+        return 50
+    }else if char == "C"{
+        return 100
+    }else if char == "D"{
+        return 500
+    }else if char == "M"{
+        return 1000
+    }
+    return 0
+}
+func romanToInt(_ roman: String) -> Int{
+    if roman.isEmpty{
+        return 0
+    }
+    var total = 0
+    var previousDigit = 1000
+    for char in roman{
+        let digit = getDigit(char: char)
+        if digit > previousDigit{
+            total += digit - 2*previousDigit
+        }else{
+            total += digit
+        }
+        previousDigit = digit
+    }
+    return total
+}
+// Test Cases:
+//print(romanToInt("CXIV"))
+/*:
+ ### Longest Common Prefix
+ * Write a function to find the longest common prefix string amongst an array of strings.
+ */
+func longestCommonPrefix(_ strs: [String]) -> String {
+    var resultString = ""
+    if strs.isEmpty{
+        return resultString
+    }
+    for index in 0..<strs[0].count{
+        let charAtIndex = Array(strs[0].characters)[index]
+        for string in strs{
+            if index == string.count || charAtIndex != Array(string.characters)[index]{
+                return resultString
+            }
+        }
+        resultString.append(charAtIndex)
+    }
+    return resultString
+}
+//print(longestCommonPrefix(["LettApp", "L", "LeeTDO"]))
+/*:
+ ### Valid Parentheses
+ * Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+ 
+ * The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+ */
+func isValid(_ s: String) -> Bool {
+    if s.isEmpty{
+        return false
+    }
+    var stack = [Character]()
+    for char in s{
+        if char == "(" || char == "{" || char == "["{
+            stack.append(char)
+            continue
+        }
+        if stack.isEmpty{
+            return false
+        }
+        let lastChar = stack.removeLast()
+        if (char == ")" && lastChar == "(") ||
+            (char == "}" && lastChar == "{") ||
+            (char == "]" && lastChar == "["){
+            // do nothing
+        }else{
+            return false
+        }
+    }
+    return stack.isEmpty ? true : false
+}
+//print(isValid("()"))
+//print(isValid("()[]{}"))
+//print(isValid("(]"))
+//print(isValid("([)]"))
+/*:
+ ### Merge two sorted list
+ * Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
+ */
+func mergeTwoLists(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+    guard let l11 = l1, let l22 = l2 else{
+        return l1 == nil ? l2 : l1
+    }
+    var l1 = l1, l2 = l2
+    var root: ListNode?
+    if l1!.val < l2!.val{
+        root = l1
+        l1 = l1!.next
+    }else{
+        root = l2
+        l2 = l2!.next
+    }
+    var runner = root
+    while l1 != nil && l2 != nil{
+        if l1!.val < l2!.val{
+            runner?.next = l1
+            l1 = l1!.next
+        }else{
+            runner?.next = l2
+            l2 = l2!.next
+        }
+        runner = runner?.next
+    }
+    l1 != nil ? (runner?.next = l1) : (runner?.next = l2)
+    return root
+}
+// Test Cases:
+/*:
+ ### Remove Duplicates from Sorted Array
+ * Given a sorted array, remove the duplicates in-place such that each element appear only once and return the new length.
+ * Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+ */
+func removeDuplicates(_ nums: inout [Int]) -> Int {
+    var write = 0, anchor = 0
+    for read in stride(from: 0, to: nums.count, by: 1){
+        if read + 1 == nums.count || nums[read] != nums[read+1]{
+            nums[write] = nums[anchor]
+            write += 1
+            anchor = read + 1
+        }
+    }
+    return write
+}
+// Test Cases:
+//var anArr = [1, 1, 2]
+//print(removeDuplicates(&anArr))
+//print(anArr)
+/*:
+ ### Sqrt(x)
+ * Implement int sqrt(int x).
+ * Compute and return the square root of x.
+ * x is guaranteed to be a non-negative integer.
+ */
+func mySqrt(_ x: Int) -> Int {
+    var r = x
+    while r*r > x{
+        r = (r + x/r) / 2
+    }
+    return r
+}
+//print(mySqrt(25))
+//print(mySqrt(2))
+//print(mySqrt(8))
+func mySqrtWithBSearch(_ x: Int) -> Int {
+    if x == 0{
+        return 0
+    }
+    var left = 1, right = x
+    while true{
+        var mid = Int(left + (right-left)/2)
+        if mid > x/mid{
+            right = mid - 1
+        }else{
+            if mid + 1 > x/(mid + 1){
+                return mid
+            }
+            left = mid + 1
+        }
+    }
+}
+//print(mySqrtWithBSearch(25))
+//print(mySqrtWithBSearch(2))
+//print(mySqrtWithBSearch(8))
+/*:
  ## Difficulty: Medium
  */
 /*:
@@ -148,37 +364,6 @@ func findLength(_ A: [Int], _ B: [Int]) -> Int {
          Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
          Output: 7 -> 0 -> 8
  */
-class ListNode {
-    var val: Int
-    var next: ListNode?
-    init(_ val: Int) {
-        self.val = val
-    }
-    func traverse(){
-        var runner: ListNode?
-        runner = self
-        while runner != nil{
-            print(runner!.val)
-            runner = runner!.next
-        }
-    }
-}
-let l1 = ListNode(1)
-let l2 = ListNode(2)
-let l3 = ListNode(3)
-let l4 = ListNode(4)
-let l5 = ListNode(5)
-let l6 = ListNode(6)
-let l7 = ListNode(7)
-let l8 = ListNode(8)
-l1.next = l2
-l2.next = l3
-l3.next = l4
-l4.next = l5
-l5.next = l6
-l6.next = l7
-l7.next = l8
-
 func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
     var l1 = l1, l2 = l2
     let list = ListNode(0)
