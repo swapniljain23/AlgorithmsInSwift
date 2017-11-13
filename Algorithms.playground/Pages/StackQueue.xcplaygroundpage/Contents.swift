@@ -92,5 +92,35 @@ class Queue {
 //queue.deQueue()
 //queue.deQueue()
 //print(queue.traverseQueue())
-
+/*:
+ ## Implement Queue using two Stacks
+ */
+class QueueWithStacks{
+    var stackIn = [Int]()
+    var stackOut = [Int]()
+    
+    func enQueue(_ element: Int){
+        stackIn.append(element)
+    }
+    
+    func deQueue() -> Int?{
+        if stackOut.count == 0{
+            while stackIn.count != 0{
+                stackOut.append(stackIn.removeLast())
+            }
+        }
+        return stackOut.count == 0 ? nil : stackOut.removeLast()
+    }
+}
+// Test Cases
+//let queue = QueueWithStacks()
+//queue.enQueue(11)
+//print(queue.deQueue() as Any)
+//print(queue.deQueue() as Any)
+//queue.enQueue(22)
+//queue.enQueue(33)
+//print(queue.deQueue() as Any)
+/*:
+ ##
+ */
 //: [Next](@next)
