@@ -167,4 +167,70 @@ func nThToLast(linkedList: LinkedList, n: Int) -> Node?{
 //print(nThToLast(linkedList: linkedList, n: 9)?.data ?? "Invalid Input")
 //print(nThToLast(linkedList: linkedList, n: 10)?.data ?? "Invalid Input")
 //print(nThToLast(linkedList: linkedList, n: 4)?.data ?? "Invalid Input")
+/*:
+ ## Check if two linkedlist intersect each other and return the node where they intersect
+ * 1. Nested loops
+ * 2. Mark visited nodes
+ * 3. Using difference of nodes counts
+ */
+func checkIfTheyIntersect(_ list1: Node?, _ list2: Node?) -> Node?{
+    let list1Length = nodeCount(list: list1)
+    let list2Length = nodeCount(list: list2)
+    var runner1 = list1, runner2 = list2
+    if list1Length > list2Length{
+        for _ in 1...list1Length-list2Length{
+            runner1 = runner1?.next
+        }
+    }else if list1Length < list2Length{
+        for _ in 1...list2Length-list1Length{
+            runner2 = runner2?.next
+        }
+    }
+    while runner1 != nil && runner2 != nil{
+        if runner1 === runner2{
+            return runner1
+        }
+        runner1 = runner1?.next
+        runner2 = runner2?.next
+    }
+    return nil
+}
+func nodeCount(list: Node?) -> Int{
+    var list = list, nodeCount = 0
+    while list != nil{
+        nodeCount += 1
+        list = list?.next
+    }
+    return nodeCount
+}
+// Test Cases:
+//var node1 = Node(value: 1)
+//var node2 = Node(value: 2)
+//var node3 = Node(value: 3)
+//var node11 = Node(value: 11)
+//var node12 = Node(value: 12)
+//node1.next = node2
+//node2.next = node3
+//node11.next = node12
+//node12.next = node2
+//print(checkIfTheyIntersect(node1, node11))
+/*:
+ ## Check if given linkedlist is circular
+ */
+func isCircular(_ list: Node?) -> Bool{
+    var runner1 = list
+    var runner2 = list?.next
+    while runner1 != nil && runner2 != nil{
+        if runner1 === runner2{
+            return true
+        }
+        runner1 = runner1?.next
+        runner2 = runner2?.next?.next
+    }
+    return false
+}
+// Test Cases:
+//print(isCircular(node1))
+//node3.next = node1
+//print(isCircular(node1))
 //: [Next](@next)

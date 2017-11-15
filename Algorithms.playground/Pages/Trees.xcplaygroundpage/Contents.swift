@@ -297,5 +297,19 @@ extension Tree{
 /*:
  ## Finding the smallest and largest values in the binary search tree
  */
+func findMin(_ root: Node) -> Node{
+    if let left = root.left{
+        return findMin(left)
+    }
+    return root
+}
+func findMax(_ root: Node) -> Node{
+    if let right = root.right{
+        return findMax(right)
+    }
+    return root
+}
+//print(findMin(node1).value)
+//print(findMax(node1).value)
 
 //: [Next](@next)
