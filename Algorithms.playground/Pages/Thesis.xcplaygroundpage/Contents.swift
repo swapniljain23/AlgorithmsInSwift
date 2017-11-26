@@ -299,7 +299,7 @@ func intToString(number: Int, isLakhs: Bool=false) -> String{
         }
         commaIndex += 1
     }
-    return String(outputString.characters.reversed())
+    return String(outputString.reversed())
 }
 //print(intToString(number: 123456789, isLakhs: true))
 //print(intToString(number: 123456789))
@@ -417,5 +417,96 @@ class MyControl{
 //control.removeTarget(action1)
 //control.takeAction(.touchUpInside)
 //control.takeAction(.touchDownInside)
+
+/*:
+ ## Assign kids to teachers
+*/
+/*
+ Inputs:
+ - List of kids (Strings)
+ - List of teachers (Strings)
+ - Max class size (int)
+ - Teacher prefereces: Map<String, List<String>>
+ 
+ Output:
+ - Assigments - Map<String, List<String>>
+ - Account for any kids without a spot by assigning them to a "No Teacher" teacher
+ 
+ Requirments
+ - Every teacher has the same number of kids (As close as possible)
+ - Kids get a spot on a first come first served basis
+ - Assuming the intput already allow - respect the teacher preferences and all other requirements.
+ 
+ Example:
+ - 11 kids and 3 teachers: two teachers have 4 kids and one teacher has 3 kids
+ ["BB": ["E", "F", "G", ], "CC": ["I", "H", "D"], "AA": ["A", "B", "C"], "No Teacher": [ "J", "K"]]
+ ["AA": ["A", "B", "D"], "No Teacher": ["J", "K"], "BB": ["A", "E", "F"],"CC": ["G", "H", "I"]]
+ */
+
+func assignKidsToTeachers(kids: [String], teachers: [String], maxClassSize: Int, teacherPreference: Dictionary<String,[String]>) -> Dictionary<String, [String]>{
+    
+    let kidsCount = kids.count
+    let teachersCount = teachers.count
+    
+    var equalCount = kidsCount / teachersCount
+    var unEqualCount = kidsCount % teachersCount
+    if equalCount+1 > maxClassSize{
+        equalCount = maxClassSize
+        unEqualCount = 0
+    }
+    
+    var outputDictionary = Dictionary<String, [String]>()
+    var kidIndex = 0
+    var aSet = Set<String>()
+    for teacher in teachers{
+        var kidsArr = [String]()
+        let preferKids = teacherPreference[teacher]
+        var offset = 0
+        
+        if let preferKids = preferKids{
+            for kid in preferKids{
+                kidsArr.append(kid)
+                aSet.insert(kid)
+                offset += 1
+            }
+        }
+        
+        if offset < equalCount{
+            for _ in 1...equalCount-offset{
+                while aSet.contains(kids[kidIndex]){
+                    kidIndex += 1
+                }
+                kidsArr.append(kids[kidIndex])
+                kidIndex += 1
+            }
+        }
+        if unEqualCount > 0{
+            while aSet.contains(kids[kidIndex]){
+                kidIndex += 1
+            }
+            kidsArr.append(kids[kidIndex])
+            kidIndex += 1
+            unEqualCount -= 1
+        }
+        outputDictionary[teacher] = kidsArr
+    }
+    
+    if kidIndex < kids.count{
+        var kidsArr = [String]()
+        while kidIndex != kids.count{
+            if !aSet.contains(kids[kidIndex]){
+                kidsArr.append(kids[kidIndex])
+            }
+            kidIndex += 1
+        }
+        outputDictionary["No Teacher"] = kidsArr
+    }
+    return outputDictionary
+}
+
+// print(assignKidsToTeachers(kids: ["A","B","C","D","E"], teachers: ["AA", "BB"], maxClassSize: 2))
+// print(assignKidsToTeachers(kids: ["A","B","C","D","E"], teachers: ["AA"], maxClassSize: 4))
+//print(assignKidsToTeachers(kids: ["A","B","C","D","E","F","G","H","I","J","K"], teachers: ["AA", "BB", "CC"], maxClassSize: 3, teacherPreference: ["AA":["E"]]))
+
 
 //: [Next](@next)

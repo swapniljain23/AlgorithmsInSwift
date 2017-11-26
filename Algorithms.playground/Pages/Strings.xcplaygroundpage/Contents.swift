@@ -44,11 +44,11 @@ func getSubstringAfterString(sourceString: String, afterString str: String) -> S
  */
 // Approach I: ASCII (limit 256)
 func hasAllUniqueChars(string: String) -> Bool{
-    if string.characters.count>256{
+    if string.count>256{
         return false
     }
     var arr = [Bool](repeating: false, count: 256)
-    for char in string.characters {
+    for char in string {
         let scalar = String(char).unicodeScalars
         if arr[Int(scalar[scalar.startIndex].value)]{
             return false
@@ -68,10 +68,10 @@ func hasAllUniqueChars(string: String) -> Bool{
  ## Reverse a String: Approach I
  */
 func reverseStringInPlace(string: String) -> String{
-    guard string.characters.count > 1 else{
+    guard string.count > 1 else{
         return string
     }
-    var newString = Array(string.characters)
+    var newString = Array(string)
     let maxIndex = newString.count - 1
     for index in 0...maxIndex{
         if index > maxIndex - index{
@@ -87,7 +87,7 @@ func reverseStringInPlace(string: String) -> String{
  */
 func reverseStringUsingIndex(string: String) -> String{
     var reverseString = String()
-    for character in string.characters{
+    for character in string{
         reverseString.insert(character, at: reverseString.startIndex)
     }
     return reverseString
@@ -99,11 +99,11 @@ func reverseStringUsingIndex(string: String) -> String{
  Sort
  */
 func permutationIstAppr(string1: String, string2: String) -> Bool{
-    if string1.characters.count != string2.characters.count{
+    if string1.count != string2.count{
         return false
     }
-    let charArray1 = string1.characters.sorted()
-    let charArray2 = string2.characters.sorted()
+    let charArray1 = string1.sorted()
+    let charArray2 = string2.sorted()
     if charArray1.elementsEqual(charArray2){
         return true
     }else{
@@ -117,15 +117,15 @@ func permutationIstAppr(string1: String, string2: String) -> Bool{
  Check if two strings have identical count for each unique char
  */
 func permutationIIndAppr(string1: String, string2: String) -> Bool{
-    if string1.characters.count != string2.characters.count{
+    if string1.count != string2.count{
         return false
     }
     var charCountArr = [Int](repeating: 0, count: 256)
-    for char in string1.characters{
+    for char in string1{
         let scalar = String(char).unicodeScalars
         charCountArr[Int(scalar[scalar.startIndex].value)] += 1
     }
-    for char in string2.characters{
+    for char in string2{
         let scalar = String(char).unicodeScalars
         if (charCountArr[Int(scalar[scalar.startIndex].value)]) - 1 < 0{
             return false
@@ -184,12 +184,12 @@ func countCompress(str: NSString) -> Int{
         if char == lastChar{
             count += 1
         }else{
-            compressedStringSize += 1 + String(count).characters.count
+            compressedStringSize += 1 + String(count).count
             lastChar = char
             count = 1
         }
     }
-    compressedStringSize += 1 + String(count).characters.count
+    compressedStringSize += 1 + String(count).count
     return compressedStringSize
 }
 // Test Cases:
@@ -224,7 +224,7 @@ func compressedString(str: NSString) -> NSString{
  ## Check If String 2 is a rotatin of String 1
  */
 func isRotation(s1: String, s2: String) -> Bool{
-    if s1.characters.count == s2.characters.count && s1.characters.count > 0{
+    if s1.count == s2.count && s1.count > 0{
         let s1s1 = s1 + s1
         if isSubstring(s1: s1s1 as NSString, s2: s2 as NSString){
             return true
@@ -278,7 +278,7 @@ func stringToInt(_ string: String) -> Int?{
  ## Check if the string is Palindrome
  */
 func isPalindrome(string: String) -> Bool {
-    for index in 0..<string.characters.count/2{
+    for index in 0..<string.count/2{
         let charFromStart = string[string.index(string.startIndex, offsetBy: index)]
         let charFromLast = string[string.index(string.endIndex, offsetBy: -index-1)]
         if charFromStart != charFromLast{
@@ -384,4 +384,35 @@ func compareStrings(stringA: String, stringB: String) -> Int{
 //print(compareStrings(stringA: "abcde", stringB: "abcde"))
 //print(compareStrings(stringA: "abcdezy", stringB: "abcde"))
 
+/*:
+ ## Find out the first non-repeating character in a String
+ * Approach: Sort the string and iterate
+ */
+func firstNonRepeatingCharacter(string: String) -> Character?{
+    var aSet = Set<Character>()
+    var outerIndex = 0
+    for char in string{
+        if !aSet.contains(char){
+            var isUnique = true
+            for innerIndex in outerIndex+1..<string.count{
+                let nextChar = string[string.index(string.startIndex, offsetBy: innerIndex)]
+                if char == nextChar{
+                    aSet.insert(char)
+                    isUnique = false
+                    break
+                }
+            }
+            if isUnique{
+                return char
+            }
+        }
+        outerIndex += 1
+    }
+    return nil
+}
+//print(firstNonRepeatingCharacter(string: "Apple"))
+//print(firstNonRepeatingCharacter(string: "AApple"))
+//print(firstNonRepeatingCharacter(string: "AApplle"))
+//print(firstNonRepeatingCharacter(string: "AAppllee"))
+//print(firstNonRepeatingCharacter(string: "AaaaaaaAxxyyabc"))
 //: [Next](@next)
