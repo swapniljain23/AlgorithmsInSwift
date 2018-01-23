@@ -508,5 +508,16 @@ func assignKidsToTeachers(kids: [String], teachers: [String], maxClassSize: Int,
 // print(assignKidsToTeachers(kids: ["A","B","C","D","E"], teachers: ["AA"], maxClassSize: 4))
 //print(assignKidsToTeachers(kids: ["A","B","C","D","E","F","G","H","I","J","K"], teachers: ["AA", "BB", "CC"], maxClassSize: 3, teacherPreference: ["AA":["E"]]))
 
+/*:
+ ## Sleep sort
+ */
+
+/*:
+ ## Implement Minesweeper
+ */
+
+/*:
+ ## Implement Calendar
+ */
 
 //: [Next](@next)
