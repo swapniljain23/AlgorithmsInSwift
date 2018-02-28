@@ -82,6 +82,7 @@ func reverseStringInPlace(string: String) -> String{
     return String(newString)
 }
 // Test Cases:
+//print(reverseStringInPlace(string: "Apple"))
 /*:
  ## Reverse a String: Approach II
  */
@@ -172,15 +173,15 @@ func replaceSpace( charArr: [Character], length: Int){
  Input: SSJJSJ
  Output: S2J2S1J1
 */
-func countCompress(str: NSString) -> Int{
-    if str.length <= 1{
-        return str.length
+func countCompress(str: String) -> Int{
+    if str.count <= 1{
+        return str.count
     }
     var compressedStringSize = 0
     var count = 1
-    var lastChar = str.character(at: 0)
-    for index in 1...str.length-1{
-        let char = str.character(at: index)
+    var lastChar = str[str.startIndex]
+    for index in 1...str.count-1{
+        let char = str[str.index(str.startIndex, offsetBy: index)]
         if char == lastChar{
             count += 1
         }else{
@@ -196,19 +197,19 @@ func countCompress(str: NSString) -> Int{
 //print(countCompress(str: "SSSSJJJJSSSSJJJ"))
 //print(countCompress(str: "SJSJ"))
 //print(countCompress(str: "JJJJJJJJJJ"))
-func compressedString(str: NSString) -> NSString{
-    if str.length <= 1 || str.length <= countCompress(str: str){
+func compressedString(str: String) -> String{
+    if str.count <= 1 || str.count <= countCompress(str: str){
         return str
     }
     var count = 1
-    var lastChar = str.character(at: 0)
-    let compressedStr = NSMutableString.init(string: String(Character(UnicodeScalar(lastChar)!)))
-    for index in 1...str.length-1{
-        let char =  str.character(at: index)
+    var lastChar = str[str.startIndex]
+    var compressedStr = String(lastChar)
+    for index in 1...str.count-1{
+        let char =  str[str.index(str.startIndex, offsetBy: index)]
         if char == lastChar{
             count += 1
         }else{
-            compressedStr.append(String(count) + String(Character(UnicodeScalar(char)!)))
+            compressedStr.append(String(count) + String(char))
             count = 1
             lastChar = char
         }
@@ -226,21 +227,23 @@ func compressedString(str: NSString) -> NSString{
 func isRotation(s1: String, s2: String) -> Bool{
     if s1.count == s2.count && s1.count > 0{
         let s1s1 = s1 + s1
-        if isSubstring(s1: s1s1 as NSString, s2: s2 as NSString){
+        if isSubstring(s1: s1s1, s2: s2){
             return true
         }
     }
     return false
 }
-func isSubstring(s1: NSString, s2: NSString) -> Bool{
-    if s1.length == 0 || s2.length == 0 || s1.length < s2.length{
+func isSubstring(s1: String, s2: String) -> Bool{
+    if s1.count == 0 || s2.count == 0 || s1.count < s2.count{
         return false
     }
     var matchCount = 0
-    for index in 0...s1.length-1{
-        if s1.character(at: index) == s2.character(at: matchCount){
+    for index in 0...s1.count-1{
+        let c1 = s1[s1.index(s1.startIndex, offsetBy: index)]
+        let c2 = s2[s2.index(s2.startIndex, offsetBy: matchCount)]
+        if c1 == c2{
             matchCount += 1
-            if matchCount == s2.length{
+            if matchCount == s2.count{
                 return true
             }
         }else{
@@ -386,7 +389,7 @@ func compareStrings(stringA: String, stringB: String) -> Int{
 
 /*:
  ## Find out the first non-repeating character in a String
- * Approach: Sort the string and iterate
+ * O(n^2)
  */
 func firstNonRepeatingCharacter(string: String) -> Character?{
     var aSet = Set<Character>()
@@ -410,9 +413,10 @@ func firstNonRepeatingCharacter(string: String) -> Character?{
     }
     return nil
 }
-//print(firstNonRepeatingCharacter(string: "Apple"))
-//print(firstNonRepeatingCharacter(string: "AApple"))
-//print(firstNonRepeatingCharacter(string: "AApplle"))
-//print(firstNonRepeatingCharacter(string: "AAppllee"))
-//print(firstNonRepeatingCharacter(string: "AaaaaaaAxxyyabc"))
+//print(firstNonRepeatingCharacter(string: "Apple") ?? "No non-repeating character found.")
+//print(firstNonRepeatingCharacter(string: "AApple") ?? "No non-repeating character found.")
+//print(firstNonRepeatingCharacter(string: "AApplle") ?? "No non-repeating character found.")
+//print(firstNonRepeatingCharacter(string: "AAppllee") ?? "No non-repeating character found.")
+//print(firstNonRepeatingCharacter(string: "AaaaaaaAxxyyabc") ?? "No non-repeating character found.")
+
 //: [Next](@next)
