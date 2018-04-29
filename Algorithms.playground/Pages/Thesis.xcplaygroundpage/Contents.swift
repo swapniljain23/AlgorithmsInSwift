@@ -509,6 +509,50 @@ func assignKidsToTeachers(kids: [String], teachers: [String], maxClassSize: Int,
 //print(assignKidsToTeachers(kids: ["A","B","C","D","E","F","G","H","I","J","K"], teachers: ["AA", "BB", "CC"], maxClassSize: 3, teacherPreference: ["AA":["E"]]))
 
 /*:
+ ## Print look and say sequence.
+ */
+
+func lookAndSaySequence(count: Int) {
+  guard count > 0 else { return }
+  var value  = "1"
+  for _ in 1...count {
+    print(value)
+    value = computeNextLookAndSaySequence(input: value)
+  }
+}
+
+func computeNextLookAndSaySequence(input: String) -> String{
+  if input.count == 1 {
+    return "1" + input
+  }
+  var nextVal = ""
+  let charArr = Array(input)
+  var current = charArr[0]
+  var count = 1
+  for index in 1...input.count {
+    if (index == input.count || current != charArr[index] ) {
+      nextVal += String(count) + String(current)
+      count = 1
+      if (index < input.count) {
+        current = charArr[index]
+      }
+    } else {
+      count += 1
+    }
+  }
+  return nextVal
+}
+//print(computeNextLookAndSaySequence(input: "1"))
+//print(computeNextLookAndSaySequence(input: "11"))
+//print(computeNextLookAndSaySequence(input: "21"))
+//print(computeNextLookAndSaySequence(input: "1211"))
+
+lookAndSaySequence(count: -10)
+lookAndSaySequence(count: 0)
+lookAndSaySequence(count: 1)
+lookAndSaySequence(count: 10)
+
+/*:
  ## Sleep sort
  */
 

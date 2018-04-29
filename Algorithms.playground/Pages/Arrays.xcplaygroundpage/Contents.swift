@@ -142,4 +142,56 @@ func reverseSubArray(array: [Int], startIndex: Int, endIndex: Int) -> [Int]{
 //let array = [1, 4, 7, 3, 2, 9]
 //print(reverseSubArray(array: array, startIndex: 0, endIndex: 2))
 
+/*:
+ ## Generate 2D Spiral array.
+ */
+func generate2dSpiralArray(length: Int) -> [[Int]] {
+  var spiralArr = Array(repeating: Array(repeating: 0, count: length), count: length)
+  guard length > 0 else{
+    return spiralArr
+  }
+  var row = 0, column = 0
+  var dr = [0, 1, 0, -1]
+  var dc = [1, 0, -1, 0]
+  var dir = 0
+  var value = 1, limit = length * length
+  while (value <= limit) {
+    spiralArr[row][column] = value
+    row += dr[dir]
+    column += dc[dir]
+    if (isInvalid(spiralArr: spiralArr, row: row, column: column)) {
+      row -= dr[dir]
+      column -= dc[dir]
+      dir = (dir + 1) % 4
+      row += dr[dir]
+      column += dc[dir]
+    }
+    value += 1
+  }
+  return spiralArr
+}
+
+func isInvalid(spiralArr: [[Int]], row: Int, column: Int) -> Bool {
+  return row < 0 ||
+      column < 0 ||
+       row >= spiralArr.count ||
+      column >= spiralArr.count ||
+      spiralArr [row][column] != 0
+}
+
+func print2dArray(_ array: [[Int]]) {
+  for row in array {
+    for item in row {
+      print(item, separator: " ", terminator: " ")
+    }
+    print("")
+  }
+}
+
+//print2dArray(generate2dSpiralArray(length: 1))
+//print2dArray(generate2dSpiralArray(length: 2))
+//print2dArray(generate2dSpiralArray(length: 3))
+//print2dArray(generate2dSpiralArray(length: 4))
+//print2dArray(generate2dSpiralArray(length: 5))
+
 //: [Next](@next)

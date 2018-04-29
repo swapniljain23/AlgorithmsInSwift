@@ -3,20 +3,22 @@ import Foundation
 /*:
  # Trees
 */
-class Node{
-    var value: Int
-    var left: Node?
-    var right: Node?
-    init(value: Int){
-        self.value = value
-    }
+class Node {
+  var value: Int
+  var left: Node?
+  var right: Node?
+  init(value: Int) {
+    self.value = value
+  }
 }
-class Tree{
-    var root: Node?
-    init(_ root: Node?) {
-        self.root = root
-    }
+
+class Tree {
+  var root: Node?
+  init(_ root: Node?) {
+    self.root = root
+  }
 }
+
 let node1 = Node(value: 101)
 let node2 = Node(value: 51)
 let node3 = Node(value: 151)
@@ -51,28 +53,28 @@ node7.right = node9
  4567
  89
  */
-func levelOrderTreeTraversal(root: Node){
-    var queue = [root]
-    var childCount = 0
-    var nextRowCount = 1
-    while !queue.isEmpty{
-        let node = queue.remove(at: 0)
-        print(node.value, separator: "", terminator: "")
-        nextRowCount -= 1
-        if let left = node.left{
-            queue.append(left)
-            childCount += 1
-        }
-        if let right = node.right{
-            queue.append(right)
-            childCount += 1
-        }
-        if nextRowCount == 0{
-            print("")
-            nextRowCount = childCount
-            childCount = 0
-        }
+func levelOrderTreeTraversal(root: Node) {
+  var queue = [root]
+  var childCount = 0
+  var nextRowCount = 1
+  while !queue.isEmpty{
+    let node = queue.remove(at: 0)
+    print(node.value, separator: "", terminator: "")
+    nextRowCount -= 1
+    if let left = node.left {
+      queue.append(left)
+      childCount += 1
     }
+    if let right = node.right {
+      queue.append(right)
+      childCount += 1
+    }
+    if nextRowCount == 0 {
+      print("")
+      nextRowCount = childCount
+      childCount = 0
+    }
+  }
 }
 //levelOrderTreeTraversal(root: node1)
 /*:
@@ -311,5 +313,36 @@ func findMax(_ root: Node) -> Node{
 }
 //print(findMin(node1).value)
 //print(findMax(node1).value)
+
+/*:
+ ## Print all leaf nodes with their complete path.
+ */
+
+func printLeafNodes(root: Node, parents: inout [Node]) {
+  if (root.left == nil && root.right == nil) {
+    printNodes(parents)
+    parents.removeLast()
+    return
+  }
+  if let left = root.left {
+    parents.append(left)
+    printLeafNodes(root: left, parents: &parents)
+  }
+  if let right = root.right {
+    parents.append(right)
+    printLeafNodes(root: right, parents: &parents)
+  }
+  parents.removeLast()
+}
+
+func printNodes(_ nodes: [Node]) {
+  for node in nodes {
+    print(node.value, separator: " ", terminator: " ")
+  }
+  print("")
+}
+
+//var nodes = [node1]
+//printLeafNodes(root: node1, parents: &nodes)
 
 //: [Next](@next)

@@ -419,4 +419,43 @@ func firstNonRepeatingCharacter(string: String) -> Character?{
 //print(firstNonRepeatingCharacter(string: "AAppllee") ?? "No non-repeating character found.")
 //print(firstNonRepeatingCharacter(string: "AaaaaaaAxxyyabc") ?? "No non-repeating character found.")
 
+/*:
+ ## Check if a string is an edit apart from the other one.
+ */
+
+func oneEditApart(string1: String, string2: String) -> Bool {
+  var arr1 = Array(string1), arr2 = Array(string2)
+  if (arr1.count < arr2.count) {
+    swap(&arr1, &arr2)
+  }
+  
+  if(arr1.count - arr2.count > 1) {
+    return false
+  }
+  
+  var idx1 = 0, idx2 = 0
+  var mismatchCount = 0
+  while idx2 != arr2.count {
+    if (arr1[idx1] != arr2[idx2]) {
+      mismatchCount += 1
+      if (mismatchCount > 1) {
+        return false
+      }
+      if (arr1.count > arr2.count) {
+        idx2 -= 1
+      }
+    }
+    idx1 += 1
+    idx2 += 1
+  }
+  return true
+}
+
+//print(oneEditApart(string1: "cat", string2: "dog"))
+//print(oneEditApart(string1: "cat", string2: "cats"))
+//print(oneEditApart(string1: "cat", string2: "cut"))
+//print(oneEditApart(string1: "cat", string2: "cast"))
+//print(oneEditApart(string1: "cat", string2: "at"))
+//print(oneEditApart(string1: "cat", string2: "act"))
+
 //: [Next](@next)
