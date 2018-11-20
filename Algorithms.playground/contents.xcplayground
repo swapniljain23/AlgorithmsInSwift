@@ -14,5 +14,6 @@
         <page name='Mathematics'/>
         <page name='HackerRank'/>
         <page name='LeetCode'/>
+        <page name='TOP 10 Algorithms'/>
     </pages>
 </playground>

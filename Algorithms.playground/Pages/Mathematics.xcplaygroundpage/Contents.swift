@@ -1,28 +1,30 @@
-import Foundation
 //: [Previous](@previous)
 /*:
- ## Mathematics
+ # Mathematics
  */
 /*:
- ### Find the median
+ ## Find the median
  */
-struct Business{
+import Foundation
+
+struct Business {
     var id: Int
     var rating: Double
 }
+
 func medianRating(of businesses: [Business]) -> Double {
-    if businesses.count < 1{
+    if businesses.count < 1 {
         return 0
     }
-    var businesses = businesses.sorted{
+    var businesses = businesses.sorted {
         return $0.rating < $1.rating ? true : false
     }
-    if businesses.count % 2 == 0{
-        let nThRating = businesses[(businesses.count / 2)-1]
-        let n1ThRating = businesses[businesses.count / 2]
-        return (nThRating.rating + n1ThRating.rating) / 2
-    }else{
-        return businesses[businesses.count / 2].rating
+    if businesses.count % 2 == 0 {
+        let nThRating = businesses[(businesses.count/2)-1]
+        let n1ThRating = businesses[businesses.count/2]
+        return (nThRating.rating + n1ThRating.rating)/2
+    } else {
+        return businesses[businesses.count/2].rating
     }
 }
 // Test Cases:
@@ -39,15 +41,15 @@ func medianRating(of businesses: [Business]) -> Double {
 /*:
  ## LCM: Least/Lowest Common Multiple of 2 numbers
  */
-func lcmOfTwoNumbers(_ n1: Int, _ n2: Int) -> Int{
-    if n1 == 0 || n2 == 0{
+func lcmOfTwoNumbers(_ n1: Int, _ n2: Int) -> Int {
+    if n1 == 0 || n2 == 0 {
         return 0
     }
-    let minNo = n1 <= n2 ? n1 : n2
-    var maxNo = n1 > n2 ? n1 : n2
+    let minNo = [n1, n2].min()!
+    var maxNo = [n1, n2].max()!
     let maxOffset = maxNo
     var remainder = maxNo % minNo
-    while remainder != 0{
+    while remainder != 0 {
         maxNo = maxNo + maxOffset
         remainder = maxNo % minNo
     }
@@ -62,8 +64,8 @@ func lcmOfTwoNumbers(_ n1: Int, _ n2: Int) -> Int{
  ## LCM: Least/Lowest Common Multiple of n numbers
  ### Smaller Nos
  */
-func calculateSmallNosLCM(_ anArr: [Int]) -> Int{
-    if anArr.count < 1 || anArr.contains(0){
+func calculateSmallNosLCM(_ anArr: [Int]) -> Int {
+    if anArr.count < 1 || anArr.contains(0) {
         return 0
     }
     let maxNo = anArr.max()!
@@ -72,12 +74,12 @@ func calculateSmallNosLCM(_ anArr: [Int]) -> Int{
     
     repeat {
         isAllDivisible = true
-        for item in anArr{
-            if lcm % item != 0{
+        for item in anArr {
+            if lcm % item != 0 {
                 isAllDivisible = false
             }
         }
-        if isAllDivisible{
+        if isAllDivisible {
             return lcm
         }
         lcm += maxNo
@@ -97,10 +99,10 @@ func calculateSmallNosLCM(_ anArr: [Int]) -> Int{
  ## LCM: Least/Lowest Common Multiple of n numbers
  ### Large Nos
  */
-func calculateLargeNosLCM(_ anArr: [Int]) -> Int{
-    if anArr.count < 1 || anArr.contains(0){
+func calculateLargeNosLCM(_ anArr: [Int]) -> Int {
+    if anArr.count < 1 || anArr.contains(0) {
         return 0
-    }else if anArr.count < 2{
+    } else if anArr.count < 2 {
         return anArr[0]
     }
     
@@ -109,20 +111,20 @@ func calculateLargeNosLCM(_ anArr: [Int]) -> Int{
     var lcm = 1
     var oneCount = 0
     
-    while oneCount != anArr.count{
+    while oneCount != anArr.count {
         var isDivided = false
-        for index in 0..<anArr.count{
-            if anArr[index] % divideBy == 0{
+        for index in 0..<anArr.count {
+            if anArr[index] % divideBy == 0 {
                 anArr[index] /= divideBy
-                if anArr[index] == 1{
+                if anArr[index] == 1 {
                     oneCount += 1
                 }
                 isDivided = true
             }
         }
-        if isDivided{
+        if isDivided {
             lcm *= divideBy
-        }else{
+        } else {
             divideBy += 1
         }
     }
@@ -140,14 +142,14 @@ func calculateLargeNosLCM(_ anArr: [Int]) -> Int{
 /*:
  ## HCF: Highest/Greatest Common Factor of 2 numbers
  */
-func hcfOfTwoNumbers(_ n1: Int, _ n2: Int) -> Int{
-    if n1 == 0 || n2 == 0{
+func hcfOfTwoNumbers(_ n1: Int, _ n2: Int) -> Int {
+    if n1 == 0 || n2 == 0 {
         return 0
     }
-    var minNo = n1 <= n2 ? n1 : n2
-    var maxNo = n1 > n2 ? n1 : n2
+    var minNo = [n1, n2].min()!
+    var maxNo = [n1, n2].max()!
     var remainder = maxNo % minNo
-    while remainder != 0{
+    while remainder != 0 {
         maxNo = minNo
         minNo = remainder
         remainder = maxNo % minNo
@@ -163,8 +165,8 @@ func hcfOfTwoNumbers(_ n1: Int, _ n2: Int) -> Int{
  ## HCF: Highest/Greatest Common Factor of n numbers
  ### Smaller Nos
  */
-func calculateSmallNosHCF(anArr: [Int]) -> Int{
-    if anArr.count < 1 || anArr.contains(0){
+func calculateSmallNosHCF(anArr: [Int]) -> Int {
+    if anArr.count < 1 || anArr.contains(0) {
         return 0
     }
     let minNo = anArr.min()!
@@ -173,15 +175,15 @@ func calculateSmallNosHCF(anArr: [Int]) -> Int{
     var divisor = 2
     repeat {
         isAllDivisible = true
-        for item in anArr{
-            if item % hcf != 0{
+        for item in anArr {
+            if item % hcf != 0 {
                 isAllDivisible = false
             }
         }
-        if isAllDivisible{
+        if isAllDivisible {
             return hcf
         }
-        while minNo % divisor != 0 && divisor < minNo{
+        while minNo % divisor != 0 && divisor < minNo {
             divisor += 1
         }
         hcf = minNo / divisor
@@ -203,10 +205,10 @@ func calculateSmallNosHCF(anArr: [Int]) -> Int{
  ## HCF: Highest/Greatest Common Factor of n numbers
  ### Larger Nos
  */
-func calculateLargeNosHCF(anArr: [Int]) -> Int{
-    if anArr.count < 1 || anArr.contains(0){
+func calculateLargeNosHCF(anArr: [Int]) -> Int {
+    if anArr.count < 1 || anArr.contains(0) {
         return 0
-    }else if anArr.count < 2{
+    } else if anArr.count < 2 {
         return anArr[0]
     }
     
@@ -215,21 +217,21 @@ func calculateLargeNosHCF(anArr: [Int]) -> Int{
     var hcf = 1
     var oneCount = 0
     
-    while oneCount != anArr.count{
+    while oneCount != anArr.count {
         var divideCount = 0
         oneCount = 0
-        for index in 0..<anArr.count{
-            if anArr[index] % divideBy == 0{
+        for index in 0..<anArr.count {
+            if anArr[index] % divideBy == 0 {
                 anArr[index] /= divideBy
                 divideCount += 1
             }
-            if anArr[index] == 1{
+            if anArr[index] == 1 {
                 oneCount += 1
             }
         }
-        if divideCount == anArr.count{
+        if divideCount == anArr.count {
             hcf *= divideBy
-        }else if divideCount == 0{
+        } else if divideCount == 0 {
             divideBy += 1
         }
     }
@@ -247,21 +249,21 @@ func calculateLargeNosHCF(anArr: [Int]) -> Int{
 /*:
  ## Print Fibonacci Series
  */
-func printFibonacci(_ n: Int){
+func printFibonacci(_ n: Int) {
     var previous = 0
     var current = 1
-    for num in 0...n{
-        if num == 0{
+    for num in 0...n {
+        if num == 0 {
             print(0, separator: "", terminator: " ")
-        }else if num == 1{
+        } else if num == 1 {
             print(1, separator: "", terminator: " ")
-        }else{
+        } else {
             let sum = previous + current
             print(sum, separator: "", terminator: " ")
             previous = current
             current = sum
         }
-        if num == n{
+        if num == n {
             print("")
         }
     }
@@ -275,12 +277,12 @@ func printFibonacci(_ n: Int){
  ## Print nTh number in Fibonacci Series (Recursive)
  ### Runtime: 0(2^n), Exponential
  */
-func fibonacciNthTerm(_ n: Int) -> Int{
-    if n == 0{
+func fibonacciNthTerm(_ n: Int) -> Int {
+    if n == 0 {
         return 0
-    }else if n == 1{
+    } else if n == 1 {
         return 1
-    }else{
+    } else {
         return fibonacciNthTerm(n-1) + fibonacciNthTerm(n-2)
     }
 }
@@ -292,16 +294,16 @@ func fibonacciNthTerm(_ n: Int) -> Int{
 /*:
  ## Print sum of n numbers in Fibonacci series
  */
-func fibonacciSum(n: Int) -> Int{
-    if n == 0{
+func fibonacciSum(n: Int) -> Int {
+    if n == 0 {
         return 0
-    }else if n == 1 {
+    } else if n == 1 {
         return 1
     }
     var sum = 0
     var previous = 0
     var current = 1
-    for _ in 2...n{
+    for _ in 2...n {
         sum = previous + current
         previous = current
         current = sum
@@ -323,17 +325,17 @@ func fibonacciSum(n: Int) -> Int{
          6k + 3 = divisble by 3
          Only 6k - 1 and 6k + 1 = Can be prime?
  */
-func isPrime(_ number: Int) -> Bool{
-    if number <= 1{
+func isPrime(_ number: Int) -> Bool {
+    if number <= 1 {
         return false
-    }else if number <= 3{
+    } else if number <= 3 {
         return true
-    }else if number % 2 == 0 || number % 3 == 0{
+    } else if number % 2 == 0 || number % 3 == 0 {
         return false
     }
     var index = 5 // 6k-1(6*1-1)
-    while index * index <= number{
-        if number % index == 0 || number % (index+2) == 0{
+    while index * index <= number {
+        if number % index == 0 || number % (index+2) == 0 {
             return false
         }
         index += 6
@@ -343,9 +345,9 @@ func isPrime(_ number: Int) -> Bool{
 /*:
  ## Print the list of all PRIME numbers between num1 and num2
  */
-func printAllPrimeBetween(lower: Int, upper: Int){
-    for number in lower...upper{
-        if isPrime(number){
+func printAllPrimeBetween(lower: Int, upper: Int) {
+    for number in lower...upper {
+        if isPrime(number) {
             print(number, separator: "", terminator: " ")
         }
     }

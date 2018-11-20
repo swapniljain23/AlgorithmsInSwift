@@ -14,16 +14,25 @@ let sortedArray = [2, 10, 17, 99, 105, 108, 109, 220, 225]
  Input: Sorted array and number to search
  Output: Return the index if number found in input array or return nil.
  */
-func binarySearch(sortedArray: [Int], numberToSearch: Int, lowerIndex: Int, upperIndex: Int) -> Int?{
-    if lowerIndex > upperIndex{
+func binarySearch(sortedArray: [Int],
+                  numberToSearch: Int,
+                  lowerIndex: Int,
+                  upperIndex: Int) -> Int? {
+    if lowerIndex > upperIndex {
         return nil
     }
     let midIndex = lowerIndex + (upperIndex - lowerIndex) / 2
-    if numberToSearch < sortedArray[midIndex]{
-        return binarySearch(sortedArray: sortedArray, numberToSearch: numberToSearch, lowerIndex: lowerIndex, upperIndex: midIndex-1)
-    }else if numberToSearch > sortedArray[midIndex]{
-        return binarySearch(sortedArray: sortedArray, numberToSearch: numberToSearch, lowerIndex: midIndex+1, upperIndex: upperIndex)
-    }else{
+    if numberToSearch < sortedArray[midIndex] {
+        return binarySearch(sortedArray: sortedArray,
+                         numberToSearch: numberToSearch,
+                             lowerIndex: lowerIndex,
+                             upperIndex: midIndex-1)
+    }else if numberToSearch > sortedArray[midIndex] {
+        return binarySearch(sortedArray: sortedArray,
+                         numberToSearch: numberToSearch,
+                             lowerIndex: midIndex+1,
+                             upperIndex: upperIndex)
+    } else {
         return midIndex
     }
 }
@@ -39,13 +48,14 @@ func binarySearch(sortedArray: [Int], numberToSearch: Int, lowerIndex: Int, uppe
  ### Runtime: O(n^2)
  ### Memory: O(1)
  */
-func bubbleSort(_ unsortedArr: [Int])->[Int]{
+func bubbleSort(_ unsortedArr: [Int]) -> [Int] {
     var unsortedArr = unsortedArr
-    for index in 0..<unsortedArr.count{
-        for innerIndex in 1..<unsortedArr.count-index{
-            if unsortedArr[innerIndex-1] > unsortedArr[innerIndex]{
+    for index in 0..<unsortedArr.count {
+        for innerIndex in 1..<unsortedArr.count-index {
+            if unsortedArr[innerIndex-1] > unsortedArr[innerIndex] {
                 // Swap element here.
-                (unsortedArr[innerIndex-1],unsortedArr[innerIndex]) = (unsortedArr[innerIndex],unsortedArr[innerIndex-1])
+                (unsortedArr[innerIndex-1], unsortedArr[innerIndex]) =
+                      (unsortedArr[innerIndex], unsortedArr[innerIndex-1])
             }
         }
     }
@@ -59,19 +69,19 @@ func bubbleSort(_ unsortedArr: [Int])->[Int]{
  ### Memory: O(1)
  ### Worse than Insertion Sort, better than Bubble Sort
  */
-func selectionSort(_ unsortedArr: [Int])->[Int]{
-    if unsortedArr.count <= 1{
+func selectionSort(_ unsortedArr: [Int]) -> [Int] {
+    if unsortedArr.count <= 1 {
         return unsortedArr
     }
     var unsortedArr = unsortedArr
-    for index in 0..<unsortedArr.count-1{
+    for index in 0..<unsortedArr.count-1 {
         var lowerIndex = index
-        for innerIndex in index+1..<unsortedArr.count{
-            if unsortedArr[innerIndex] < unsortedArr[lowerIndex]{
+        for innerIndex in index+1..<unsortedArr.count {
+            if unsortedArr[innerIndex] < unsortedArr[lowerIndex] {
                 lowerIndex = innerIndex
             }
         }
-        if lowerIndex != index{
+        if lowerIndex != index {
             unsortedArr.swapAt(index, lowerIndex)
         }
     }
