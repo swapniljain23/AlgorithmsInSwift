@@ -47,7 +47,7 @@ func calculateAngle(hours: Int, mins: Int) -> Int {
         (Double(hours) * 60 * hrsHandAngleForAmin) + (Double(mins) * hrsHandAngleForAmin)
     
     // Angle between hands
-    var angleBtwHands = abs(hrsHandAngle - minsHandAngle)
+    let angleBtwHands = abs(hrsHandAngle - minsHandAngle)
     
     // Return minimum
     if angleBtwHands > halfCircle {
@@ -100,7 +100,8 @@ func performRotation( matrix: [[Int]], size: Int) -> [[Int]] {
     }
     return matrix
 }
-//print(performRotation(matrix: [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]], size: 4))
+//print(performRotation(matrix: [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]],
+//                        size: 4))
 //: ---
 //: ## Matrix manipulation
 //: Set zeros: If an element is zero set its entire row and column to zero.
@@ -149,10 +150,11 @@ struct Worker {
 func sortedListOfSalaries(workers: [[String]]) -> [Int] {
     var listOfSalaries = [Int]()
     var workersArray = [Worker]()
-    for worker in workers{
+    // Prepare array of worker objects.
+    for worker in workers {
         var workerObj = Worker()
-        for index in 0..<worker.count{
-            switch index{
+        for index in 0..<worker.count {
+            switch index {
             case 0: workerObj.workerId = Int(worker[index])
             case 1: workerObj.type = worker[index]
             case 2: workerObj.name = worker[index]
@@ -162,27 +164,27 @@ func sortedListOfSalaries(workers: [[String]]) -> [Int] {
             }
         }
         
-        if workerObj.type == "Contractor"{
-            if let hourlyRate = Int(workerObj.salary), let hours = workerObj.workHours{
+        if workerObj.type == "Contractor" {
+            if let hourlyRate = Int(workerObj.salary), let hours = workerObj.workHours {
                 let salary = hourlyRate * hours * 52
                 workerObj.computedSalary = salary
             }
-        }else if workerObj.type == "FTE"{
-            if let salary = Int(workerObj.salary){
+        } else if workerObj.type == "FTE" {
+            if let salary = Int(workerObj.salary) {
                 workerObj.computedSalary = salary
             }
         }
         workersArray.append(workerObj)
     }
-    
     // Now let's iterate workers array to calculate managers salary
-    for worker in workersArray{
+    for worker in workersArray {
         var wokkerO = worker
-        if worker.type == "Manager"{
+        if worker.type == "Manager" {
             let listOfWorkerIds = worker.salary.split(separator:",")
-            for workerId in listOfWorkerIds{
-                for innerWorker in workersArray{
-                    if let innerWorkerId = innerWorker.workerId, String(innerWorkerId) == workerId{
+            for workerId in listOfWorkerIds {
+                for innerWorker in workersArray {
+                    if let innerWorkerId = innerWorker.workerId,
+                            String(innerWorkerId) == workerId {
                         wokkerO.computedSalary += innerWorker.computedSalary
                     }
                 }
@@ -193,7 +195,6 @@ func sortedListOfSalaries(workers: [[String]]) -> [Int] {
     // Sort salaries array, default acending.
     return listOfSalaries.sorted()
 }
-// Test Cases:
 //let workersArray = [["1","Contractor","Apple","50","12"],
 //                    ["2","Manager","Apple","1,4,5","X"],
 //                    ["3","Manager","Apple","1,4","X"],
@@ -205,37 +206,37 @@ func sortedListOfSalaries(workers: [[String]]) -> [Int] {
 // 3 -> 81,200
 // 4 -> 50,000
 // 5 -> 140,000
+//: ---
 /*:
  ## Implement numeric addition of two Strings
+ 
+    Input: "12345", "123"
+    Output: "12468"
  */
-/*
- Input: "12345", "123"
- Output: "12468"
- */
-func addTwoNumbers(string1: String, string2: String) -> String{
+func addTwoNumbers(string1: String, string2: String) -> String {
     var resultString = ""
     let smallerNum = (string1.count < string2.count) ? string1 : string2
     let biggerNum = (string1.count >= string2.count) ? string1 : string2
     var carryForward = 0
     // Sum
-    for index in 1...biggerNum.count{
+    for index in 1...biggerNum.count {
         var total = 0
         let biggerNumIndex = biggerNum.index(biggerNum.endIndex, offsetBy: -index)
         let biggerNumVal = Int(String(biggerNum[biggerNumIndex]))!
         var smallerNumVal = 0
-        if index <= smallerNum.count{
+        if index <= smallerNum.count {
             let smallerNumIndex = smallerNum.index(smallerNum.endIndex, offsetBy: -index)
             smallerNumVal = Int(String(smallerNum[smallerNumIndex]))!
         }
         total =  biggerNumVal + smallerNumVal + carryForward
         carryForward = 0
-        if total > 9{
+        if total > 9 {
             carryForward = total / 10
             total = total % 10
         }
         resultString.append(String(total))
     }
-    if carryForward > 0{
+    if carryForward > 0 {
         resultString.append(String(carryForward))
     }
     return String(resultString.reversed())
@@ -246,38 +247,34 @@ func addTwoNumbers(string1: String, string2: String) -> String{
 //print(addTwoNumbers(string1: "10000", string2: "11"))
 //print(addTwoNumbers(string1: "90", string2: "1000"))
 //print(addTwoNumbers(string1: "101010", string2: "100000"))
+//: ---
 /*:
  ## Implement numeric subtraction of two Strings
+ 
+    Input: "12345", "123"
+    Output: "12222"
  */
-/*
- Input: "12345", "123"
- Output: "12222"
- */
-func subtractTwoNumbers(string1: String, string2: String){
+// TODO: Implement this.
+func subtractTwoNumbers(string1: String, string2: String) {
     
 }
-/*:
- ## Convert Int into formatted String
- */
-/*
- Input:
- Output:
- Input:
- Output:
- */
-func intToString(number: Int, isLakhs: Bool=false) -> String{
+//: ---
+//: ## Convert Int into formatted String
+func intToString(number: Int, isLakhs: Bool=false) -> String {
     var outputString = ""
     let inputString = String(number)
     var commaIndex = 1
     var commaDiv = 3
     var modVal = 0
-    for char in inputString.reversed(){
-        if commaIndex >= commaDiv && commaIndex % commaDiv == modVal && commaIndex != inputString.count {
+    for char in inputString.reversed() {
+        if commaIndex >= commaDiv &&
+              commaIndex % commaDiv == modVal &&
+              commaIndex != inputString.count {
             outputString.append("\(char),")
-        }else{
+        } else {
             outputString.append(char)
         }
-        if isLakhs && commaIndex == commaDiv{
+        if isLakhs && commaIndex == commaDiv {
             commaDiv = 2
             modVal = 1
         }
@@ -291,36 +288,35 @@ func intToString(number: Int, isLakhs: Bool=false) -> String{
 //print(intToString(number: 12, isLakhs: true))
 //print(intToString(number: 123456, isLakhs: true))
 //print(intToString(number: 123456))
-
+//: ---
 /*:
  ## Popular Colors
  1. Accept an array of Strings
  ex. ["Green", "Blue", "Red", "Green", "Green", "Red"]
  2. Return the color that appears most often
  3. If there is a tie, return the tied colors in an array
- 
-         ["Green", "Blue", "Red", "Green", "Green", "Red", "Red"]
-         -> ["Green", "Red"]
+ - Example:
+      Input: ["Green", "Blue", "Red", "Green", "Green", "Red", "Red"]\
+      Output: ["Green", "Red"]
  */
-func mostOftenColors(anArray: [String]) -> [String]{
+func mostOftenColors(anArray: [String]) -> [String] {
     var aDict = Dictionary<String, Int>()
-    for string in anArray{
-        if var val = aDict[string]{
-            val += 1
-            aDict[string] = val
-        }else{
+    for string in anArray {
+        if let val = aDict[string] {
+            aDict[string] = val + 1
+        } else {
             aDict[string] = 1
         }
     }
     var outputArr = [String]()
     var maxCount = 1
-    for (_, value) in aDict{
-        if value > maxCount{
+    for (_, value) in aDict {
+        if value > maxCount {
             maxCount = value
         }
     }
-    for (key, value) in aDict{
-        if value == maxCount{
+    for (key, value) in aDict {
+        if value == maxCount {
             outputArr.append(key)
         }
     }
@@ -330,82 +326,75 @@ func mostOftenColors(anArray: [String]) -> [String]{
 //print(mostOftenColors(anArray: ["Green", "Blue", "Green", "Green", "Red", "Red"]))
 //print(mostOftenColors(anArray: ["Green", "Blue"]))
 //print(mostOftenColors(anArray: []))
-
-/*:
- ## Implement UIControl Class
- */
-enum Event{
+//: ---
+//: ## Implement UIControl Class
+enum Event {
     case touchUpInside
     case touchDownInside
     case touchUpOutside
     case touchDownOutside
 }
-class MyAction: Equatable{
+class MyAction: Equatable {
     var message = ""
-    init(_ message: String){
+    init(_ message: String) {
         self.message = message
     }
-    func executeAction(){
+    func executeAction() {
         print(message)
     }
-    public static func ==(lhs: MyAction, rhs: MyAction) -> Bool{
-        if lhs.message == rhs.message{
+    // Overload '=='
+    public static func ==(lhs: MyAction, rhs: MyAction) -> Bool {
+        if lhs.message == rhs.message {
             return true
         }
         return false
     }
 }
-class MyControl{
+class MyControl {
     var eventsActions = Dictionary<Event,[MyAction]>()
-    func addTarget(_ event: Event, action: MyAction){
-        if var actions = eventsActions[event]{
+    func addTarget(_ event: Event, action: MyAction) {
+        if var actions = eventsActions[event] {
             actions.append(action)
             eventsActions[event] = actions
-        }else{
+        } else {
             eventsActions[event] = [action]
         }
     }
-    func removeTarget(_ action: MyAction){
-        for (evnt, actions) in eventsActions{
+    func removeTarget(_ action: MyAction) {
+        for (evnt, actions) in eventsActions {
             var listOfActions = actions
-            for (index, value) in actions.enumerated(){
-                if value == action{
+            for (index, value) in actions.enumerated() {
+                if value == action {
                     listOfActions.remove(at: index)
                 }
             }
             eventsActions[evnt] = listOfActions
         }
     }
-    func takeAction(_ event: Event){
-        for (evnt, actions) in eventsActions{
-            if event == evnt{
-                for action in actions{
+    func takeAction(_ event: Event) {
+        for (evnt, actions) in eventsActions {
+            if event == evnt {
+                for action in actions {
                     action.executeAction()
                 }
             }
         }
     }
 }
-//// Test Cases:
 //let action1 = MyAction("Action1")
 //let action2 = MyAction("Action2")
-//
 //let control = MyControl()
 //control.addTarget(.touchUpInside, action: action1)
 //control.addTarget(.touchUpInside, action: action2)
 //control.addTarget(.touchDownInside, action: action1)
-//
-////control.takeAction(.touchUpInside)
-////control.takeAction(.touchDownInside)
-//
+//control.takeAction(.touchUpInside) // Action1, Action2
+//control.takeAction(.touchDownInside) // Action1
 //control.removeTarget(action1)
-//control.takeAction(.touchUpInside)
-//control.takeAction(.touchDownInside)
-
+//control.takeAction(.touchUpInside) // Action2
+//control.takeAction(.touchDownInside) // No action.
+//: ---
 /*:
  ## Assign kids to teachers
-*/
-/*
  Inputs:
  - List of kids (Strings)
  - List of teachers (Strings)
@@ -416,25 +405,27 @@ class MyControl{
  - Assigments - Map<String, List<String>>
  - Account for any kids without a spot by assigning them to a "No Teacher" teacher
  
- Requirments
- - Every teacher has the same number of kids (As close as possible)
- - Kids get a spot on a first come first served basis
+ Requirments:
+ - Every teacher has the same number of kids (As close as possible).
+ - Kids get a spot on a first come first served basis.
  - Assuming the intput already allow - respect the teacher preferences and all other requirements.
  
- Example:
- - 11 kids and 3 teachers: two teachers have 4 kids and one teacher has 3 kids
- ["BB": ["E", "F", "G", ], "CC": ["I", "H", "D"], "AA": ["A", "B", "C"], "No Teacher": [ "J", "K"]]
+ - Example:
+ 11 kids and 3 teachers: two teachers have 4 kids and one teacher has 3 kids\
+ ["BB": ["E", "F", "G", ], "CC": ["I", "H", "D"], "AA": ["A", "B", "C"],
+    "No Teacher": [ "J", "K"]]\
  ["AA": ["A", "B", "D"], "No Teacher": ["J", "K"], "BB": ["A", "E", "F"],"CC": ["G", "H", "I"]]
  */
-
-func assignKidsToTeachers(kids: [String], teachers: [String], maxClassSize: Int, teacherPreference: Dictionary<String,[String]>) -> Dictionary<String, [String]>{
-    
+func assignKidsToTeachers(kids: [String],
+                      teachers: [String],
+                  maxClassSize: Int,
+             teacherPreference: Dictionary<String,[String]>) -> Dictionary<String, [String]> {
     let kidsCount = kids.count
     let teachersCount = teachers.count
     
     var equalCount = kidsCount / teachersCount
     var unEqualCount = kidsCount % teachersCount
-    if equalCount+1 > maxClassSize{
+    if equalCount+1 > maxClassSize {
         equalCount = maxClassSize
         unEqualCount = 0
     }
@@ -442,30 +433,28 @@ func assignKidsToTeachers(kids: [String], teachers: [String], maxClassSize: Int,
     var outputDictionary = Dictionary<String, [String]>()
     var kidIndex = 0
     var aSet = Set<String>()
-    for teacher in teachers{
+    for teacher in teachers {
         var kidsArr = [String]()
         let preferKids = teacherPreference[teacher]
         var offset = 0
-        
-        if let preferKids = preferKids{
-            for kid in preferKids{
+        if let preferKids = preferKids {
+            for kid in preferKids {
                 kidsArr.append(kid)
                 aSet.insert(kid)
                 offset += 1
             }
         }
-        
-        if offset < equalCount{
-            for _ in 1...equalCount-offset{
-                while aSet.contains(kids[kidIndex]){
+        if offset < equalCount {
+            for _ in 1...equalCount-offset {
+                while aSet.contains(kids[kidIndex]) {
                     kidIndex += 1
                 }
                 kidsArr.append(kids[kidIndex])
                 kidIndex += 1
             }
         }
-        if unEqualCount > 0{
-            while aSet.contains(kids[kidIndex]){
+        if unEqualCount > 0 {
+            while aSet.contains(kids[kidIndex]) {
                 kidIndex += 1
             }
             kidsArr.append(kids[kidIndex])
@@ -475,10 +464,10 @@ func assignKidsToTeachers(kids: [String], teachers: [String], maxClassSize: Int,
         outputDictionary[teacher] = kidsArr
     }
     
-    if kidIndex < kids.count{
+    if kidIndex < kids.count {
         var kidsArr = [String]()
-        while kidIndex != kids.count{
-            if !aSet.contains(kids[kidIndex]){
+        while kidIndex != kids.count {
+            if !aSet.contains(kids[kidIndex]) {
                 kidsArr.append(kids[kidIndex])
             }
             kidIndex += 1
@@ -487,15 +476,20 @@ func assignKidsToTeachers(kids: [String], teachers: [String], maxClassSize: Int,
     }
     return outputDictionary
 }
-
-// print(assignKidsToTeachers(kids: ["A","B","C","D","E"], teachers: ["AA", "BB"], maxClassSize: 2))
-// print(assignKidsToTeachers(kids: ["A","B","C","D","E"], teachers: ["AA"], maxClassSize: 4))
-//print(assignKidsToTeachers(kids: ["A","B","C","D","E","F","G","H","I","J","K"], teachers: ["AA", "BB", "CC"], maxClassSize: 3, teacherPreference: ["AA":["E"]]))
-
-/*:
- ## Print look and say sequence.
- */
-
+//print(assignKidsToTeachers(kids: ["A","B","C","D","E"],
+//                       teachers: ["AA", "BB"],
+//                   maxClassSize: 2,
+//              teacherPreference: ["":[""]]))
+//print(assignKidsToTeachers(kids: ["A","B","C","D","E"],
+//                       teachers: ["AA"],
+//                   maxClassSize: 4,
+//              teacherPreference: ["":[""]]))
+//print(assignKidsToTeachers(kids: ["A","B","C","D","E","F","G","H","I","J","K"],
+//                       teachers: ["AA", "BB", "CC"],
+//                   maxClassSize: 3,
+//              teacherPreference: ["AA":["E"]]))
+//: ---
+//: ## Print look and say sequence.
 func lookAndSaySequence(count: Int) {
   guard count > 0 else { return }
   var value  = "1"
@@ -504,8 +498,7 @@ func lookAndSaySequence(count: Int) {
     value = computeNextLookAndSaySequence(input: value)
   }
 }
-
-func computeNextLookAndSaySequence(input: String) -> String{
+func computeNextLookAndSaySequence(input: String) -> String {
   if input.count == 1 {
     return "1" + input
   }
@@ -514,8 +507,9 @@ func computeNextLookAndSaySequence(input: String) -> String{
   var current = charArr[0]
   var count = 1
   for index in 1...input.count {
-    if (index == input.count || current != charArr[index] ) {
+    if index == input.count || current != charArr[index] {
       nextVal += String(count) + String(current)
+      // Reset count, current char.
       count = 1
       if (index < input.count) {
         current = charArr[index]
@@ -526,30 +520,26 @@ func computeNextLookAndSaySequence(input: String) -> String{
   }
   return nextVal
 }
-//print(computeNextLookAndSaySequence(input: "1"))
-//print(computeNextLookAndSaySequence(input: "11"))
-//print(computeNextLookAndSaySequence(input: "21"))
-//print(computeNextLookAndSaySequence(input: "1211"))
-
-//lookAndSaySequence(count: -10)
-//lookAndSaySequence(count: 0)
-//lookAndSaySequence(count: 1)
-//lookAndSaySequence(count: 10)
-
+//print(computeNextLookAndSaySequence(input: "1")) // 11
+//print(computeNextLookAndSaySequence(input: "11")) // 21
+//print(computeNextLookAndSaySequence(input: "21")) // 1211
+//print(computeNextLookAndSaySequence(input: "1211")) // 111221
+//lookAndSaySequence(count: -10) //
+//lookAndSaySequence(count: 0) //
+//lookAndSaySequence(count: 1) // 1
+//lookAndSaySequence(count: 10) // 1, 11, 21, 12211, ....
+//: ---
+//: ## Sleep sort.
+//TODO
+//: ---
+//: ## Implement Minesweeper.
+//TODO
+//: ---
+//: ## Implement Calendar.
+//TODO
+//: ---
 /*:
- ### Sleep sort.
- */
-
-/*:
- ### Implement Minesweeper.
- */
-
-/*:
- ### Implement Calendar.
- */
-
-/*:
- ### Handlings of bags.
+ ## Handlings of bags.
     > "Item1"
     > "Item2"
     > "Bag Of Holdings"
@@ -582,10 +572,12 @@ class BagHolding: BagItem {
 var data = [BagItem]()
 data.append(BagItem("Item1", 1))
 data.append(BagItem("Item2", 1))
-data.append(
-  BagHolding("Bag Of Holding", 1, [BagItem("Item1", 1), BagItem("Item2", 1), BagItem("Item3", 1)]))
-data.append(
-  BagHolding("Bag Of Holding", 1,[BagItem("Item5", 1), BagItem("Item6", 1), BagItem("Item7", 1)]))
+data.append(BagHolding("Bag Of Holding",
+                       1,
+                       [BagItem("Item1", 1), BagItem("Item2", 1), BagItem("Item3", 1)]))
+data.append(BagHolding("Bag Of Holding",
+                       1,
+                       [BagItem("Item5", 1), BagItem("Item6", 1), BagItem("Item7", 1)]))
 data.append(BagItem("Item4", 1))
 data.append(BagItem("Item5", 1))
 // Function.
