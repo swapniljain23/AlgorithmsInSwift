@@ -1,44 +1,35 @@
-import Foundation
 //: [Previous](@previous)
-/*:
- # Stack and Queue
- */
-/*:
- ## Node Class
- */
-class Node{
+//: # Stack and Queue
+//: ---
+//: ## Node Class
+import Foundation
+class Node {
     var next: Node?
     var data: Int
-    
-    init(value: Int){
+    init(value: Int) {
         data = value
     }
 }
-/*:
- ## Stack Operations
- */
+//: ---
+//: ## Stack Operations - Push, Pop, Traverse
 class Stack {
     var top: Node?
-    
-    func push(value: Int){
+    func push(value: Int) {
         let node = Node(value: value)
         node.next = top
         top = node
     }
-    
-    func pop(){
+    func pop() {
         top = top?.next
     }
-    
-    func traverseStack(){
+    func traverseStack() {
         var this = top
-        while this != nil{
+        while this != nil {
             print("\(this!.data) => ", separator: "", terminator: "")
             this = this!.next
         }
     }
 }
-// Test Cases:
 //let stack = Stack()
 //print(stack.traverseStack())
 //stack.push(value: 5)
@@ -53,17 +44,16 @@ class Stack {
 //stack.pop()
 //stack.pop()
 //print(stack.traverseStack())
-/*:
- ## Queue Operations
- */
+//: ---
+//: ## Queue Operations - Enqueue, Dequeue, Traverse
 class Queue {
     var first, last: Node?
-    func enQueue(item: Int){
+    func enQueue(item: Int) {
         let node = Node(value: item)
-        if let _ = first{
+        if let _ = first {
             last?.next = node
             last = node
-        }else{
+        } else {
             first = node
             last = first
         }
@@ -79,7 +69,6 @@ class Queue {
         }
     }
 }
-// Test Cases:
 //let queue = Queue()
 //queue.deQueue()
 //print(queue.traverseQueue())
@@ -92,27 +81,23 @@ class Queue {
 //queue.deQueue()
 //queue.deQueue()
 //print(queue.traverseQueue())
-/*:
- ## Implement Queue using two Stacks
- */
-class QueueWithStacks{
+//: ---
+//: ## Implement Queue using two Stacks
+class QueueWithStacks {
     var stackIn = [Int]()
     var stackOut = [Int]()
-    
-    func enQueue(_ element: Int){
+    func enQueue(_ element: Int) {
         stackIn.append(element)
     }
-    
-    func deQueue() -> Int?{
-        if stackOut.count == 0{
-            while stackIn.count != 0{
+    func deQueue() -> Int? {
+        if stackOut.count == 0 {
+            while stackIn.count != 0 {
                 stackOut.append(stackIn.removeLast())
             }
         }
         return stackOut.count == 0 ? nil : stackOut.removeLast()
     }
 }
-// Test Cases
 //let queue = QueueWithStacks()
 //queue.enQueue(11)
 //print(queue.deQueue() as Any)
@@ -120,7 +105,5 @@ class QueueWithStacks{
 //queue.enQueue(22)
 //queue.enQueue(33)
 //print(queue.deQueue() as Any)
-/*:
- ##
- */
+//: ---
 //: [Next](@next)
