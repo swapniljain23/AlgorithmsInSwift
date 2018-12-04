@@ -103,7 +103,8 @@ func maxPathSum(root: Node, result: inout Int) -> Int {
 //print(result) // 154
 //: ---
 /*:
- ## Check if a given array can represent Preorder Traversal of Binary Search Tree
+ ## #3. Check if a given array can represent Preorder Traversal of Binary Search
+ ## Tree
  Given an array of numbers, return true if given array can represent preorder
  traversal of a Binary Search Tree, else return false. Expected time complexity is
  O(n).
@@ -135,9 +136,26 @@ func canRepresentBST(items: [Int]) -> Bool {
 //print(canRepresentBST(items: [40, 30, 35, 20, 80, 100]))
 //: ---
 /*:
- ## Check whether a binary tree is a full binary tree or not
+ ## #4. Check whether a binary tree is a full binary tree or not
  A full binary tree is defined as a binary tree in which all nodes have either zero
  or two child nodes. 
+ */
+func isFullBinaryTree(tree: Node) -> Bool {
+  // Return  true, if tree doesn't have any left and right node.
+  if tree.left == nil && tree.right == nil {
+    return true
+  }
+  // Recursive call if tree has both left and right child.
+  if let left = tree.left, let right = tree.right {
+      return isFullBinaryTree(tree: left) && isFullBinaryTree(tree: right)
+  }
+  // Return flase in all other cases.
+  return false
+}
+//print(isFullBinaryTree(tree: node1))
+//:---
+/*:
+ ## #5.
  */
 //: ---
 //: # REST ALL

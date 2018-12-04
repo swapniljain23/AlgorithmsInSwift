@@ -1,18 +1,16 @@
-import Foundation
 //: [Previous](@previous)
 /*:
+ ---
  # Arrays
- */
+ ---
+*/
 /*:
  ## Check if sum of any two elements in an array is equal to n.
+ 
+    Input: An array of Int, a number Int.
+    Output: true/false
  */
-/*
- Input:
- an array of Int
- a number Int
- Output:
- true/false
- */
+import Foundation
 func isSumOfAnyTwoElementIsEqualToN(_ anArray: [Int], _ n: Int) -> Bool {
     var aSet = Set<Int>()
     for index in 0..<anArray.count {
@@ -24,20 +22,20 @@ func isSumOfAnyTwoElementIsEqualToN(_ anArray: [Int], _ n: Int) -> Bool {
     }
     return false
 }
-// Test Cases:
 //let arrayOne = [2, 4, 8, 18, 13, 9, 15]
 //print(isSumOfAnyTwoElementIsEqualToN(arrayOne, 10))
 //print(isSumOfAnyTwoElementIsEqualToN(arrayOne, 9))
+//: ---
 /*:
  ## Skip multiplication in factorial
- */
-/*
- Input: 3
- Output: [6, 3, 2]
- Algo:
- 6 = ~1~ * 2 * 3 (skip multiplication by value at index 0)
- 3 = 1 * ~2~ * 3 (skip multiplication by value at index 1)
- 2 = 1 * 2 * ~3~ (skip multiplication by value at index 2)
+ 
+    Input: 3
+    Output: [6, 3, 2]
+ 
+ Algo:\
+ 6 = ~1~ * 2 * 3 (skip multiplication by value at index 0)\
+ 3 = 1 * ~2~ * 3 (skip multiplication by value at index 1)\
+ 2 = 1 * 2 * ~3~ (skip multiplication by value at index 2)\
  Time complexity: O(n)
  */
 func products(number: Int) -> [Int] {
@@ -51,19 +49,17 @@ func products(number: Int) -> [Int] {
 func factorial(_ number: Int) -> Int {
     return number == 1 ?  1 : number * factorial(number-1)
 }
-//Test Cases:
 //print(products(number: 1))
 //print(products(number: 2))
 //print(products(number: 3))
 //print(products(number: 4))
 //print(products(number: 5))
+//: ---
 /*:
- ## Rotate an array by Delta
- With buffer array
- */
-/*
- Input: [1, 4, 7, 3, 2, 9], 3
- Output: [3, 2, 9, 1, 4, 7]
+ ## Rotate an array by Delta (With buffer array)
+ 
+    Input: [1, 4, 7, 3, 2, 9], 3
+    Output: [3, 2, 9, 1, 4, 7]
  */
 func rotateArrayByDelta(array: [Int], delta: Int) -> [Int] {
     var newDelta = delta
@@ -81,15 +77,13 @@ func rotateArrayByDelta(array: [Int], delta: Int) -> [Int] {
     }
     return outputArray
 }
-// Test Cases:
 //print(rotateArrayByDelta(array: [1, 4, 7, 3, 2, 9], delta: 5))
+//: ---
 /*:
- ## Rotate an array by Delta
- Without buffer array
- */
-/*
- Input: [1, 4, 7, 3, 2, 9], 4
- Output: [ 2, 9, 1, 4, 7, 3]
+ ## Rotate an array by Delta (Without buffer array)
+ 
+    Input: [1, 4, 7, 3, 2, 9], 4
+    Output: [ 2, 9, 1, 4, 7, 3]
  */
 func rotateArrayByDeltaWithNoBuffer(array: [Int], delta: Int) -> [Int] {
     var array = array
@@ -109,7 +103,6 @@ func rotateArrayByDeltaWithNoBuffer(array: [Int], delta: Int) -> [Int] {
     // Reverse the whole array and return
     return array.reversed()
 }
-// Test Cases:
 //let array = [1, 4, 7, 3, 2, 9]
 //print(rotateArrayByDeltaWithNoBuffer(array: array, delta: 0))
 //print(rotateArrayByDeltaWithNoBuffer(array: array, delta: 1))
@@ -118,12 +111,12 @@ func rotateArrayByDeltaWithNoBuffer(array: [Int], delta: Int) -> [Int] {
 //print(rotateArrayByDeltaWithNoBuffer(array: array, delta: 4))
 //print(rotateArrayByDeltaWithNoBuffer(array: array, delta: 5))
 //print(rotateArrayByDeltaWithNoBuffer(array: array, delta: 6))
+//: ---
 /*:
  ## Reverse partial range in array
- */
-/*
- Input: [1, 4, 7, 3, 2, 9], 1, 4
- Output: [1, 2, 3, 7, 4, 9]
+ 
+    Input: [1, 4, 7, 3, 2, 9], 1, 4
+    Output: [1, 2, 3, 7, 4, 9]
  */
 func reverseSubArray(array: [Int], startIndex: Int, endIndex: Int) -> [Int] {
     var startIndex = startIndex
@@ -143,13 +136,10 @@ func reverseSubArray(array: [Int], startIndex: Int, endIndex: Int) -> [Int] {
     }
     return array
 }
-// Test Cases:
 //let array = [1, 4, 7, 3, 2, 9]
 //print(reverseSubArray(array: array, startIndex: 0, endIndex: 2))
-
-/*:
- ## Generate 2D Spiral array.
- */
+//: ---
+//: ## Generate 2D Spiral array
 func generate2dSpiralArray(length: Int) -> [[Int]] {
   var spiralArr = Array(repeating: Array(repeating: 0, count: length), count: length)
   guard length > 0 else {
@@ -175,7 +165,6 @@ func generate2dSpiralArray(length: Int) -> [[Int]] {
   }
   return spiralArr
 }
-
 func isInvalid(spiralArr: [[Int]], row: Int, column: Int) -> Bool {
   return row < 0 ||
       column < 0 ||
@@ -183,7 +172,6 @@ func isInvalid(spiralArr: [[Int]], row: Int, column: Int) -> Bool {
       column >= spiralArr.count ||
       spiralArr [row][column] != 0
 }
-
 func print2dArray(_ array: [[Int]]) {
   for row in array {
     for item in row {
@@ -192,11 +180,62 @@ func print2dArray(_ array: [[Int]]) {
     print("")
   }
 }
-
 //print2dArray(generate2dSpiralArray(length: 1))
 //print2dArray(generate2dSpiralArray(length: 2))
 //print2dArray(generate2dSpiralArray(length: 3))
 //print2dArray(generate2dSpiralArray(length: 4))
 //print2dArray(generate2dSpiralArray(length: 5))
-
+//: ---
+/*:
+ ## Given an array of sorted integers, return the array of integers squared still sorted
+ 
+    [1,2,3] -> [1,4,9]
+    [-1, 0, 1] -> [0, 1, 1]
+    [-5, -3, 1, 2, 7] -> [1, 4, 9, 25, 49]
+    [-8, -5, -2, 0, 3, 4, 7] -> [0, 4, 9, 16, 25, 49, 64]
+*/
+func squaredSortedArray(_ array: [Int]) -> [Int] {
+  var squaredSortedArray = [Int]()
+  
+  // Find the index for the last negative value in the given array.
+  var midIndex = 0
+  while array[midIndex] < 0 {
+    midIndex += 1
+  }
+  
+  // Assign the last negative value index to leftIndex and first positive value
+  // index to rightIndex.
+  var leftIndex = midIndex
+  var rightIndex = midIndex + 1
+  
+  // Pick elements from either left or right side of mid index and insert
+  // their square in output array.
+  while leftIndex >= 0 && rightIndex < array.count {
+    if array[leftIndex] * array[leftIndex] < array[rightIndex] * array[rightIndex] {
+      squaredSortedArray.append(array[leftIndex] * array[leftIndex])
+      leftIndex -= 1
+    } else {
+      squaredSortedArray.append(array[rightIndex] * array[rightIndex])
+      rightIndex += 1
+    }
+  }
+  
+  while leftIndex >= 0 {
+    squaredSortedArray.append(array[leftIndex] * array[leftIndex])
+    leftIndex -= 1
+  }
+  while rightIndex < array.count {
+    squaredSortedArray.append(array[rightIndex] * array[rightIndex])
+    rightIndex += 1
+  }
+  
+  return squaredSortedArray
+}
+//print(squaredSortedArray([1, 2, 3]))
+//print(squaredSortedArray([-1, 0, 1]))
+//print(squaredSortedArray([-5, -3, 1, 2, 7]))
+//print(squaredSortedArray([-5, -3, 1, 2]))
+//print(squaredSortedArray([-5, -3, 1, 2, 5]))
+//print(squaredSortedArray([-8, -5, -2, 0, 3, 4, 7]))
+//:---
 //: [Next](@next)

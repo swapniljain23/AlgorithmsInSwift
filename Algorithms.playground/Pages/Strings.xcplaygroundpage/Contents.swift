@@ -1,27 +1,23 @@
-import Foundation
 //: [Previous](@previous)
 /*:
+ ---
  # Strings
+ ---
  */
-/*:
- ## Sting extension
- */
+//: ## Sting extension
+import Foundation
 extension String {
     var asciiValue: [UInt32] {
         return self.unicodeScalars.filter{$0.isASCII}.map{$0.value}
     }
 }
-/*:
- ## Character extension
- */
+//: ## Character extension
 extension Character {
     var asciiValue: UInt32? {
         return String(self).unicodeScalars.filter{$0.isASCII}.first?.value
     }
 }
-/*:
- ## Substring
- */
+//: ## Substring
 func getSubstringFromString(sourceString: String, beforeString str: String) -> String {
     if let range = sourceString.range(of: str) {
         return String(sourceString[..<range.lowerBound])
@@ -35,14 +31,10 @@ func getSubstringAfterString(sourceString: String, afterString str: String) -> S
     }
     return ""
 }
-
-
-// Test Cases:
 //print(getSubstringFromString(sourceString: "Swapnil:Jain", beforeString: "Jain"))
 //print(getSubstringAfterString(sourceString: "Swapnil:Jain", afterString: "Ja"))
-/*:
- ## Check if String has all Unique characters
- */
+//: ---
+//: ## Check if String has all Unique characters
 // Approach I: ASCII (limit 256)
 func hasAllUniqueChars(string: String) -> Bool {
     if string.count>256 {
@@ -65,9 +57,8 @@ func hasAllUniqueChars(string: String) -> Bool {
 // Sort the string (n log n) and then check linearly
 // Approach IV:
 // Check every char of the string with every other char O(n^2)
-/*:
- ## Reverse a String: Approach I
- */
+//: ---
+//: ## Reverse a String: Approach I
 func reverseStringInPlace(string: String) -> String {
     guard string.count > 1 else {
         return string
@@ -83,11 +74,9 @@ func reverseStringInPlace(string: String) -> String {
     }
     return String(newString)
 }
-// Test Cases:
 //print(reverseStringInPlace(string: "Apple"))
-/*:
- ## Reverse a String: Approach II
- */
+//: ---
+//: ## Reverse a String: Approach II
 func reverseStringUsingIndex(string: String) -> String {
     var reverseString = String()
     for character in string {
@@ -95,12 +84,9 @@ func reverseStringUsingIndex(string: String) -> String {
     }
     return reverseString
 }
-// Test Cases:
 //print(reverseStringUsingIndex(string: "Apple"))
-/*:
- ## Check if String One is Permutation of String Two: Approach I
- Sort
- */
+//: ---
+//: ## Check if String One is Permutation of String Two: Approach I - Sort
 func permutationIstAppr(string1: String, string2: String) -> Bool {
     if string1.count != string2.count {
         return false
@@ -113,8 +99,8 @@ func permutationIstAppr(string1: String, string2: String) -> Bool {
         return false
     }
 }
-// Test Cases:
 //print(permutationIstAppr(string1: "Swapnil", string2: "nilSwap"))
+//: ---
 /*:
  ## Check if String One is Permutation of String Two: Approach II
  Check if two strings have identical count for each unique char
@@ -136,12 +122,11 @@ func permutationIIndAppr(string1: String, string2: String) -> Bool {
     }
     return true
 }
-// Test Cases:
 //print(permutationIIndAppr(string1: "Swapnil", string2: "nilswap"))
-// TODO:- Bug >> print(permutationIIndAppr(string1: "Swapnilxxxyy", string2: "nilSwapxxyyy"))
-/*:
- ## Replace all spaces in String with %20
- */
+//print(permutationIIndAppr(string1: "Swapnilxxxyy", string2: "nilSwapxxyyy"))
+// TODO: Bug.
+//: ---
+//: ## Replace all spaces in String with %20
 func replaceSpace(charArr: [Character], length: Int) {
     var charArr = charArr
     var spaceCount = 0
@@ -166,14 +151,15 @@ func replaceSpace(charArr: [Character], length: Int) {
     }
     print(charArr)
 }
-// Test Cases:
-//replaceSpace(charArr: [" ","W"," ","P","N","I"," "," "," "," "," "," "," "," "," "], length: 7)
+//replaceSpace(
+//    charArr: [" ","W"," ","P","N","I"," "," "," "," "," "," "," "," "," "],
+//     length: 7)
+//: ---
 /*:
  ## Basic String Compression
- */
-/*
- Input: SSJJSJ
- Output: S2J2S1J1
+ 
+    Input: SSJJSJ
+    Output: S2J2S1J1
 */
 func countCompress(str: String) -> Int {
     if str.count <= 1{
@@ -195,7 +181,6 @@ func countCompress(str: String) -> Int {
     compressedStringSize += 1 + String(count).count
     return compressedStringSize
 }
-// Test Cases:
 //print(countCompress(str: "SSSSJJJJSSSSJJJ"))
 //print(countCompress(str: "SJSJ"))
 //print(countCompress(str: "JJJJJJJJJJ"))
@@ -219,13 +204,11 @@ func compressedString(str: String) -> String {
     compressedStr.append(String(count))
     return compressedStr
 }
-// Test Cases:
 //print(compressedString(str: "SSSSJJJJSSSSJJJJ"))
 //print(compressedString(str: "SJSJSJSJSJSJSJSJ"))
 //print(compressedString(str: "SJ"))
-/*:
- ## Check If String 2 is a rotatin of String 1
- */
+//: ---
+//: ## Check If String 2 is a rotatin of String 1
 func isRotation(s1: String, s2: String) -> Bool {
     if s1.count == s2.count && s1.count > 0 {
         let s1s1 = s1 + s1
@@ -254,12 +237,10 @@ func isSubstring(s1: String, s2: String) -> Bool {
     }
     return false
 }
-// Test Cases:
 //print(isSubstring(s1: "SwapnilJain", s2: "jain"))
 //print(isRotation(s1: "SwapnilJain", s2: "JainSwapnil"))
-/*:
- ## Convert String to Int
- */
+//: ---
+//: ## Convert String to Int
 func stringToInt(_ string: String) -> Int? {
     var number = 0
     var multipler = 1
@@ -273,15 +254,13 @@ func stringToInt(_ string: String) -> Int? {
     }
     return number
 }
-// Test Cases:
 //print(stringToInt("1"))
 //print(stringToInt("99"))
 //print(stringToInt("101"))
 //print(stringToInt("1009"))
 //print(stringToInt("10900"))
-/*:
- ## Check if the string is Palindrome
- */
+//: ---
+//: ## Check if the string is Palindrome
 func isPalindrome(string: String) -> Bool {
     for index in 0..<string.count/2 {
         let charFromStart = string[string.index(string.startIndex, offsetBy: index)]
@@ -297,22 +276,25 @@ func isPalindrome(string: String) -> Bool {
     }
     return true
 }
-// Test Cases:
 //print(isPalindrome(string: "AppleXelppA"))
 //print(isPalindrome(string: "civic"))
 //print(isPalindrome(string: "Apple"))
+//: ---
 /*:
  ## String comparison
  * Write a comparator that takes two strings and returns a standard integer value:
- *          something negative if the first string is "smaller,"
- *          zero if they are "equal,"
- *          and something positive if the first string is "larger."
+ 
+        something negative if the first string is "smaller,"
+        zero if they are "equal,"
+        and something positive if the first string is "larger."
  * We want to agree with the standard comparator for all cases except one:
  * if we encounter a consecutive string of integers, we want to read it for its numeric value,
  * and use that as the comparison.
  *
- * For instance, in the standard string comparator, "a10b" comes before "a2b", because 'a' == 'a' and '1' < '2'.
- * In our string ordering, I want to reverse this, instead parsing it so that we see 'a' == 'a', but 10 > 2.
+ * For instance, in the standard string comparator, "a10b" comes before "a2b", because 'a' == 'a'
+ * and '1' < '2'.
+ * In our string ordering, I want to reverse this, instead parsing it so that we see 'a' == 'a',
+ * but 10 > 2.
  *
  */
 func compareStrings(stringA: String, stringB: String) -> Int {
@@ -388,11 +370,9 @@ func compareStrings(stringA: String, stringB: String) -> Int {
 //print(compareStrings(stringA: "99xx99", stringB: "99xx99"))
 //print(compareStrings(stringA: "abcde", stringB: "abcde"))
 //print(compareStrings(stringA: "abcdezy", stringB: "abcde"))
-
-/*:
- ## Find out the first non-repeating character in a String
- * O(n^2)
- */
+//: ---
+//: ## Find out the first non-repeating character in a String
+//: Time complexity - O(n^2)
 func firstNonRepeatingCharacter(string: String) -> Character? {
     var aSet = Set<Character>()
     var outerIndex = 0
@@ -415,26 +395,26 @@ func firstNonRepeatingCharacter(string: String) -> Character? {
     }
     return nil
 }
-//print(firstNonRepeatingCharacter(string: "Apple") ?? "No non-repeating character found.")
-//print(firstNonRepeatingCharacter(string: "AApple") ?? "No non-repeating character found.")
-//print(firstNonRepeatingCharacter(string: "AApplle") ?? "No non-repeating character found.")
-//print(firstNonRepeatingCharacter(string: "AAppllee") ?? "No non-repeating character found.")
-//print(firstNonRepeatingCharacter(string: "AaaaaaaAxxyyabc") ?? "No non-repeating character found.")
-
-/*:
- ## Check if a string is an edit apart from the other one.
- */
-
+//print(firstNonRepeatingCharacter(string: "Apple") ??
+//    "No non-repeating character found.")
+//print(firstNonRepeatingCharacter(string: "AApple") ??
+//    "No non-repeating character found.")
+//print(firstNonRepeatingCharacter(string: "AApplle") ??
+//    "No non-repeating character found.")
+//print(firstNonRepeatingCharacter(string: "AAppllee") ??
+//    "No non-repeating character found.")
+//print(firstNonRepeatingCharacter(string: "AaaaaaaAxxyyabc") ??
+//    "No non-repeating character found.")
+//: ---
+//: ## Check if a string is an edit apart from the other one.
 func oneEditApart(string1: String, string2: String) -> Bool {
   var arr1 = Array(string1), arr2 = Array(string2)
   if (arr1.count < arr2.count) {
     swap(&arr1, &arr2)
   }
-  
   if(arr1.count - arr2.count > 1) {
     return false
   }
-  
   var idx1 = 0, idx2 = 0
   var mismatchCount = 0
   while idx2 != arr2.count {
@@ -452,12 +432,11 @@ func oneEditApart(string1: String, string2: String) -> Bool {
   }
   return true
 }
-
 //print(oneEditApart(string1: "cat", string2: "dog"))
 //print(oneEditApart(string1: "cat", string2: "cats"))
 //print(oneEditApart(string1: "cat", string2: "cut"))
 //print(oneEditApart(string1: "cat", string2: "cast"))
 //print(oneEditApart(string1: "cat", string2: "at"))
 //print(oneEditApart(string1: "cat", string2: "act"))
-
+//: ---
 //: [Next](@next)
