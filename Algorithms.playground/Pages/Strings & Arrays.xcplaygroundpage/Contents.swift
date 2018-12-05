@@ -138,13 +138,12 @@ func convertArayIntoZigZag(array: [Int]) -> [Int] {
 func possibleSortedArrays(arrayA: [Int], arrayB: [Int]) -> [[Int]] {
   var outputArray = [[Int]]()
   for indexA in 0..<arrayA.count {
-    var valueA = arrayA[indexA]
     var indexA1 = indexA
     var indexB = 0
     var resultArray = [Int]()
     while indexB < arrayB.count {
-      var lastValA = arrayA[indexA1]
-      var lastValB = arrayB[indexB]
+      let lastValA = arrayA[indexA1]
+      let lastValB = arrayB[indexB]
       if lastValA < lastValB {
         resultArray.append(lastValA)
         resultArray.append(lastValB)

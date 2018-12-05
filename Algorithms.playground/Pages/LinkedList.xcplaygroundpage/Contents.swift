@@ -1,18 +1,20 @@
 //: [Previous](@previous)
-//: # Linked List
 //: ---
-//: ## Node Class
+//: # TOP 10 ALGORITHMS
+//: ---
+//: ## SECTION VI: Linked List
+//: ---
+//: ## Data Structure
 import Foundation
 class Node {
   var next: Node?
   var data: Int
-  
   init(value: Int) {
     data = value
   }
 }
 //: ---
-//: ## Linked List Operations - Append, Delete, Traverse
+//: ## #1. Linked List Operations - Append, Delete, Traverse
 class LinkedList {
   var head: Node?
   func appendToTail(value: Int) {
@@ -77,6 +79,78 @@ class LinkedList {
 //print(linkedList.traverseLinkedList())
 //linkedList.deleteNode(value: 15)
 //print(linkedList.traverseLinkedList())
+//: ---
+//: ## #2. Given a linked list which is sorted, insert a node in sorted way
+func insertInSortedLinkedList(head: Node, value: Int) -> Node {
+  var head = head
+  let node = Node(value: value)
+  if value <= head.data {
+    node.next = head
+    head = node
+  } else {
+    var runner = head
+    while runner.next != nil && runner.next!.data < value {
+      runner = runner.next!
+    }
+    node.next = runner.next
+    runner.next = node
+  }
+  return head
+}
+//var linkedList: LinkedList = LinkedList()
+//linkedList.appendToTail(value: 5)
+//linkedList.appendToTail(value: 10)
+//linkedList.appendToTail(value: 20)
+//linkedList.head = insertInSortedLinkedList(head: linkedList.head!, value: 25)
+//linkedList.traverseLinkedList()
+//: ---
+/*:
+ ## #3. Compare two strings represented as linked lists
+ Given two linked lists, represented as linked lists (every character is a node in linked list).
+ Write a function compare() that works similar to strcmp(), i.e., it returns 0 if both strings are
+ same, 1 if first linked list is lexicographically greater, and -1 if second string is
+ lexicographically greater.
+ 
+    Input: list1 = g->e->e->k->s->a, list2 = g->e->e->k->s->b
+    Output: -1
+ 
+    Input: list1 = g->e->e->k->s->a, list2 = g->e->e->k->s
+    Output: 1
+ 
+    Input: list1 = g->e->e->k->s, list2 = g->e->e->k->s
+    Output: 0
+ */
+//: ---
+/*:
+ ## #4. Add two numbers represented by linked lists
+ 
+    Input: 5->6->3  and 8->4->2
+    Output: 1->4->0->5
+ */
+//: ---
+/*:
+ ## #5. Merge a linked list into another linked list at alternate positions
+ 
+    Input:  5->7->17->13->11 and 12->10->2->4->6
+    Output: 5->12->7->10->17->2->13->4->11->6 and nil
+ 
+    Input: 1->2->3 and 4->5->6->7->8
+    Output: 1->4->2->5->3->6 and 7->8
+ */
+//: ---
+/*
+ ## #6. Reverse a Linked List in groups of given size
+ 
+    Inputs:  1->2->3->4->5->6->7->8->NULL and k = 3
+    Output:  3->2->1->6->5->4->8->7->NULL.
+ 
+    Inputs:  1->2->3->4->5->6->7->8->NULL and k = 5
+    Output:  5->4->3->2->1->8->7->6->NULL.
+ */
+//: ---
+
+//: ---
+//: ## Rest All
 //: ---
 /*:
  ## Remove duplicates from unsorted linked list

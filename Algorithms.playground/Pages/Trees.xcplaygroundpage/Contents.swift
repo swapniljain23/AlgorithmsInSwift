@@ -88,9 +88,9 @@ func maxPathSum(root: Node, result: inout Int) -> Int {
     rightSum = maxPathSum(root: right, result: &result)
   }
   // At-most one child of root.
-  var sum = [[leftSum, rightSum].max()! + root.value, root.value].max()!
+  let sum = [[leftSum, rightSum].max()! + root.value, root.value].max()!
   // When node is under consideration.
-  var maxInPath = [sum, leftSum + rightSum + root.value].max()!
+  let maxInPath = [sum, leftSum + rightSum + root.value].max()!
   result = [result, maxInPath].max()!
   
   return sum
