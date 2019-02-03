@@ -603,4 +603,110 @@ func bagHoldingDescription(_ holdings: [BagItem]) {
   print(dictionary)
 }
 //bagHoldingDescription(data)
+//: ---
+func closestXdestinations(numDestinations: Int,
+                             allLocations: [[Int]],
+                            numDeliveries: Int) -> [[Int]] {
+  var listOfElements = [[Int]]()
+  // Return empty list if numDeliveries are more than numDestinations.
+  if numDeliveries > numDestinations {
+    return listOfElements
+  }
+  // Create an array to store sqrt of each locations and its index.
+  var sqrtArray = [(Double, Int)]()
+  var index = 0
+  for element in allLocations {
+    sqrtArray.append((sqrt(Double((element[0] * element[0]) + (element[1] * element[1]))),
+                      index))
+    index += 1
+  }
+  // Sort the sqrt array.
+  sqrtArray.sort(by: {$0.0 < $1.0})
+  // Now append the locations upto numDeliveries for the index stored in sqrt array.
+  for count in 0..<numDeliveries {
+    let index = sqrtArray[count].1
+    listOfElements.append(allLocations[index])
+  }
+  return listOfElements
+}
+//print(closestXdestinations(numDestinations: 3,
+//                              allLocations: [[1, 2],[3, 4],[1, -1]],
+//                             numDeliveries: 2))
+//
+//print(closestXdestinations(numDestinations: 3,
+//                              allLocations: [[1, 2],[1, -1],[1, -1]],
+//                             numDeliveries: 1))
+//: ---
+func optimalUtilization(deviceCapacity: Int,
+                     foregroundAppList: [[Int]],
+                     backgroundAppList: [[Int]]) -> [[Int]] {
+  var finalList = [[Int]]()
+  var maxCapacity = 0
+  for fgApp in foregroundAppList {
+    for bgApp in backgroundAppList {
+      // Calculate the capacity for the given fgApp and bgApp.
+      let capacity = fgApp[1] + bgApp[1]
+      if capacity <= deviceCapacity && capacity >= maxCapacity {
+        if capacity == maxCapacity {
+          // We've got the capacity matching with the current maximum.
+          finalList.append([fgApp[0], bgApp[0]])
+        } else {
+          maxCapacity = capacity
+          // We've got better capacity than the previous.
+          // Remove all previous one/s and append new one.
+          finalList.removeAll()
+          finalList.append([fgApp[0], bgApp[0]])
+        }
+      }
+    }
+  }
+  return finalList
+}
+//print(optimalUtilization(deviceCapacity: 10,
+//                      foregroundAppList: [[1, 3], [2, 5], [3, 7], [4, 10]],
+//                      backgroundAppList: [[1, 2], [2, 3], [3, 4], [4, 5]]))
+//print(optimalUtilization(deviceCapacity: 7,
+//                      foregroundAppList: [[1, 2], [2, 4], [3, 6]],
+//                      backgroundAppList: [[1, 2]]))
+//: ---
+/*:
+ ## Find the year with the hightes population.
+ Given a list of people with their birth and death year, find the year with the hightest
+ population.
+ */
+struct Person {
+  var birthYear: Int
+  var deathYear: Int
+}
+func getPeakPopulationYear(people: [Person]) -> Int {
+  let firstBirth = people.min(by: { $0.birthYear < $1.birthYear })!.birthYear
+  let lastBirth = people.max(by: { $0.birthYear < $1.birthYear })!.birthYear
+  var population = Array(repeating: 0, count: lastBirth - firstBirth + 1)
+  for person in people {
+    population[person.birthYear-firstBirth] += 1
+    if person.deathYear >= firstBirth && person.deathYear <= lastBirth {
+      population[person.deathYear-firstBirth] -= 1
+    }
+  }
+  var peakPopulation = 0
+  var runningPopulation = 0
+  var peakPopulationYear = firstBirth
+  for index in 0..<population.count {
+    runningPopulation += population[index]
+    if runningPopulation > peakPopulation {
+      peakPopulation = runningPopulation
+      peakPopulationYear = firstBirth + index
+    }
+  }
+  return peakPopulationYear
+}
+//print(getPeakPopulationYear(people: [Person(birthYear: 2000, deathYear: 2010),
+//                                     Person(birthYear: 1975, deathYear: 2005),
+//                                     Person(birthYear: 1975, deathYear: 2003),
+//                                     Person(birthYear: 1803, deathYear: 1809),
+//                                     Person(birthYear: 1750, deathYear: 1869),
+//                                     Person(birthYear: 1842, deathYear: 1935),
+//                                     Person(birthYear: 1803, deathYear: 1921),
+//                                     Person(birthYear: 1894, deathYear: 1921)]))
+//: ---
 //: [Next](@next)
