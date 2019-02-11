@@ -1,9 +1,9 @@
 //: [Previous](@previous)
 //: # TOP 10 ALGORITHMS
 //: ---
-//: ## SECTION IV: Tree / Binary Search Tree.
+//: ## SECTION IV: Tree / Binary Search Tree
 //: ---
-//: ## Data Structure
+//: ## Data structure
 import Foundation
 class Node {
   var value: Int
@@ -38,7 +38,7 @@ node4.left = node8
 node7.right = node9
 //: ---
 /*:
- ## #1. Find Minimum Depth of a Binary Tree.
+ ## #1. Find minimum depth of a binary tree (level order traversal)
  The minimum depth is the number of nodes along the shortest path from root node down to the nearest
  leaf node.
  */
@@ -73,7 +73,7 @@ func minDepthWithLevelOrderTraversal(root: Node) -> Int {
 //print(minDepthWithLevelOrderTraversal(root: node1))
 //: ---
 /*:
- ## #2. Maximum Path Sum in a Binary Tree
+ ## #2. Maximum path sum in a binary tree
  Given a binary tree, find the maximum path sum. The path may start and end at any
  node in the tree.
 */
@@ -103,10 +103,9 @@ func maxPathSum(root: Node, result: inout Int) -> Int {
 //print(result) // 154
 //: ---
 /*:
- ## #3. Check if a given array can represent Preorder Traversal of Binary Search
- ## Tree
+ ## #3. Check if an array can represent preorder traversal of binary search tree
  Given an array of numbers, return true if given array can represent preorder
- traversal of a Binary Search Tree, else return false. Expected time complexity is
+ traversal of a binary search tree, else return false. Expected time complexity is
  O(n).
  
     Input - {2, 3, 4}
@@ -160,7 +159,7 @@ func isFullBinaryTree(tree: Node) -> Bool {
 //: ---
 //: # REST ALL
 /*:
- ## Level Order Tree Traversal: With Buffer
+ ## 1. Level order tree traversal
  Print the binary tree where all nodes in the same hierarchy (depth) should be printed in the same
  line.
  
@@ -176,6 +175,7 @@ func isFullBinaryTree(tree: Node) -> Bool {
     4567
     89
  */
+// With buffer.
 func levelOrderTreeTraversal(root: Node) {
   var queue = [root]
   var childCount = 0
@@ -200,8 +200,6 @@ func levelOrderTreeTraversal(root: Node) {
   }
 }
 //levelOrderTreeTraversal(root: node1)
-//: ---
-//: ## Height of the Tree.
 func maxDepth(_ root: Node?) -> Int {
     guard let root = root else {
         return 0
@@ -209,8 +207,7 @@ func maxDepth(_ root: Node?) -> Int {
     return 1 +  [maxDepth(root.left), maxDepth(root.right)].max()!
 }
 //print(maxDepth(node1))
-//: ---
-//: ## Level Order Tree Traversal: With No Buffer.
+// Without buffer.
 func levelOrderTreeTraversalWithNoBuffer(_ root: Node) {
     for level in 1...maxDepth(root) {
         traverseAlevel(root, level)
@@ -230,10 +227,8 @@ func traverseAlevel(_ root: Node?, _ level: Int) {
 }
 //levelOrderTreeTraversalWithNoBuffer(node1)
 //: ---
-/*:
- ## Inorder travesal
- Left, Root, Right
- */
+//: ## 2. Inorder, preorder, postorder traversal
+// Inorder - Left, Root, Right
 func inorderTraversal(_ root: Node?) {
     guard let root = root else {
         return
@@ -243,11 +238,7 @@ func inorderTraversal(_ root: Node?) {
     inorderTraversal(root.right)
 }
 //print(inorderTraversal(node1))
-//: ---
-/*:
- ## Preorder travesal
- Root, Left, Right
- */
+// Preorder - Root, Left, Right
 func preorderTraversal(_ root: Node?) {
     guard let root = root else {
         return
@@ -257,11 +248,7 @@ func preorderTraversal(_ root: Node?) {
     preorderTraversal(root.right)
 }
 //print(preorderTraversal(node1))
-//: ---
-/*:
- ## Postorder travesal
- Left, Right, Root
- */
+// Postorder - Left, Right, Root
 func postorderTraversal(_ root: Node?) {
     guard let root = root else {
         return
@@ -273,7 +260,7 @@ func postorderTraversal(_ root: Node?) {
 //print(postorderTraversal(node1))
 //: ---
 /*:
- ## Implement a function to check if a tree is balanced.
+ ## 3. Implement a function to check if a tree is balanced.
  A balanced tree is defined to be a tree such that no two leaf nodes differ in distance from the
  root by more than one.
  */
@@ -288,54 +275,44 @@ func isBalanced(_ root: Node) -> Bool {
 }
 //print(isBalanced(node1))
 //: ---
-//: ## Insertion in Binary Search Tree.
-extension Tree {
-    func insertNode(newValue: Int) {
-        guard let root = root else {
-            self.root = Node(value: newValue)
-            return
-        }
-        insertNode(current: root, newValue: newValue)
-    }
-    private func insertNode(current: Node, newValue: Int) {
-        if newValue < current.value {
-            if let left = current.left {
-                insertNode(current: left, newValue: newValue)
-            } else {
-                current.left = Node(value: newValue)
-            }
-        } else {
-            if let right = current.right {
-                insertNode(current: right, newValue: newValue)
-            } else {
-                current.right = Node(value: newValue)
-            }
-        }
-    }
-}
-//let tree = Tree(node1)
-//print(inorderTraversal(tree.root))
-//tree.insertNode(newValue: 2)
-//print(inorderTraversal(tree.root))
-//tree.insertNode(newValue: -14)
-//print(inorderTraversal(tree.root))
-//tree.insertNode(newValue: 251)
-//print(inorderTraversal(tree.root))
-//tree.insertNode(newValue: 191)
-//print(inorderTraversal(tree.root))
-//: ---
 /*:
- ## 1. Deletion in Binary Search Tree.
- ## 2. Find a node in Binary Search Tree.
- ## 3. Find the parent of a node in Binary Search Tree.
+ ## 4. Insertion in BST
+ ## 5. Deletion in BST
+ ## 6. Find a node in BST
+ ## 7. Find the parent of a node in BST
  */
 extension Tree {
+  
+    func insertNode(newValue: Int) {
+      guard let root = root else {
+        self.root = Node(value: newValue)
+        return
+      }
+      insertNode(current: root, newValue: newValue)
+    }
+  
+    private func insertNode(current: Node, newValue: Int) {
+      if newValue < current.value {
+        if let left = current.left {
+          insertNode(current: left, newValue: newValue)
+        } else {
+          current.left = Node(value: newValue)
+        }
+      } else {
+        if let right = current.right {
+          insertNode(current: right, newValue: newValue)
+        } else {
+          current.right = Node(value: newValue)
+        }
+      }
+    }
+  
     func removeNode(value: Int) -> Bool {
         guard let nodeToRemove = findNode(value: value, root: root) else {
             return false
         }
         let parentNode = findParent(value: value, root: root)
-        if (parentNode == nil && nodeToRemove.left == nil && nodeToRemove.right == nil) {
+        if parentNode == nil && nodeToRemove.left == nil && nodeToRemove.right == nil {
             root = nil
             return true
         } else if nodeToRemove.left == nil && nodeToRemove.right == nil {
@@ -417,13 +394,24 @@ extension Tree {
 }
 //let tree = Tree(node1)
 //print(inorderTraversal(tree.root))
+//tree.insertNode(newValue: 2)
+//print(inorderTraversal(tree.root))
+//tree.insertNode(newValue: -14)
+//print(inorderTraversal(tree.root))
+//tree.insertNode(newValue: 251)
+//print(inorderTraversal(tree.root))
+//tree.insertNode(newValue: 191)
+//print(inorderTraversal(tree.root))
+//
+//let tree = Tree(node1)
+//print(inorderTraversal(tree.root))
 //tree.removeNode(value: 11)
 //tree.removeNode(value: 51)
 //tree.removeNode(value: 101)
 //tree.removeNode(value: 151)
 //print(inorderTraversal(tree.root))
 //: ---
-//: ## Finding the smallest and largest values in the binary search tree.
+//: ## 8. Finding the smallest and largest values in the binary search tree.
 func findMin(_ root: Node) -> Node {
     if let left = root.left {
         return findMin(left)
@@ -439,7 +427,7 @@ func findMax(_ root: Node) -> Node {
 //print(findMin(node1).value)
 //print(findMax(node1).value)
 //: ---
-//: ## Print all leaf nodes with their complete path
+//: ## 9. Print all leaf nodes with their complete path
 func printLeafNodes(root: Node, parents: inout [Node]) {
   if root.left == nil && root.right == nil {
     printNodes(parents)

@@ -1,9 +1,8 @@
 //: [Previous](@previous)
-/*:
- # LeetCode Challenges
- */
+//: # LeetCode Challenges
+//: ---
+//: ## Data structure
 import Foundation
-
 class ListNode {
   var val: Int
   var next: ListNode?
@@ -34,12 +33,10 @@ l4.next = l5
 l5.next = l6
 l6.next = l7
 l7.next = l8
-/*:
- ## Difficulty: Easy
- */
-/*:
- ## Sum of two
- */
+//: ---
+//: ## Difficulty: Easy
+//: ---
+//: ## 1. Sum of two
 func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
     for (index, value) in nums.enumerated() {
         let valueTobeSearched = target - value
@@ -52,9 +49,8 @@ func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
     return []
 }
 //print(twoSum([2, 7, 11, 15], 9))
-/*:
- ## Find out if the number is Palindrome
- */
+//: ---
+//: ## 2. Find out if the number is Palindrome
 func isPalindrome(_ number: Int) -> Bool {
     if number < 0 || (number != 0 && number % 10 == 0) {
         return false
@@ -76,9 +72,8 @@ func isPalindrome(_ number: Int) -> Bool {
 //print(isPalindrome(121))
 //print(isPalindrome(1221))
 //print(isPalindrome(1225221))
-/*:
- ## Reverse Integer
- */
+//: ---
+//: ## 3. Reverse an integer
 func reverse(_ number: Int) -> Int {
     var number = Int32(number)
     var reverseNo = Int32(0)
@@ -101,8 +96,9 @@ func reverse(_ number: Int) -> Int {
 //print(reverse(2147483647))
 //print(reverse(-2147483648))
 //print(reverse(100900))
+//: ---
 /*:
- ## String Compression - Array Of Characters
+ ## 4. String Compression - Array Of Characters
  * Given an array of characters, compress it in-place.
  * The length after compression must always be smaller than or equal to the original array.
  * Every element of the array should be a character (not int) of length 1.
@@ -141,8 +137,9 @@ func compress(_ chars: inout [Character]) -> Int {
 //var charArr: [Character] = ["a","b","c","d","e","e","e","e","f","g"]
 //print(compress(&charArr))
 //print(charArr)
+//: ---
 /*:
- ## Roman to Int
+ ## 5. Roman to Int
  * Given a roman numeral, convert it to an integer.
  * Input is guaranteed to be within the range from 1 to 3999.
  */
@@ -166,7 +163,6 @@ func getDigit(char: Character) -> Int {
       return 0
   }
 }
-
 func romanToInt(_ roman: String) -> Int {
     if roman.isEmpty {
         return 0
@@ -184,11 +180,11 @@ func romanToInt(_ roman: String) -> Int {
     }
     return total
 }
-// Test Cases:
 //print(romanToInt("CXIV"))
+//: ---
 /*:
- ## Longest Common Prefix
- * Write a function to find the longest common prefix string amongst an array of strings.
+ ## 6. Longest common prefix
+ Write a function to find the longest common prefix string amongst an array of strings.
  */
 func longestCommonPrefix(_ strs: [String]) -> String {
     var resultString = ""
@@ -196,9 +192,9 @@ func longestCommonPrefix(_ strs: [String]) -> String {
         return resultString
     }
     for index in 0..<strs[0].count {
-        let charAtIndex = Array(strs[0].characters)[index]
+        let charAtIndex = Array(strs[0])[index]
         for string in strs {
-            if index == string.count || charAtIndex != Array(string.characters)[index] {
+            if index == string.count || charAtIndex != Array(string)[index] {
                 return resultString
             }
         }
@@ -207,10 +203,10 @@ func longestCommonPrefix(_ strs: [String]) -> String {
     return resultString
 }
 //print(longestCommonPrefix(["LettApp", "L", "LeeTDO"]))
+//: ---
 /*:
- ## Valid Parentheses
+ ## 7. Valid parentheses
  * Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
- 
  * The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
  */
 func isValid(_ s: String) -> Bool {
@@ -241,12 +237,13 @@ func isValid(_ s: String) -> Bool {
 //print(isValid("()[]{}"))
 //print(isValid("(]"))
 //print(isValid("([)]"))
+//: ---
 /*:
- ## Merge two sorted list
+ ## 8. Merge two sorted list
  * Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
  */
 func mergeTwoLists(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
-    guard let l11 = l1, let l22 = l2 else {
+    guard let _ = l1, let _ = l2 else {
         return l1 == nil ? l2 : l1
     }
     var l1 = l1, l2 = l2
@@ -272,9 +269,9 @@ func mergeTwoLists(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
     l1 != nil ? (runner?.next = l1) : (runner?.next = l2)
     return root
 }
-// Test Cases:
+//: ---
 /*:
- ## Remove Duplicates from Sorted Array
+ ## 9. Remove duplicates from sorted array
  * Given a sorted array, remove the duplicates in-place such that each element appear only once and return the new length.
  * Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
  */
@@ -289,12 +286,12 @@ func removeDuplicates(_ nums: inout [Int]) -> Int {
     }
     return write
 }
-// Test Cases:
 //var anArr = [1, 1, 2]
 //print(removeDuplicates(&anArr))
 //print(anArr)
+//: ---
 /*:
- ## Sqrt(x)
+ ## 10. Sqrt(x)
  * Implement int sqrt(int x).
  * Compute and return the square root of x.
  * x is guaranteed to be a non-negative integer.
@@ -309,14 +306,14 @@ func mySqrt(_ x: Int) -> Int {
 //print(mySqrt(25))
 //print(mySqrt(2))
 //print(mySqrt(18))
-
+// Square root with binary search
 func mySqrtWithBSearch(_ x: Int) -> Int {
     if x == 0 {
         return 0
     }
     var left = 1, right = x
     while true {
-        var mid = Int(left + (right-left)/2)
+        let mid = Int(left + (right-left)/2)
         if mid > x/mid {
             right = mid - 1
         } else {
@@ -330,11 +327,11 @@ func mySqrtWithBSearch(_ x: Int) -> Int {
 //print(mySqrtWithBSearch(25))
 //print(mySqrtWithBSearch(2))
 //print(mySqrtWithBSearch(8))
+//: ---
+//: ## Difficulty: Medium
+//: ---
 /*:
- ## Difficulty: Medium
- */
-/*:
- ## Maximum Length of Repeated Subarray
+ ## 1. Maximum length of repeated subarray
  * Given two integer arrays A and B, return the maximum length of an subarray that appears in both arrays.
  
         Input:
@@ -346,7 +343,8 @@ func mySqrtWithBSearch(_ x: Int) -> Int {
  */
 func findLength(_ A: [Int], _ B: [Int]) -> Int {
     var maxLength = 0
-    var newArr = Array(repeating: Array(repeating: 0, count:B.count+1) , count: A.count+1)
+    var newArr = Array(repeating: Array(repeating: 0, count:B.count+1),
+                       count: A.count+1)
     for indexA in stride(from: A.count-1, through: 0, by: -1) {
         for indexB in stride(from: B.count-1, through: 0, by: -1) {
             if A[indexA] == B[indexB] {
@@ -362,8 +360,9 @@ func findLength(_ A: [Int], _ B: [Int]) -> Int {
 //print(findLength([1,2,3,2,1], [3,2,1,4,7]))
 //print(findLength([3,2,1,4,7], [1,2,3,2,1]))
 //print(findLength([0,0,0,0,1], [1,0,0,0,0]))
+//: ---
 /*:
- ## Add two numbers
+ ## 2. Add two numbers
  * You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
  * You may assume the two numbers do not contain any leading zero, except the number 0 itself.
  
@@ -394,19 +393,15 @@ func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
     }
     return list.next
 }
-//// Test Cases:
-//// Test #1:
 //var result = addTwoNumbers(l1, l4)
 //print(result!.traverse())
-//// Test #2:
 //var resultNew = addTwoNumbers(l7, l8)
 //print(resultNew!.traverse())
-/*:
- ## String to Int
- */
+//: ---
+//: ## 3. String to Int
 extension Character {
     var asciiValue: UInt32? {
-        return String(self).unicodeScalars.filter{$0.isASCII}.first?.value
+        return String(self).unicodeScalars.filter{ $0.isASCII }.first?.value
     }
 }
 
@@ -416,44 +411,39 @@ func stringToInt(_ string: String) -> Int {
     }
     var total = Int32(0), sign = Int32(1), index = 0
     let anArray = Array(string)
-    
     // Remove spaces
     while anArray[index] == " " && index < anArray.count {
         index += 1
     }
-    
     // Handle signs
     if anArray[index] == "+" || anArray[index] == "-" {
         sign = anArray[index] == "+" ? 1 : -1
         index += 1
     }
-    
     // Convert number and avoid overflow
     while index < anArray.count {
         let digit = anArray[index]
         if let ascii = digit.asciiValue, ascii >= 48, ascii <= 57,
           let value = Int32(String(digit)) {
             // Check for overflow
-            if Int32.max / 10 < total || Int32.max / 10 == total && Int32.max % 10 < value {
+            if Int32.max / 10 < total || (Int32.max / 10 == total && Int32.max % 10 < value) {
                 return sign == 1 ? Int(Int32.max) : Int(Int32.min)
             }
             total = total * Int32(10) + value
-        }else{
+        } else {
             break
         }
         index += 1
     }
     return Int(total * sign)
 }
-// Test Cases:
 //print(stringToInt(""))
 //print(stringToInt("+-2"))
 //print(stringToInt("21474836472147483647"))
 //print(stringToInt("    -123456789"))
 //print(stringToInt("2147483648"))
-/*:
- ## Implement pow(x, n)
- */
+//: ---
+//: ## 4. Implement pow(x, n)
 func myPow(_ x: Double, _ n: Int) -> Double {
     if n == 0 {
         return 1
@@ -465,7 +455,6 @@ func myPow(_ x: Double, _ n: Int) -> Double {
     }
     return n == 2 ? x * x : (n % 2 == 0 ? myPow(myPow(x, n/2), 2) : x * myPow(myPow(x, n/2), 2))
 }
-// Test Cases:
 //print(myPow(2, -3))
 //print(myPow(2, 4))
 //print(myPow(2, 0))
@@ -474,11 +463,10 @@ func myPow(_ x: Double, _ n: Int) -> Double {
 //print(myPow(-2, 2))
 //print(myPow(-2, -3))
 //print(myPow(1.00001, 123456))
-/*:
- ## Remove Nth Node From End of List
- */
+//: ---
+//: ## 5. Remove nTh node from end of the list
 func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
-    if n<1 { return nil }
+    if n < 1 { return nil }
     var runner = head
     var nTh = head
     var n_1th: ListNode?
@@ -492,7 +480,7 @@ func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
         runner = runner?.next
         nTh = nTh?.next
     }
-    // Remove nth node
+    // Remove nTh node
     if n_1th != nil {
         n_1th?.next = nTh?.next
     } else {
@@ -503,14 +491,11 @@ func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
 // Test Cases:
 //print(removeNthFromEnd(l1, 1)!.traverse())
 //print(removeNthFromEnd(l1, 8)!.traverse())
-/*:
- ## Difficulty: Hard
- */
-/*:
- ## Median of two sorted array
- */
+//: ---
+//: ## Difficulty: Hard
+//: ---
+//: ## 1. Median of two sorted array
 //func findMedianSortedArrays(_ nums1: [Int], _ nums2: [Int]) -> Double {
 //
 //}
-
 //: [Next](@next)

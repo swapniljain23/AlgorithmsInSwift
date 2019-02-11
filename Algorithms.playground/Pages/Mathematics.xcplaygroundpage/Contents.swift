@@ -3,21 +3,19 @@
  # Mathematics
  */
 /*:
- ## Find the median
+ ## 1. Find the median
  */
 import Foundation
-
 struct Business {
     var id: Int
     var rating: Double
 }
-
 func medianRating(of businesses: [Business]) -> Double {
     if businesses.count < 1 {
         return 0
     }
     var businesses = businesses.sorted {
-        return $0.rating < $1.rating ? true : false
+        return $0.rating < $1.rating
     }
     if businesses.count % 2 == 0 {
         let nThRating = businesses[(businesses.count/2)-1]
@@ -39,7 +37,7 @@ func medianRating(of businesses: [Business]) -> Double {
 //print(medianRating(of: [b1,b2,b3,b4,b5,b6,b7]))
 //print(medianRating(of: [b1,b2,b3,b4,b5,b6,b7,b8]))
 /*:
- ## LCM: Least/Lowest Common Multiple of 2 numbers
+ ## 2. LCM: Least/Lowest Common Multiple of 2 numbers
  */
 func lcmOfTwoNumbers(_ n1: Int, _ n2: Int) -> Int {
     if n1 == 0 || n2 == 0 {
@@ -61,7 +59,7 @@ func lcmOfTwoNumbers(_ n1: Int, _ n2: Int) -> Int {
 //print(lcmOfTwoNumbers(12, 18))
 //print(lcmOfTwoNumbers(240, 924))
 /*:
- ## LCM: Least/Lowest Common Multiple of n numbers
+ ## 3. LCM: Least/Lowest Common Multiple of n numbers
  ### Smaller Nos
  */
 func calculateSmallNosLCM(_ anArr: [Int]) -> Int {
@@ -96,7 +94,7 @@ func calculateSmallNosLCM(_ anArr: [Int]) -> Int {
 //print(calculateSmallNosLCM([10, 15, 20, 7]))
 //print(calculateSmallNosLCM([10, 15, 20, 7, 9]))
 /*:
- ## LCM: Least/Lowest Common Multiple of n numbers
+ ## 4. LCM: Least/Lowest Common Multiple of n numbers
  ### Large Nos
  */
 func calculateLargeNosLCM(_ anArr: [Int]) -> Int {
@@ -140,7 +138,7 @@ func calculateLargeNosLCM(_ anArr: [Int]) -> Int {
 //print(calculateLargeNosLCM([10, 15, 20, 7]))
 //print(calculateLargeNosLCM([10, 15, 20, 7, 9]))
 /*:
- ## HCF: Highest/Greatest Common Factor of 2 numbers
+ ## 5. HCF: Highest/Greatest Common Factor of 2 numbers
  */
 func hcfOfTwoNumbers(_ n1: Int, _ n2: Int) -> Int {
     if n1 == 0 || n2 == 0 {
@@ -156,13 +154,13 @@ func hcfOfTwoNumbers(_ n1: Int, _ n2: Int) -> Int {
     }
     return minNo
 }
-//print(hcfOfTwoNumbers(0, 0))
-//print(hcfOfTwoNumbers(1, 1))
-//print(hcfOfTwoNumbers(12, 12))
-//print(hcfOfTwoNumbers(12, 18))
-//print(hcfOfTwoNumbers(240, 924))
+//print(hcfOfTwoNumbers(0, 0)) // 0
+//print(hcfOfTwoNumbers(1, 1)) // 1
+//print(hcfOfTwoNumbers(12, 12)) // 12
+//print(hcfOfTwoNumbers(12, 18)) // 6
+//print(hcfOfTwoNumbers(240, 924)) // 12
 /*:
- ## HCF: Highest/Greatest Common Factor of n numbers
+ ## 6. HCF: Highest/Greatest Common Factor of n numbers
  ### Smaller Nos
  */
 func calculateSmallNosHCF(anArr: [Int]) -> Int {
@@ -202,7 +200,7 @@ func calculateSmallNosHCF(anArr: [Int]) -> Int {
 //print(calculateSmallNosHCF(anArr: [7, 17, 19, 23, 29]))
 //print(calculateSmallNosHCF(anArr: [12, 16, 20]))
 /*:
- ## HCF: Highest/Greatest Common Factor of n numbers
+ ## 7. HCF: Highest/Greatest Common Factor of n numbers
  ### Larger Nos
  */
 func calculateLargeNosHCF(anArr: [Int]) -> Int {
@@ -247,7 +245,7 @@ func calculateLargeNosHCF(anArr: [Int]) -> Int {
 //print(calculateLargeNosHCF(anArr: [1, 6, 8, 10, 12]))
 //print(calculateLargeNosHCF(anArr: [7, 17, 19, 23, 29]))
 /*:
- ## Print Fibonacci Series
+ ## 8. Print Fibonacci Series
  */
 func printFibonacci(_ n: Int) {
     var previous = 0
@@ -274,7 +272,7 @@ func printFibonacci(_ n: Int) {
 //printFibonacci(2)
 //printFibonacci(10)
 /*:
- ## Print nTh number in Fibonacci Series (Recursive)
+ ## 9. Print nTh number in Fibonacci Series (Recursive)
  ### Runtime: 0(2^n), Exponential
  */
 func fibonacciNthTerm(_ n: Int) -> Int {
@@ -292,7 +290,7 @@ func fibonacciNthTerm(_ n: Int) -> Int {
 //print(fibonacciNthTerm(2))
 //print(fibonacciNthTerm(10))
 /*:
- ## Print sum of n numbers in Fibonacci series
+ ## 10. Print sum of n numbers in Fibonacci series
  */
 func fibonacciSum(n: Int) -> Int {
     if n == 0 {
@@ -316,7 +314,7 @@ func fibonacciSum(n: Int) -> Int {
 //print(fibonacciSum(n: 2))
 //print(fibonacciSum(n: 10))
 /*:
- ## Check if the number is prime or not
+ ## 11. Check if the number is prime or not
  * primality test: trial division
  * https://en.wikipedia.org/wiki/Primality_test#Fast_deterministic_tests
  *       All integers can be formed by 6k + i
@@ -343,7 +341,7 @@ func isPrime(_ number: Int) -> Bool {
     return true
 }
 /*:
- ## Print the list of all PRIME numbers between num1 and num2
+ ## 12. Print the list of all PRIME numbers between num1 and num2
  */
 func printAllPrimeBetween(lower: Int, upper: Int) {
     for number in lower...upper {

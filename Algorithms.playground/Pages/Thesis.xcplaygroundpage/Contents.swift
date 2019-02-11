@@ -2,7 +2,7 @@
 //: # Thesis
 //: ---
 /*:
- ## Number of possibility
+ ## 1. Number of possibility
  Define f(0) = 1 and f(n) to be the number of different ways can be expressed as a sum of integer
  powers of 2 using each power no more than twice.\
  Formula: f(0) = 1 and f(2n+1) = f(n), f(2n) = f(n) + f(n-1)
@@ -21,7 +21,7 @@ func numberOfPossibility(n: Int) -> Int {
 //print(numberOfPossibility(n: 8))
 //: ---
 /*:
- ## Calculate angle between clock hands
+ ## 2. Calculate angle between clock hands
  Write a function which takes two integer parameters for time in hours and miniutes and return the
  minimum angle between two.\
  Assumption: Shoule accept hours in 24hr format.
@@ -62,7 +62,7 @@ func calculateAngle(hours: Int, mins: Int) -> Int {
 //print(calculateAngle(hours: 20, mins: 20))
 //print(calculateAngle(hours: 23, mins: 10))
 //: ---
-//: ## Check if two NSRange intersect each other
+//: ## 3. Check if two NSRange intersect each other
 func hasIntersection(range1: NSRange, range2: NSRange) -> Bool {
     if range1.location >= range2.location &&
         range1.location <= (range2.location + range2.length) {
@@ -77,7 +77,7 @@ func hasIntersection(range1: NSRange, range2: NSRange) -> Bool {
 //print(hasIntersection(range1: NSRange.init(location: 10, length: 250),
 //                      range2: NSRange.init(location: 100, length: 500)))
 //: ---
-//: ## Matrix Rotation
+//: ## 4. Matrix rotation
 //: Rotate the image by 90 degree.
 func performRotation( matrix: [[Int]], size: Int) -> [[Int]] {
     var matrix = matrix
@@ -103,7 +103,7 @@ func performRotation( matrix: [[Int]], size: Int) -> [[Int]] {
 //print(performRotation(matrix: [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]],
 //                        size: 4))
 //: ---
-//: ## Matrix manipulation
+//: ## 5. Matrix manipulation
 //: Set zeros: If an element is zero set its entire row and column to zero.
 func setZeros( anArray: [[Int]]) -> [[Int]] {
     var anArray = anArray
@@ -129,8 +129,8 @@ func setZeros( anArray: [[Int]]) -> [[Int]] {
 //print(setZeros(anArray: [[0,1,2],[3,4,5],[6,7,8]]))
 //: ---
 /*:
- ## Employee/Manager Problem
- Calculate the salary of Worker based on type.
+ ## 6. Employee/Manager problem
+ Calculate the salary of worker based on type.
 
     Input:
       If type = "Contractor" then salary = hourly rate
@@ -208,7 +208,7 @@ func sortedListOfSalaries(workers: [[String]]) -> [Int] {
 // 5 -> 140,000
 //: ---
 /*:
- ## Implement numeric addition of two Strings
+ ## 7. Implement numeric addition of two Strings
  
     Input: "12345", "123"
     Output: "12468"
@@ -249,7 +249,7 @@ func addTwoNumbers(string1: String, string2: String) -> String {
 //print(addTwoNumbers(string1: "101010", string2: "100000"))
 //: ---
 /*:
- ## Implement numeric subtraction of two Strings
+ ## 8. Implement numeric subtraction of two Strings
  
     Input: "12345", "123"
     Output: "12222"
@@ -259,7 +259,7 @@ func subtractTwoNumbers(string1: String, string2: String) {
     
 }
 //: ---
-//: ## Convert Int into formatted String
+//: ## 9. Convert INT into formatted String
 func intToString(number: Int, isLakhs: Bool=false) -> String {
     var outputString = ""
     let inputString = String(number)
@@ -290,7 +290,7 @@ func intToString(number: Int, isLakhs: Bool=false) -> String {
 //print(intToString(number: 123456))
 //: ---
 /*:
- ## Popular Colors
+ ## 10. Popular colors
  1. Accept an array of Strings
  ex. ["Green", "Blue", "Red", "Green", "Green", "Red"]
  2. Return the color that appears most often
@@ -327,7 +327,7 @@ func mostOftenColors(anArray: [String]) -> [String] {
 //print(mostOftenColors(anArray: ["Green", "Blue"]))
 //print(mostOftenColors(anArray: []))
 //: ---
-//: ## Implement UIControl Class
+//: ## 11. Implement UIControl class
 enum Event {
     case touchUpInside
     case touchDownInside
@@ -394,7 +394,7 @@ class MyControl {
 //control.takeAction(.touchDownInside) // No action.
 //: ---
 /*:
- ## Assign kids to teachers
+ ## 12. Assign kids to teachers
  Inputs:
  - List of kids (Strings)
  - List of teachers (Strings)
@@ -489,7 +489,7 @@ func assignKidsToTeachers(kids: [String],
 //                   maxClassSize: 3,
 //              teacherPreference: ["AA":["E"]]))
 //: ---
-//: ## Print look and say sequence.
+//: ## 13. Print look and say sequence
 func lookAndSaySequence(count: Int) {
   guard count > 0 else { return }
   var value  = "1"
@@ -529,17 +529,17 @@ func computeNextLookAndSaySequence(input: String) -> String {
 //lookAndSaySequence(count: 1) // 1
 //lookAndSaySequence(count: 10) // 1, 11, 21, 12211, ....
 //: ---
-//: ## Sleep sort.
+//: ## 14. Sleep sort.
 //TODO
 //: ---
-//: ## Implement Minesweeper.
+//: ## 15. Implement minesweeper.
 //TODO
 //: ---
-//: ## Implement Calendar.
+//: ## 16. Implement calendar.
 //TODO
 //: ---
 /*:
- ## Handlings of bags.
+ ## 17. Handlings of bags
     > "Item1"
     > "Item2"
     > "Bag Of Holdings"
@@ -604,6 +604,7 @@ func bagHoldingDescription(_ holdings: [BagItem]) {
 }
 //bagHoldingDescription(data)
 //: ---
+//: ## 18. Closest X destinations
 func closestXdestinations(numDestinations: Int,
                              allLocations: [[Int]],
                             numDeliveries: Int) -> [[Int]] {
@@ -637,6 +638,7 @@ func closestXdestinations(numDestinations: Int,
 //                              allLocations: [[1, 2],[1, -1],[1, -1]],
 //                             numDeliveries: 1))
 //: ---
+//: ## 19. Optimal utilization
 func optimalUtilization(deviceCapacity: Int,
                      foregroundAppList: [[Int]],
                      backgroundAppList: [[Int]]) -> [[Int]] {
@@ -670,7 +672,7 @@ func optimalUtilization(deviceCapacity: Int,
 //                      backgroundAppList: [[1, 2]]))
 //: ---
 /*:
- ## Find the year with the hightes population.
+ ## 20. Find the year with the hightes population
  Given a list of people with their birth and death year, find the year with the hightest
  population.
  */

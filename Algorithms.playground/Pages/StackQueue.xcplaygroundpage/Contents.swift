@@ -1,7 +1,7 @@
 //: [Previous](@previous)
 //: # Stack and Queue
 //: ---
-//: ## Node Class
+//: ## Node class
 import Foundation
 class Node {
     var next: Node?
@@ -11,7 +11,7 @@ class Node {
     }
 }
 //: ---
-//: ## Stack Operations - Push, Pop, Traverse
+//: ## 1. Stack Operations - Push, Pop, Traverse
 class Stack {
     var top: Node?
     func push(value: Int) {
@@ -45,7 +45,7 @@ class Stack {
 //stack.pop()
 //print(stack.traverseStack())
 //: ---
-//: ## Queue Operations - Enqueue, Dequeue, Traverse
+//: ## 2. Queue Operations - Enqueue, Dequeue, Traverse
 class Queue {
     var first, last: Node?
     func enQueue(item: Int) {
@@ -82,7 +82,7 @@ class Queue {
 //queue.deQueue()
 //print(queue.traverseQueue())
 //: ---
-//: ## Implement Queue using two Stacks
+//: ## 3. Implement Queue using two Stacks
 class QueueWithStacks {
     var stackIn = [Int]()
     var stackOut = [Int]()

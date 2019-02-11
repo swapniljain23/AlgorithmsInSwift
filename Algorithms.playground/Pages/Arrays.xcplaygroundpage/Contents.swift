@@ -5,7 +5,7 @@
  ---
 */
 /*:
- ## Check if sum of any two elements in an array is equal to n.
+ ## 1. Check if sum of any two elements in an array is equal to n.
  
     Input: An array of Int, a number Int.
     Output: true/false
@@ -27,7 +27,7 @@ func isSumOfAnyTwoElementIsEqualToN(_ anArray: [Int], _ n: Int) -> Bool {
 //print(isSumOfAnyTwoElementIsEqualToN(arrayOne, 9))
 //: ---
 /*:
- ## Skip multiplication in factorial
+ ## 2. Skip multiplication in factorial
  
     Input: 3
     Output: [6, 3, 2]
@@ -56,7 +56,7 @@ func factorial(_ number: Int) -> Int {
 //print(products(number: 5))
 //: ---
 /*:
- ## Rotate an array by Delta (With buffer array)
+ ## 3. Rotate an array by Delta (with buffer array)
  
     Input: [1, 4, 7, 3, 2, 9], 3
     Output: [3, 2, 9, 1, 4, 7]
@@ -80,7 +80,7 @@ func rotateArrayByDelta(array: [Int], delta: Int) -> [Int] {
 //print(rotateArrayByDelta(array: [1, 4, 7, 3, 2, 9], delta: 5))
 //: ---
 /*:
- ## Rotate an array by Delta (Without buffer array)
+ ## 4. Rotate an array by Delta (without buffer array)
  
     Input: [1, 4, 7, 3, 2, 9], 4
     Output: [ 2, 9, 1, 4, 7, 3]
@@ -93,14 +93,15 @@ func rotateArrayByDeltaWithNoBuffer(array: [Int], delta: Int) -> [Int] {
     }
     // Reverse the first half
     for index in 0..<newDelta/2 {
-        (array[index], array[newDelta-1-index]) = (array[newDelta-1-index], array[index])
+        (array[index], array[newDelta-1-index]) =
+            (array[newDelta-1-index], array[index])
     }
     // Reverse the second half
     for index in newDelta..<newDelta+((array.count-newDelta)/2) {
         (array[index], array[array.count-1-(index-newDelta)]) =
             (array[array.count-1-(index-newDelta)], array[index])
     }
-    // Reverse the whole array and return
+    // Revese the whole array and return
     return array.reversed()
 }
 //let array = [1, 4, 7, 3, 2, 9]
@@ -113,7 +114,7 @@ func rotateArrayByDeltaWithNoBuffer(array: [Int], delta: Int) -> [Int] {
 //print(rotateArrayByDeltaWithNoBuffer(array: array, delta: 6))
 //: ---
 /*:
- ## Reverse partial range in array
+ ## 5. Reverse partial range in an array
  
     Input: [1, 4, 7, 3, 2, 9], 1, 4
     Output: [1, 2, 3, 7, 4, 9]
@@ -139,9 +140,10 @@ func reverseSubArray(array: [Int], startIndex: Int, endIndex: Int) -> [Int] {
 //let array = [1, 4, 7, 3, 2, 9]
 //print(reverseSubArray(array: array, startIndex: 0, endIndex: 2))
 //: ---
-//: ## Generate 2D Spiral array
+//: ## 6. Generate 2D Spiral array
 func generate2dSpiralArray(length: Int) -> [[Int]] {
-  var spiralArr = Array(repeating: Array(repeating: 0, count: length), count: length)
+  var spiralArr = Array(repeating: Array(repeating: 0, count: length),
+                            count: length)
   guard length > 0 else {
     return spiralArr
   }
@@ -187,7 +189,7 @@ func print2dArray(_ array: [[Int]]) {
 //print2dArray(generate2dSpiralArray(length: 5))
 //: ---
 /*:
- ## Given an array of sorted integers, return the array of integers squared still sorted
+ ## 7. Given an array of sorted integers, return the array of integers squared still sorted
  
     [1,2,3] -> [1,4,9]
     [-1, 0, 1] -> [0, 1, 1]

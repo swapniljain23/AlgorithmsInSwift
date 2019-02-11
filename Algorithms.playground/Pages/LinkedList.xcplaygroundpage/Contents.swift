@@ -4,7 +4,7 @@
 //: ---
 //: ## SECTION VI: Linked List
 //: ---
-//: ## Data Structure
+//: ## Node class
 import Foundation
 class Node {
   var next: Node?
@@ -19,12 +19,12 @@ class LinkedList {
   var head: Node?
   func appendToTail(value: Int) {
     let node = Node(value: value)
-    // Incase head is nil, append as head node
+    // Incase head is nil, append as head node.
     guard let head = head else {
       self.head = node
       return
     }
-    // Append as normal node at the end of linked list
+    // Append as normal node at the end of linked list.
     var this = head
     while this.next != nil {
       this = this.next!
@@ -49,7 +49,7 @@ class LinkedList {
       self.head = head.next
       return
     }
-    // Traverse linked list to find and delete required node (except head)
+    // Traverse linked list to find and delete required node (except head).
     while this.next != nil {
       if this.next?.data == value {
         this.next = this.next?.next
@@ -138,7 +138,7 @@ func insertInSortedLinkedList(head: Node, value: Int) -> Node {
     Output: 1->4->2->5->3->6 and 7->8
  */
 //: ---
-/*
+/*:
  ## #6. Reverse a Linked List in groups of given size
  
     Inputs:  1->2->3->4->5->6->7->8->NULL and k = 3
@@ -153,10 +153,10 @@ func insertInSortedLinkedList(head: Node, value: Int) -> Node {
 //: ## Rest All
 //: ---
 /*:
- ## Remove duplicates from unsorted linked list
- Approach I: With temporary buffer\
- Time: O(n)
+ ## 1. Remove duplicates from unsorted linked list
  */
+// Approach I: With temporary buffer
+// Time: O(n)
 func removeDuplicates(linkedList: LinkedList) -> LinkedList {
   // Incase head is nil, return
   guard let head = linkedList.head else { return linkedList }
@@ -175,13 +175,8 @@ func removeDuplicates(linkedList: LinkedList) -> LinkedList {
   return linkedList
 }
 //print(removeDuplicates(linkedList: linkedList).traverseLinkedList())
-//: ---
-/*:
- ## Remove duplicates from unsorted linked list
- Approach II: Without temporary buffer\
- Space: O(1)\
- Time: O(n^2)
- */
+// Approach II: Without temporary buffer
+// Time: O(n^2)
 func removeDuplicates_(linkedList: LinkedList) -> LinkedList {
   var current = linkedList.head
   while current != nil {
@@ -200,9 +195,9 @@ func removeDuplicates_(linkedList: LinkedList) -> LinkedList {
 }
 //print(removeDuplicates_(linkedList: linkedList).traverseLinkedList())
 //: ---
-//: ## Implement an algorithm to find the nth to last element of a singly linked list
-//: Time: O(n)\
-//: Space: O(1)
+//: ## 2. Implement an algorithm to find the nth to last element of a singly linked list
+//: ### Time: O(n)
+//: ### Space: O(1)
 func nThToLast(linkedList: LinkedList, n: Int) -> Node? {
   if n<1 { return nil }
   var p1 = linkedList.head
@@ -227,7 +222,7 @@ func nThToLast(linkedList: LinkedList, n: Int) -> Node? {
 //print(nThToLast(linkedList: linkedList, n: 4)?.data ?? "Invalid Input")
 //: ---
 /*:
- ## Check if two linkedlist intersect each other and return the node where they intersect
+ ## 3. Check if two linkedlist intersect each other and return the node where they intersect
   1. Nested loops
   2. Mark visited nodes
   3. Using difference of nodes counts
@@ -273,7 +268,7 @@ func nodeCount(list: Node?) -> Int {
 //node12.next = node2
 //print(checkIfTheyIntersect(node1, node11))
 //: ---
-//: ## Check if the given linkedlist is circular
+//: ## 4. Check if the given linkedlist is circular
 func isCircular(_ list: Node?) -> Bool {
   var runner1 = list
   var runner2 = list?.next

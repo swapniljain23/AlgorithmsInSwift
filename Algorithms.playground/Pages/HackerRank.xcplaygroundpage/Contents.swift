@@ -1,30 +1,26 @@
 //: [Previous](@previous)
-/*:
- # HackerRank: Implementation Challenges (EASY)
- */
-
-/*:
- ## Character extension
- */
+//: # HackerRank Challenges
+//: ---
+//: ## Character extension
 import Foundation
-
 extension Character {
   var asciiValue: UInt32? {
     return String(self).unicodeScalars.filter{$0.isASCII}.first?.value
   }
 }
-
-/*:
- ## Grading Students
- */
+//: ---
+//: ## Difficulty: Easy
+//: ---
+//: ## 1. Grading students
 func roundedGrade(actualGrades: [Int]) -> [Int] {
     return actualGrades.map() {
         $0 < 38 || $0 % 5 < 3 ? $0 : $0 + (5 - $0 % 5)
     }
 }
 //print(roundedGrade(actualGrades: [73, 67, 38, 33]))
+//: ---
 /*:
- ## Check if two points will ever meet.
+ ## 2. Check if two points will ever meet
      0 <= x1 < x2 <= 10000
      1 <= v1 <= 10000
      1 <= v2 <= 10000
@@ -45,8 +41,9 @@ func willTheyMeet(x1: Int, v1: Int, x2: Int, v2: Int) -> Bool {
 }
 //print(willTheyMeet(x1: 0, v1: 3, x2: 4, v2: 2))
 //print(willTheyMeet(x1: 0, v1: 2, x2: 5, v2: 3))
+//: ---
 /*:
- ## Between two sets
+ ## 3. Number between two sets
     some x is between A and B if that value of x satisfies x mod a[i] for every a[i] in A and also satisfies b[i] mod x = 0 for every b[i] in B.
  */
 func numberBetweenTwoSets(arrayA: [Int], arrayB: [Int]) -> Int {
@@ -76,9 +73,8 @@ func numberBetweenTwoSets(arrayA: [Int], arrayB: [Int]) -> Int {
     return numberOfX
 }
 //print(numberBetweenTwoSets(arrayA: [2, 4], arrayB: [16, 32, 96]))
-/*:
- ## Day of the Programmer
- */
+//: ---
+//: ## 4. Day of the programmer
 func dayOfTheProgrammer(year: Int) -> String {
     if year == 1918 {
         return "26.09.\(year)"
@@ -94,9 +90,8 @@ func dayOfTheProgrammer(year: Int) -> String {
         return "13.09.\(year)"
     }
 }
-/*:
- ## Funny string
- */
+//: ---
+//: ## 5. Funny string
 func funnyString(anArr: [String]) {
     for string in anArr {
         if string.count < 2 {
@@ -123,5 +118,5 @@ func funnyString(anArr: [String]) {
 }
 //print(funnyString(anArr: ["acxz", "bcxz"]))
 //print(funnyString(anArr: ["ivvkxq", "ivvkx"]))
-
+//: ---
 //: [Next](@next)

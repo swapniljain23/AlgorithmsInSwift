@@ -1,10 +1,10 @@
 //: [Previous](@previous)
 //: # TOP 10 ALGORITHMS
-//: ==================================
+//: ---
 //: ## SECTION II: Dynamic Programming
-//: ==================================
+//: ---
 /*:
- ### #1. Longest Common Subsequence.
+ ## #1. Longest common subsequence
  Given two sequences, find the length of longest subsequence present in both of them.
  A subsequence is a sequence that appears in the same relative order, but not
  necessarily contiguous. For example, “abc”, “abg”, “bdf”, “aeg”, ‘”acefg”, .. etc
@@ -31,9 +31,10 @@ func longestCommonSubsequence(_ array1: [Character], _ array2: [Character]) -> I
 //                               ["A", "E", "D", "F", "H", "R"]))
 //print(longestCommonSubsequence(["A", "G", "G", "T", "A", "B"],
 //                               ["G", "X", "T", "X", "A", "Y", "B"]))
+//: ---
 /*:
- ### #2. Longest Increasing Subsequence | DP-3
- The Longest Increasing Subsequence (LIS) problem is to find the length of the
+ ## #2. Longest increasing subsequence
+ The longest increasing subsequence (LIS) problem is to find the length of the
  longest subsequence of a given sequence such that all elements of the subsequence
  are sorted in increasing order. For example, the length of LIS for {10, 22, 9, 33,
  21, 50, 41, 60, 80} is 6 and LIS is {10, 22, 33, 50, 60, 80}.
@@ -77,8 +78,9 @@ func longestIncreasingSubsequence(array: [Int], max: inout Int) -> Int {
 //longestIncreasingSubsequence(array: [100, 200, 300, 500, 110, 120, 130, 140],
 //                               max: &max)
 //print(max)
+//: ---
 /*:
- ### #3. Edit Distance
+ ## #3. Edit distance
  Given two strings str1 and str2 and below operations that can performed on str1.
  Find minimum number of edits (operations) required to convert ‘str1’ into ‘str2’.
  Insert, Remove, Replace.
@@ -120,9 +122,9 @@ func editDistance(string1: String, string2: String) -> Int {
 //print(editDistance(string1: "geek", string2: "gesek"))
 //print(editDistance(string1: "cat", string2: "cut"))
 //print(editDistance(string1: "sunday", string2: "saturday"))
+//: ---
 /*:
- ###  #4. Partition a set into two subsets such that the difference of subset sums is
- ###  minimum.
+ ##  #4. Partition a set into two subsets such that the difference of subset sums is minimum
  Given a set of integers, the task is to divide it into two sets S1 and S2 such that
  the absolute difference between their sums is minimum.
  If there is a set S with n elements, then if we assume Subset1 has m elements,
@@ -154,8 +156,9 @@ func findMinSum(array: [Int]) -> Int {
 }
 //print(findMinSum(array: [1, 6, 11, 5]))
 // TODO: Dynamic programming solution.
+//: ---
 /*:
- ### #5. Count number of ways to cover a distance.
+ ## #5. Count number of ways to cover a distance
  Given a distance ‘dist, count total number of ways to cover the distance with
  1, 2 and 3 steps.
  
@@ -185,8 +188,9 @@ func numberOfWaysToCoverDistance(distance: Int) -> Int {
 //print(numberOfWaysToCoverDistance(distance: 3))
 //print(numberOfWaysToCoverDistance(distance: 4))
 //print(numberOfWaysToCoverDistance(distance: 5))
+//: ---
 /*:
-  ###6. Find the longest path in a matrix with given constraints.
+ ## #6. Find the longest path in a matrix with given constraints
  Given a n*n matrix where all numbers are distinct, find the maximum length path
  (starting from any cell) such that all cells along the path are in increasing order
  with a difference of 1.
@@ -245,17 +249,22 @@ func findTheLongestOverAll(array: [[Int]]) -> Int {
   return result
 }
 //print(findTheLongestOverAll(array: [[1, 2, 9], [5, 3, 8], [4, 6, 7]]))
+//: ---
 /*:
- ### #7. Subset Sum Problem.
+ ## #7. Subset sum problem
  
  */
+//: ---
 /*:
- ### #8.
+ ## #8.
  */
+//: ---
 /*:
- ### #9.
+ ## #9.
  */
+//: ---
 /*:
- ### #10.
+ ## #10.
  */
+//: ---
 //: [Next](@next)

@@ -72,10 +72,8 @@ func depthFirstTraversal(_ root: Node) {
 }
 //print(depthFirstTraversal(nodeA))
 //: ---
-/*: ## #3. Shortest Path from source to all vertices (Dijkstra)
- Given a graph and a source vertex in the graph, find shortest paths from source to
- all vertices in the given graph.
-*/
+//: ## #3. Shortest Path from source to all vertices (Dijkstra)
+//: Given a graph and a source vertex in the graph, find shortest paths from source to all vertices in the given graph.
 func dijkstra(graph: [[Int]], source: Int) -> [Int] {
   // The outout array, distance[i] will hold the shortest distance from source to i.
   var distance = Array(repeating: Int.max, count: graph.count)
@@ -201,17 +199,17 @@ print(primMinSpanningTree(graph: graph))
 //: # Rest All
 //: ---
 /*:
- ## Search for an element in graph
+ ## 1. Search for an element in graph
  (Depth first search, with recursion)
  */
-func searchAnElement(node: Node, elementToSearch: Int) -> Node?{
+func searchAnElement(node: Node, elementToSearch: Int) -> Node? {
   node.visited = true
-  if node.element == elementToSearch{
+  if node.element == elementToSearch {
     return node
   }
-  for neighbourNode in node.neighbours{
-    if !neighbourNode.visited{
-      if let nodeFound = searchAnElement(node: neighbourNode, elementToSearch: elementToSearch){
+  for neighbourNode in node.neighbours {
+    if !neighbourNode.visited {
+      if let nodeFound = searchAnElement(node: neighbourNode, elementToSearch: elementToSearch) {
         return nodeFound
       }
     }
