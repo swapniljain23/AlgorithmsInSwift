@@ -14,5 +14,6 @@
         <page name='LeetCode'/>
         <page name='Strings &amp; Arrays'/>
         <page name='Dynamic Programming'/>
+        <page name='Hash Table'/>
     </pages>
 </playground>

@@ -121,8 +121,8 @@ func permutationIIndAppr(string1: String, string2: String) -> Bool {
     }
     return true
 }
-print(permutationIIndAppr(string1: "Swapnil", string2: "nilSwap"))
-print(permutationIIndAppr(string1: "Swapnilxxxyy", string2: "nilSwapxxyyy"))
+//print(permutationIIndAppr(string1: "Swapnil", string2: "nilSwap"))
+//print(permutationIIndAppr(string1: "Swapnilxxxyy", string2: "nilSwapxxyyy"))
 //: ---
 //: ## 4. Replace all spaces in a string with %20
 func replaceSpace(charArr: [Character], length: Int) {
@@ -429,5 +429,62 @@ func oneEditApart(string1: String, string2: String) -> Bool {
 //print(oneEditApart(string1: "cat", string2: "cast"))
 //print(oneEditApart(string1: "cat", string2: "at"))
 //print(oneEditApart(string1: "cat", string2: "act"))
+//: ---
+/*:
+ ## 12. Evaluate arithmetic string
+ Write a function that takes an arithmetic String (which includes addition and
+ subtraction only), evaluates it and returns the result.\
+ Assumption: String is well-formatted and contains only positive integers and the
+ '+' and '-' sign.
+ */
+enum ArithmeticOperator: Character {
+  case add = "+"
+  case subtract = "-"
+}
+func addOrSubtract(arithmeticString: String) -> Int {
+  var runningSum = 0
+  var currentNo = 0
+  var arithmeticOperator: ArithmeticOperator?
+  for character in arithmeticString {
+    if character >= "0" && character <= "9" {
+      // It's a digit, calculate it.
+      if currentNo > 0 {
+        currentNo = currentNo * 10 + Int(String(character))!
+      } else {
+        currentNo = Int(String(character))!
+      }
+    } else {
+      // It's an operator.
+      if let arithmeticOperator = arithmeticOperator {
+        switch arithmeticOperator {
+        case .add:
+          runningSum += currentNo
+        case .subtract:
+          runningSum -= currentNo
+        }
+      } else {
+        runningSum = currentNo
+      }
+      arithmeticOperator = ArithmeticOperator(rawValue: character)
+      currentNo = 0
+    }
+  }
+  if currentNo != 0 {
+    if let arithmeticOperator = arithmeticOperator {
+      switch arithmeticOperator {
+      case .add:
+        runningSum += currentNo
+      case .subtract:
+        runningSum -= currentNo
+      }
+    }
+  }
+  return runningSum
+}
+//print(addOrSubtract(arithmeticString: "10+1+20")) // 31
+//print(addOrSubtract(arithmeticString: "1234+2+99")) // 1335
+//print(addOrSubtract(arithmeticString: "10-20+10-700")) // -700
+//print(addOrSubtract(arithmeticString: "10-20+5")) // -5
+//print(addOrSubtract(arithmeticString: "21-31-41-51")) // -102
 //: ---
 //: [Next](@next)

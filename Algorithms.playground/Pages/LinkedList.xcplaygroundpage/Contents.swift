@@ -1,8 +1,5 @@
 //: [Previous](@previous)
-//: ---
-//: # TOP 10 ALGORITHMS
-//: ---
-//: ## SECTION VI: Linked List
+//: # Section I: Top 10 Algorithms
 //: ---
 //: ## Node class
 import Foundation
@@ -38,6 +35,7 @@ class LinkedList {
       print("\(this!.data) => ", separator: "", terminator: "")
       this = this?.next
     }
+    print("End.")
   }
     
   func deleteNode(value: Int) {
@@ -59,20 +57,20 @@ class LinkedList {
     }
   }
 }
-//var linkedList: LinkedList = LinkedList()
-//linkedList.appendToTail(value: 5)
-//linkedList.appendToTail(value: 5)
-//linkedList.appendToTail(value: 5)
-//linkedList.appendToTail(value: 10)
-//linkedList.appendToTail(value: 15)
-//linkedList.appendToTail(value: 5)
-//linkedList.appendToTail(value: 10)
-//linkedList.appendToTail(value: 15)
-//linkedList.appendToTail(value: 20)
-//linkedList.appendToTail(value: 20)
-//linkedList.appendToTail(value: 25)
-//linkedList.appendToTail(value: 30)
-//print(linkedList.traverseLinkedList())
+var linkedList: LinkedList = LinkedList()
+linkedList.appendToTail(value: 5)
+linkedList.appendToTail(value: 5)
+linkedList.appendToTail(value: 5)
+linkedList.appendToTail(value: 10)
+linkedList.appendToTail(value: 15)
+linkedList.appendToTail(value: 5)
+linkedList.appendToTail(value: 10)
+linkedList.appendToTail(value: 15)
+linkedList.appendToTail(value: 20)
+linkedList.appendToTail(value: 20)
+linkedList.appendToTail(value: 25)
+linkedList.appendToTail(value: 30)
+linkedList.traverseLinkedList()
 //linkedList.deleteNode(value: 5)
 //print(linkedList.traverseLinkedList())
 //linkedList.deleteNode(value: 30)
@@ -148,14 +146,12 @@ func insertInSortedLinkedList(head: Node, value: Int) -> Node {
     Output:  5->4->3->2->1->8->7->6->NULL.
  */
 //: ---
-
-//: ---
-//: ## Rest All
+//: # Section II: Coding interview - Gayle Laakmann
 //: ---
 /*:
  ## 1. Remove duplicates from unsorted linked list
  */
-// Approach I: With temporary buffer
+//: ### Approach I: With temporary buffer
 // Time: O(n)
 func removeDuplicates(linkedList: LinkedList) -> LinkedList {
   // Incase head is nil, return
@@ -175,7 +171,7 @@ func removeDuplicates(linkedList: LinkedList) -> LinkedList {
   return linkedList
 }
 //print(removeDuplicates(linkedList: linkedList).traverseLinkedList())
-// Approach II: Without temporary buffer
+//: ### Approach II: Without temporary buffer
 // Time: O(n^2)
 func removeDuplicates_(linkedList: LinkedList) -> LinkedList {
   var current = linkedList.head
@@ -196,8 +192,9 @@ func removeDuplicates_(linkedList: LinkedList) -> LinkedList {
 //print(removeDuplicates_(linkedList: linkedList).traverseLinkedList())
 //: ---
 //: ## 2. Implement an algorithm to find the nth to last element of a singly linked list
-//: ### Time: O(n)
-//: ### Space: O(1)
+//: Time: O(n) \
+//: Space: O(1) \
+//: ### Iterative approach.
 func nThToLast(linkedList: LinkedList, n: Int) -> Node? {
   if n<1 { return nil }
   var p1 = linkedList.head
@@ -215,17 +212,102 @@ func nThToLast(linkedList: LinkedList, n: Int) -> Node? {
   }
   return p1
 }
-//print(linkedList.traverseLinkedList())
 //print(nThToLast(linkedList: linkedList, n: 1)?.data ?? "Invalid Input")
 //print(nThToLast(linkedList: linkedList, n: 9)?.data ?? "Invalid Input")
 //print(nThToLast(linkedList: linkedList, n: 10)?.data ?? "Invalid Input")
 //print(nThToLast(linkedList: linkedList, n: 4)?.data ?? "Invalid Input")
+//: ### Recursive approach.
+func nThToLast(head: Node?, n: Int) -> Int {
+  if head == nil {
+      return 0
+  }
+  let k = nThToLast(head: head?.next, n: n) + 1
+  if k == n {
+    print(head!.data)
+  }
+  return k
+}
+//nThToLast(head: linkedList.head, n: 1)
+//nThToLast(head: linkedList.head, n: 9)
+//nThToLast(head: linkedList.head, n: 10)
+//nThToLast(head: linkedList.head, n: 4)
+//: ---
+//: ## 3. Delete a node in the middle of the linked list, given only access to that node
+//: ---
+//: ## 4. Partition a linked list around a value X, such that all nodes less than X comes before all nodes greater than or equal to X
+func partitionList(head: Node?, x: Int) -> Node? {
+  var node = head
+  var beforeStart: Node?
+  var beforeEnd: Node?
+  var afterStart: Node?
+  var afterEnd: Node?
+  
+  while node != nil {
+    var next = node?.next
+    node?.next = nil
+    if node!.data < x {
+      if let _ = beforeStart {
+        beforeEnd?.next = node
+        beforeEnd = node
+      } else {
+        beforeStart = node
+        beforeEnd = beforeStart
+      }
+    } else {
+      if let _ = afterStart {
+        afterEnd?.next = node
+        afterEnd = node
+      } else {
+        afterStart = node
+        afterEnd = afterStart
+      }
+    }
+    node = next
+  }
+  guard let _ = beforeStart else {
+    return afterStart
+  }
+  beforeEnd?.next = afterStart
+  return beforeStart
+}
+//linkedList.head = partitionList(head: linkedList.head, x: 5)
+//linkedList.traverseLinkedList()
+//linkedList.head = partitionList(head: linkedList.head, x: 10)
+//linkedList.traverseLinkedList()
+//linkedList.head = partitionList(head: linkedList.head, x: 7)
+//linkedList.traverseLinkedList()
+//linkedList.head = partitionList(head: linkedList.head, x: 20)
+//linkedList.traverseLinkedList()
 //: ---
 /*:
- ## 3. Check if two linkedlist intersect each other and return the node where they intersect
-  1. Nested loops
-  2. Mark visited nodes
-  3. Using difference of nodes counts
+ ## 5. Return the sum as a linked list, of two numbers represented by linkedlist
+ The digits are stored in forward order.
+ 
+    Input: (6 -> 1 -> 7) + (2 -> 9 -> 5) That is, 617 + 295
+    Output: (9 -> 1 -> 2)
+  * Pad the list with zero.
+  * Use stack.
+  * Recursive approach.
+ */
+//: ---
+/*:
+ ## 6. Given a circular linked list, returns the node at the begining of the loop
+ 1. Move two pointers, FastPointer (2 steps), SlowPointer (1 step).
+ 2. When they collide, move SlowPointer to Head.
+ 3. Move SlowPointer and FastPointer at a rate of 1 step. Return the new collision point.
+ */
+//: ---
+//: ## 7. Check if linked list is palindrone
+// Iterative approach, using stack.
+// Recursive approach.
+//: ---
+//: # Section III: Rest All
+//: ---
+/*:
+ ## 1. Check if two linkedlist intersect each other and return the node where they intersect
+ 1. Nested loops
+ 2. Mark visited nodes
+ 3. Using difference of nodes counts
  */
 func checkIfTheyIntersect(_ list1: Node?, _ list2: Node?) -> Node? {
   let list1Length = nodeCount(list: list1)
@@ -268,7 +350,7 @@ func nodeCount(list: Node?) -> Int {
 //node12.next = node2
 //print(checkIfTheyIntersect(node1, node11))
 //: ---
-//: ## 4. Check if the given linkedlist is circular
+//: ## 2. Check if the given linkedlist is circular
 func isCircular(_ list: Node?) -> Bool {
   var runner1 = list
   var runner2 = list?.next
