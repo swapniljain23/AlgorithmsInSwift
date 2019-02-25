@@ -240,4 +240,96 @@ func squaredSortedArray(_ array: [Int]) -> [Int] {
 //print(squaredSortedArray([-5, -3, 1, 2, 5]))
 //print(squaredSortedArray([-8, -5, -2, 0, 3, 4, 7]))
 //:---
+/*
+ ## 8. kTh most frequent
+ */
+//:---
+/*:
+ ## 9. Calculate the minimum distance for each cell of N*N matrix from the given special cells
+ Given matrix is filled with Int.max except special cells which contains 0.
+ */
+func calculateMinDistance(array: [[Int]]) -> [[Int]] {
+  var array = array
+  for (rowIndex, rowArray) in array.enumerated() {
+    for (columnIndex, cellValue) in rowArray.enumerated() {
+      if cellValue == 0 {
+        // Special cell.
+        fillUpperLeft(array: &array, cellIndex: (rowIndex, columnIndex), distance: 0)
+        fillUpperRight(array: &array, cellIndex: (rowIndex, columnIndex), distance: 0)
+        fillLowerLeft(array: &array, cellIndex: (rowIndex, columnIndex), distance: 0)
+        fillLowerRight(array: &array, cellIndex: (rowIndex, columnIndex), distance: 0)
+      }
+    }
+  }
+  return array
+}
+func fillUpperLeft(array: inout [[Int]], cellIndex: (Int, Int), distance: Int) {
+  if cellIndex.0 < 0 ||
+      cellIndex.0 >= array.count ||
+      cellIndex.1 < 0 ||
+      cellIndex.1 >= array.count {
+    return
+  }
+  if array[cellIndex.0][cellIndex.1] != 0 && array[cellIndex.0][cellIndex.1] > distance {
+    array[cellIndex.0][cellIndex.1] = distance
+  }
+  fillUpperLeft(array: &array, cellIndex: (cellIndex.0 - 1, cellIndex.1), distance: distance + 1)
+  fillUpperLeft(array: &array, cellIndex: (cellIndex.0, cellIndex.1 - 1), distance: distance + 1)
+  fillUpperLeft(array: &array,
+            cellIndex: (cellIndex.0 - 1, cellIndex.1 - 1),
+             distance: distance + 2)
+}
+func fillUpperRight(array: inout [[Int]], cellIndex: (Int, Int), distance: Int) {
+  if cellIndex.0 < 0 ||
+    cellIndex.0 >= array.count ||
+    cellIndex.1 < 0 ||
+    cellIndex.1 >= array.count {
+    return
+  }
+  if array[cellIndex.0][cellIndex.1] != 0 && array[cellIndex.0][cellIndex.1] > distance {
+    array[cellIndex.0][cellIndex.1] = distance
+  }
+  fillUpperRight(array: &array, cellIndex: (cellIndex.0 - 1, cellIndex.1), distance: distance + 1)
+  fillUpperRight(array: &array, cellIndex: (cellIndex.0, cellIndex.1 + 1), distance: distance + 1)
+  fillUpperRight(array: &array,
+             cellIndex: (cellIndex.0 - 1, cellIndex.1 + 1),
+              distance: distance + 2)
+}
+func fillLowerLeft(array: inout [[Int]], cellIndex: (Int, Int), distance: Int) {
+  if cellIndex.0 < 0 ||
+    cellIndex.0 >= array.count ||
+    cellIndex.1 < 0 ||
+    cellIndex.1 >= array.count {
+    return
+  }
+  if array[cellIndex.0][cellIndex.1] != 0 && array[cellIndex.0][cellIndex.1] > distance {
+    array[cellIndex.0][cellIndex.1] = distance
+  }
+  fillLowerLeft(array: &array, cellIndex: (cellIndex.0 + 1, cellIndex.1), distance: distance + 1)
+  fillLowerLeft(array: &array, cellIndex: (cellIndex.0, cellIndex.1 - 1), distance: distance + 1)
+  fillLowerLeft(array: &array,
+            cellIndex: (cellIndex.0 + 1, cellIndex.1 - 1),
+             distance: distance + 2)
+}
+func fillLowerRight(array: inout [[Int]], cellIndex: (Int, Int), distance: Int) {
+  if cellIndex.0 < 0 ||
+    cellIndex.0 >= array.count ||
+    cellIndex.1 < 0 ||
+    cellIndex.1 >= array.count {
+    return
+  }
+  if array[cellIndex.0][cellIndex.1] != 0 && array[cellIndex.0][cellIndex.1] > distance {
+    array[cellIndex.0][cellIndex.1] = distance
+  }
+  fillLowerRight(array: &array, cellIndex: (cellIndex.0 + 1, cellIndex.1), distance: distance + 1)
+  fillLowerRight(array: &array, cellIndex: (cellIndex.0, cellIndex.1 + 1), distance: distance + 1)
+  fillLowerRight(array: &array,
+             cellIndex: (cellIndex.0 + 1, cellIndex.1 + 1),
+              distance: distance + 2)
+}
+//print(calculateMinDistance(array: [[0, Int.max, Int.max, Int.max],
+//                                   [Int.max, Int.max, Int.max, Int.max],
+//                                   [Int.max, Int.max, 0, Int.max],
+//                                   [Int.max, Int.max, Int.max, Int.max]]))
+//:---
 //: [Next](@next)

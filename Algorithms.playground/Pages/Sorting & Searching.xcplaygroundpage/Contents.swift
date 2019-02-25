@@ -31,10 +31,28 @@ func binarySearch(_ sortedArray: [Int],
         return midIndex
     }
 }
-// print(binarySearch(sortedArray, 2, 0, sortedArray.count-1))
-// print(binarySearch(sortedArray, 225, 0, sortedArray.count-1))
-// print(binarySearch(sortedArray, 105, 0, sortedArray.count-1))
-// print(binarySearch(sortedArray, 100, 0, sortedArray.count-1))
+func binarySearchIterative(_ sortedArray: [Int], numberToSearch: Int) -> Int? {
+  var lowerIndex = 0, upperIndex = sortedArray.count - 1
+  while lowerIndex <= upperIndex {
+    let midIndex = lowerIndex + (upperIndex - lowerIndex) / 2
+    if numberToSearch < sortedArray[midIndex] {
+      upperIndex = midIndex - 1
+    } else if numberToSearch > sortedArray[midIndex] {
+      lowerIndex = midIndex + 1
+    } else {
+      return midIndex
+    }
+  }
+  return nil
+}
+//print(binarySearchIterative(sortedArray, numberToSearch: 2))
+//print(binarySearchIterative(sortedArray, numberToSearch: 225))
+//print(binarySearchIterative(sortedArray, numberToSearch: 105))
+//print(binarySearchIterative(sortedArray, numberToSearch: 100))
+//print(binarySearch(sortedArray, 2, 0, sortedArray.count-1))
+//print(binarySearch(sortedArray, 225, 0, sortedArray.count-1))
+//print(binarySearch(sortedArray, 105, 0, sortedArray.count-1))
+//print(binarySearch(sortedArray, 100, 0, sortedArray.count-1))
 //: ---
 /*:
  ## #2. Search an element in a sorted and rotated array.
@@ -174,7 +192,7 @@ func merge(_ leftArray: [Int], _ rightArray: [Int]) -> [Int] {
     if leftArray[leftArrIndex] < rightArray[rightArrIndex] {
       sortedArr.append(leftArray[leftArrIndex])
       leftArrIndex += 1
-    }else{
+    } else {
       sortedArr.append(rightArray[rightArrIndex])
       rightArrIndex += 1
     }
