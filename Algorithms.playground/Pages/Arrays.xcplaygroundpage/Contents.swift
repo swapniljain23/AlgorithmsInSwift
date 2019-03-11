@@ -140,7 +140,7 @@ func reverseSubArray(array: [Int], startIndex: Int, endIndex: Int) -> [Int] {
 //let array = [1, 4, 7, 3, 2, 9]
 //print(reverseSubArray(array: array, startIndex: 0, endIndex: 2))
 //: ---
-//: ## 6. Generate 2D Spiral array
+//: ## 6. Generate 2D spiral array
 func generate2dSpiralArray(length: Int) -> [[Int]] {
   var spiralArr = Array(repeating: Array(repeating: 0, count: length),
                             count: length)
@@ -254,82 +254,90 @@ func calculateMinDistance(array: [[Int]]) -> [[Int]] {
     for (columnIndex, cellValue) in rowArray.enumerated() {
       if cellValue == 0 {
         // Special cell.
-        fillUpperLeft(array: &array, cellIndex: (rowIndex, columnIndex), distance: 0)
-        fillUpperRight(array: &array, cellIndex: (rowIndex, columnIndex), distance: 0)
-        fillLowerLeft(array: &array, cellIndex: (rowIndex, columnIndex), distance: 0)
-        fillLowerRight(array: &array, cellIndex: (rowIndex, columnIndex), distance: 0)
+        fillArray(array: &array, cellIndex: (rowIndex, columnIndex), distance: 0)
       }
     }
   }
   return array
 }
-func fillUpperLeft(array: inout [[Int]], cellIndex: (Int, Int), distance: Int) {
-  if cellIndex.0 < 0 ||
-      cellIndex.0 >= array.count ||
-      cellIndex.1 < 0 ||
-      cellIndex.1 >= array.count {
-    return
-  }
-  if array[cellIndex.0][cellIndex.1] != 0 && array[cellIndex.0][cellIndex.1] > distance {
-    array[cellIndex.0][cellIndex.1] = distance
-  }
-  fillUpperLeft(array: &array, cellIndex: (cellIndex.0 - 1, cellIndex.1), distance: distance + 1)
-  fillUpperLeft(array: &array, cellIndex: (cellIndex.0, cellIndex.1 - 1), distance: distance + 1)
-  fillUpperLeft(array: &array,
-            cellIndex: (cellIndex.0 - 1, cellIndex.1 - 1),
-             distance: distance + 2)
-}
-func fillUpperRight(array: inout [[Int]], cellIndex: (Int, Int), distance: Int) {
+func fillArray(array: inout [[Int]], cellIndex: (Int, Int), distance: Int) {
   if cellIndex.0 < 0 ||
     cellIndex.0 >= array.count ||
     cellIndex.1 < 0 ||
     cellIndex.1 >= array.count {
     return
   }
-  if array[cellIndex.0][cellIndex.1] != 0 && array[cellIndex.0][cellIndex.1] > distance {
+  if distance == 0 || array[cellIndex.0][cellIndex.1] > distance {
     array[cellIndex.0][cellIndex.1] = distance
+    fillArray(array: &array, cellIndex: (cellIndex.0 - 1, cellIndex.1), distance: distance + 1)
+    fillArray(array: &array, cellIndex: (cellIndex.0 + 1, cellIndex.1), distance: distance + 1)
+    fillArray(array: &array, cellIndex: (cellIndex.0, cellIndex.1 - 1), distance: distance + 1)
+    fillArray(array: &array, cellIndex: (cellIndex.0, cellIndex.1 + 1), distance: distance + 1)
   }
-  fillUpperRight(array: &array, cellIndex: (cellIndex.0 - 1, cellIndex.1), distance: distance + 1)
-  fillUpperRight(array: &array, cellIndex: (cellIndex.0, cellIndex.1 + 1), distance: distance + 1)
-  fillUpperRight(array: &array,
-             cellIndex: (cellIndex.0 - 1, cellIndex.1 + 1),
-              distance: distance + 2)
-}
-func fillLowerLeft(array: inout [[Int]], cellIndex: (Int, Int), distance: Int) {
-  if cellIndex.0 < 0 ||
-    cellIndex.0 >= array.count ||
-    cellIndex.1 < 0 ||
-    cellIndex.1 >= array.count {
-    return
-  }
-  if array[cellIndex.0][cellIndex.1] != 0 && array[cellIndex.0][cellIndex.1] > distance {
-    array[cellIndex.0][cellIndex.1] = distance
-  }
-  fillLowerLeft(array: &array, cellIndex: (cellIndex.0 + 1, cellIndex.1), distance: distance + 1)
-  fillLowerLeft(array: &array, cellIndex: (cellIndex.0, cellIndex.1 - 1), distance: distance + 1)
-  fillLowerLeft(array: &array,
-            cellIndex: (cellIndex.0 + 1, cellIndex.1 - 1),
-             distance: distance + 2)
-}
-func fillLowerRight(array: inout [[Int]], cellIndex: (Int, Int), distance: Int) {
-  if cellIndex.0 < 0 ||
-    cellIndex.0 >= array.count ||
-    cellIndex.1 < 0 ||
-    cellIndex.1 >= array.count {
-    return
-  }
-  if array[cellIndex.0][cellIndex.1] != 0 && array[cellIndex.0][cellIndex.1] > distance {
-    array[cellIndex.0][cellIndex.1] = distance
-  }
-  fillLowerRight(array: &array, cellIndex: (cellIndex.0 + 1, cellIndex.1), distance: distance + 1)
-  fillLowerRight(array: &array, cellIndex: (cellIndex.0, cellIndex.1 + 1), distance: distance + 1)
-  fillLowerRight(array: &array,
-             cellIndex: (cellIndex.0 + 1, cellIndex.1 + 1),
-              distance: distance + 2)
 }
 //print(calculateMinDistance(array: [[0, Int.max, Int.max, Int.max],
 //                                   [Int.max, Int.max, Int.max, Int.max],
-//                                   [Int.max, Int.max, 0, Int.max],
-//                                   [Int.max, Int.max, Int.max, Int.max]]))
-//:---
+//                                   [Int.max, Int.max, Int.max, Int.max],
+//                                   [0, Int.max, Int.max, Int.max]]))
+//: ---
+//: ## 10. Max sum of any consecutive subsequence
+func findMaxSumOfConsecutiveSubSequence(array: [Int]) -> Int {
+  if array.count < 1 {
+    return Int.min
+  }
+  var runningSum = array[0]
+  var maxSum = array.max()!
+  for index in 1..<array.count {
+    let element = array[index]
+    if element > 0 || runningSum + element > 0 {
+      runningSum += element
+      if runningSum > maxSum {
+        maxSum = runningSum
+      }
+    } else {
+      runningSum = 0
+    }
+  }
+  return maxSum
+}
+//print(findMaxSumOfConsecutiveSubSequence(array: [2, -1, -3, 5, -2, 3, -1]))
+//print(findMaxSumOfConsecutiveSubSequence(array: [-9, -2, -9, -5, -3]))
+//print(findMaxSumOfConsecutiveSubSequence(array: [-9, -2, -9, 5, 3]))
+//print(findMaxSumOfConsecutiveSubSequence(array: [1, 2, 9, 5, 3]))
+//print(findMaxSumOfConsecutiveSubSequence(array: []))
+//print(findMaxSumOfConsecutiveSubSequence(array: [-1]))
+//: ---
+//: ## 11. Minimum distance between two elements
+class Words {
+  var dictionary = Dictionary<String, [Int]>()
+  var wordCount = 0
+  init(words: [String]) {
+    for (index, word) in words.enumerated() {
+      if let element = dictionary[word] {
+        dictionary[word]!.append(index)
+      } else {
+        dictionary[word] = [index]
+      }
+    }
+    wordCount = words.count
+  }
+  func distance(firstWord: String, secondWord: String) -> Int {
+    guard let firstWordIndexes = dictionary[firstWord],
+        let secondWordIndexes = dictionary[secondWord] else {
+        return Int.max
+    }
+    var minDistance = wordCount
+    for outerIndex in firstWordIndexes {
+      for innerIndex in secondWordIndexes {
+        if abs(outerIndex - innerIndex) < minDistance {
+          minDistance = abs(outerIndex - innerIndex)
+        }
+      }
+    }
+    return minDistance
+  }
+}
+//let words = Words(words: ["Apple", "Ball", "Cat", "Dog", "Apple", "Ele", "Fish"])
+//print(words.distance(firstWord: "Ball", secondWord: "Fish"))
+//: ---
 //: [Next](@next)

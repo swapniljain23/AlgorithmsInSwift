@@ -182,7 +182,7 @@ func levelOrderTreeTraversal(root: Node) {
   var nextRowCount = 1
   while !queue.isEmpty {
     let node = queue.remove(at: 0)
-    print(node.value, separator: "", terminator: "")
+    print(node.value, separator: " ", terminator: " ")
     nextRowCount -= 1
     if let left = node.left {
       queue.append(left)
@@ -276,10 +276,7 @@ func isBalanced(_ root: Node) -> Bool {
 //print(isBalanced(node1))
 //: ---
 /*:
- ## 4. Insertion in BST
- ## 5. Deletion in BST
- ## 6. Find a node in BST
- ## 7. Find the parent of a node in BST
+ ## 4. Insertion, deletion, search, search parent of a node in BST
  */
 extension Tree {
   
@@ -411,7 +408,7 @@ extension Tree {
 //tree.removeNode(value: 151)
 //print(inorderTraversal(tree.root))
 //: ---
-//: ## 8. Finding the smallest and largest values in the binary search tree.
+//: ## 5. Finding the smallest and largest values in the binary search tree.
 func findMin(_ root: Node) -> Node {
     if let left = root.left {
         return findMin(left)
@@ -427,7 +424,7 @@ func findMax(_ root: Node) -> Node {
 //print(findMin(node1).value)
 //print(findMax(node1).value)
 //: ---
-//: ## 9. Print all leaf nodes with their complete path
+//: ## 6. Print all leaf nodes with their complete path
 func printLeafNodes(root: Node, parents: inout [Node]) {
   if root.left == nil && root.right == nil {
     printNodes(parents)
@@ -453,5 +450,21 @@ func printNodes(_ nodes: [Node]) {
 }
 //var nodes = [node1]
 //printLeafNodes(root: node1, parents: &nodes)
+//: ---
+//: ## 7. Update binary search tree with sum (starting from 0) in decending order
+var sum = 0
+func updateBST(root: Node?) {
+  guard let root = root else {
+    return
+  }
+  updateBST(root: root.right)
+  let temp = root.value
+  root.value = sum
+  sum += temp
+  updateBST(root: root.left)
+}
+//inorderTraversal(node1)
+//updateBST(root: node1)
+//inorderTraversal(node1)
 //: ---
 //: [Next](@next)

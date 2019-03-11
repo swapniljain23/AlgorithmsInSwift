@@ -153,9 +153,9 @@ func insertionSort(_ unsortedArr: [Int]) -> [Int] {
   for index in 1..<unsortedArr.count {
     var previousIndex = index - 1
     let indexVal = unsortedArr[index]
-    while(previousIndex >= 0 && unsortedArr[previousIndex] > indexVal) {
-//      (unsortedArr[previousIndex],unsortedArr[previousIndex+1]) =
-//          (unsortedArr[previousIndex+1],unsortedArr[previousIndex])
+    while previousIndex >= 0 && unsortedArr[previousIndex] > indexVal {
+//      (unsortedArr[previousIndex], unsortedArr[previousIndex+1]) =
+//          (unsortedArr[previousIndex+1], unsortedArr[previousIndex])
       // OR
 //      unsortedArr.swapAt(previousIndex, previousIndex+1)
       // OR
@@ -342,5 +342,6 @@ func selectionSort(_ unsortedArr: [Int]) -> [Int] {
     return unsortedArr
 }
 //print(selectionSort(unSortedArray))
+
 //: ---
 //: [Next](@next)

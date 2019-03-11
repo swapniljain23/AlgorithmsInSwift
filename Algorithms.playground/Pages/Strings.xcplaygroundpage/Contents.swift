@@ -8,13 +8,13 @@
 import Foundation
 extension String {
     var asciiValue: [UInt32] {
-        return self.unicodeScalars.filter{$0.isASCII}.map{$0.value}
+        return self.unicodeScalars.filter{ $0.isASCII }.map{ $0.value }
     }
 }
 //: ## Character extension
 extension Character {
     var asciiValue: UInt32? {
-        return String(self).unicodeScalars.filter{$0.isASCII}.first?.value
+        return String(self).unicodeScalars.filter{ $0.isASCII }.first?.value
     }
 }
 //: ## Substring
@@ -42,11 +42,13 @@ func hasAllUniqueChars(string: String) -> Bool {
     }
     var arr = [Bool](repeating: false, count: 256)
     for char in string {
-        let scalar = String(char).unicodeScalars
-        if arr[Int(scalar[scalar.startIndex].value)] {
-            return false
-        }
-        arr[Int(scalar[scalar.startIndex].value)] = true
+      guard let ascii = char.asciiValue else {
+        return false
+      }
+      if arr[Int(ascii)] {
+        return false
+      }
+      arr[Int(ascii)] = true
     }
     return true
 }
@@ -160,7 +162,7 @@ func replaceSpace(charArr: [Character], length: Int) {
     Output: S2J2S1J1
 */
 func countCompress(str: String) -> Int {
-    if str.count <= 1{
+    if str.count <= 1 {
         return str.count
     }
     var compressedStringSize = 0
@@ -239,15 +241,14 @@ func isSubstring(s1: String, s2: String) -> Bool {
 //print(isRotation(s1: "SwapnilJain", s2: "JainSwapnil"))
 //: ---
 //: ## 7. Convert a string into integer
-func stringToInt(_ string: String) -> Int? {
+func stringToInt(_ string: String) -> Int {
     var number = 0
     var multipler = 1
-    for char in string.reversed() {
-        if let asciiVal = char.asciiValue, asciiVal >= 48, asciiVal <= 57 {
-            number = number + (Int(String(char))! * multipler)
-            multipler *= 10
+    for char in string {
+        if char >= "0" && char <= "9" {
+            number = number * 10 + Int(String(char))!
         } else {
-            return nil
+            return -1
         }
     }
     return number
@@ -267,7 +268,7 @@ func isPalindrome(string: String) -> Bool {
             return false
         }
         /* // Case insensitive matching
-         if String(charFromStart).lowercased() != String(charFromLast).lowercased(){
+         if String(charFromStart).lowercased() != String(charFromLast).lowercased() {
              return false
          }
          */
@@ -312,8 +313,8 @@ func compareStrings(stringA: String, stringB: String) -> Int {
         
         if !isaNumber { // Both are non-digit characters
             if !intA.isEmpty && !intB.isEmpty {
-                let intValA = stringToInt(intA)!
-                let intValB = stringToInt(intB)!
+                let intValA = stringToInt(intA)
+                let intValB = stringToInt(intB)
                 if intValA > intValB {
                     return 1
                 } else if intValA < intValB {
@@ -337,8 +338,8 @@ func compareStrings(stringA: String, stringB: String) -> Int {
     } else if stringA.count < stringB.count {
         return -1
     } else if !intA.isEmpty && !intB.isEmpty {
-        let intValA = stringToInt(intA)!
-        let intValB = stringToInt(intB)!
+        let intValA = stringToInt(intA)
+        let intValB = stringToInt(intB)
         if intValA > intValB {
             return 1
         } else if intValA < intValB {
@@ -400,21 +401,21 @@ func firstNonRepeatingCharacter(string: String) -> Character? {
 //: ## 11. Check if the string is an edit away from the other one
 func oneEditApart(string1: String, string2: String) -> Bool {
   var arr1 = Array(string1), arr2 = Array(string2)
-  if (arr1.count < arr2.count) {
+  if arr1.count < arr2.count {
     swap(&arr1, &arr2)
   }
-  if(arr1.count - arr2.count > 1) {
+  if arr1.count - arr2.count > 1 {
     return false
   }
   var idx1 = 0, idx2 = 0
   var mismatchCount = 0
   while idx2 != arr2.count {
-    if (arr1[idx1] != arr2[idx2]) {
+    if arr1[idx1] != arr2[idx2] {
       mismatchCount += 1
-      if (mismatchCount > 1) {
+      if mismatchCount > 1 {
         return false
       }
-      if (arr1.count > arr2.count) {
+      if arr1.count > arr2.count {
         idx2 -= 1
       }
     }
@@ -448,11 +449,7 @@ func addOrSubtract(arithmeticString: String) -> Int {
   for character in arithmeticString {
     if character >= "0" && character <= "9" {
       // It's a digit, calculate it.
-      if currentNo > 0 {
-        currentNo = currentNo * 10 + Int(String(character))!
-      } else {
-        currentNo = Int(String(character))!
-      }
+      currentNo = currentNo * 10 + Int(String(character))!
     } else {
       // It's an operator.
       if let arithmeticOperator = arithmeticOperator {

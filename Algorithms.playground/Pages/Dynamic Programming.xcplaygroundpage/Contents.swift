@@ -78,6 +78,25 @@ func longestIncreasingSubsequence(array: [Int], max: inout Int) -> Int {
 //longestIncreasingSubsequence(array: [100, 200, 300, 500, 110, 120, 130, 140],
 //                               max: &max)
 //print(max)
+func longestNonDecreasingSequence(sequence: [Int]) -> Int {
+  var longestSequence = Array(repeating: 0, count: sequence.count)
+  longestSequence[0] = 1
+  for index in 1..<sequence.count {
+    longestSequence[index] = 1
+    for innerIndex in 0..<index {
+      if sequence[index] > sequence[innerIndex] &&
+          longestSequence[index] < longestSequence[innerIndex] + 1 {
+        longestSequence[index] = longestSequence[innerIndex] + 1
+      }
+    }
+  }
+  return longestSequence.max()!
+}
+//print(longestNonDecreasingSequence(sequence: [5, 3, 4, 8, 6, 7]))
+//print(longestNonDecreasingSequence(sequence: [3, 10, 2, 1, 20]))
+//print(longestNonDecreasingSequence(sequence: [3, 2]))
+//print(longestNonDecreasingSequence(sequence: [50, 3, 10, 7, 40, 80]))
+//print(longestNonDecreasingSequence(sequence: [100, 200, 300, 500, 110, 120, 130, 140]))
 //: ---
 /*:
  ## #3. Edit distance
@@ -143,15 +162,14 @@ func findMinRec(array: [Int], sumCalculated: Int, sumTotal: Int) -> Int {
     return abs(sumCalculated - (sumTotal - sumCalculated))
   }
   return [findMinRec(array: Array(array.dropLast()),
-                     sumCalculated: sumCalculated + array.last!,
-                     sumTotal: sumTotal),
+             sumCalculated: sumCalculated + array.last!,
+                  sumTotal: sumTotal),
           findMinRec(array: Array(array.dropLast()),
-                     sumCalculated: sumCalculated,
-                     sumTotal: sumTotal)].min()!
+             sumCalculated: sumCalculated,
+                  sumTotal: sumTotal)].min()!
 }
 func findMinSum(array: [Int]) -> Int {
-  var sumTotal = 0
-  array.map{ sumTotal += $0 }
+  var sumTotal = array.reduce(0) { $0 + $1 }
   return findMinRec(array: array, sumCalculated: 0, sumTotal: sumTotal)
 }
 //print(findMinSum(array: [1, 6, 11, 5]))
@@ -265,6 +283,65 @@ func findTheLongestOverAll(array: [[Int]]) -> Int {
 //: ---
 /*:
  ## #10.
+ */
+//: ---
+//: # Rest All
+//: ---
+/*:
+ ## 1. Minimum number of coins
+ Given a list of N coins, their values (V1, V2, … , VN), and the total sum S. Find the minimum
+ number of coins the sum of which is S (we can use as many coins of one type as we want), or report
+ that it’s not possible to select coins in such a way that they sum up to S.
+ */
+func minimumNoOfCoins(coinValues: [Int], sum: Int) -> Int {
+  var minCoinsArray = Array(repeating: Int.max, count: sum+1)
+  minCoinsArray[0] = 0
+  for sumValue in 1...sum {
+    for coinValue in coinValues {
+      if coinValue <= sumValue &&
+          minCoinsArray[sumValue-coinValue] + 1 < minCoinsArray[sumValue] {
+        minCoinsArray[sumValue] = minCoinsArray[sumValue-coinValue] + 1
+      }
+    }
+  }
+  //print(minCoinsArray)
+  return minCoinsArray[sum]
+}
+//print(minimumNoOfCoins(coinValues: [1, 3, 5], sum: 11))
+//: ---
+/*:
+ ## 2. Maximum number of Apple.
+ A table composed of N x M cells, each having a certain quantity of apples, is given.
+ You start from the upper-left corner. At each step you can go down or right one cell.
+ Find the maximum number of apples you can collect.
+ */
+func maximumNoOfApples(array: [[Int]]) -> Int {
+  var sum = Array(repeating: Array(repeating: 0, count: array[0].count),
+                      count: array.count)
+  if array.count == 0 {
+    return 0
+  }
+  sum[0][0] = array[0][0]
+  for (rowIndex, row) in array.enumerated() {
+    for (columnIndex, cell) in row.enumerated() {
+      var leftToRight = 0, topToBottom = 0
+      if rowIndex > 0 {
+        topToBottom = sum[rowIndex-1][columnIndex]
+      }
+      if columnIndex > 0 {
+        leftToRight = sum[rowIndex][columnIndex-1]
+      }
+      sum[rowIndex][columnIndex] = cell + ([leftToRight, topToBottom]).max()!
+    }
+  }
+  return sum[array.count-1][array[0].count-1]
+}
+//print(maximumNoOfApples(array: [[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
+//print(maximumNoOfApples(array: [[1, 2], [4, 5], [7, 8]]))
+//: ---
+/*:
+ ## 3. Given a 2d array of characters and a word, find the number of occurance of word in array
+ Any adjacent element can be picked from 2d array to form the word.
  */
 //: ---
 //: [Next](@next)
