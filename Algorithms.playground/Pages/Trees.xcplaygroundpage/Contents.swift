@@ -9,8 +9,10 @@ class Node {
   var value: Int
   var left: Node?
   var right: Node?
-  init(value: Int) {
+  init(_ value: Int, left: Node? = nil, right: Node? = nil) {
     self.value = value
+    self.left = left
+    self.right = right
   }
 }
 class Tree {
@@ -19,15 +21,15 @@ class Tree {
     self.root = root
   }
 }
-let node1 = Node(value: 101)
-let node2 = Node(value: 51)
-let node3 = Node(value: 151)
-let node4 = Node(value: 21)
-let node5 = Node(value: 71)
-let node6 = Node(value: 121)
-let node7 = Node(value: 171)
-let node8 = Node(value: 11)
-let node9 = Node(value: 201)
+let node1 = Node(101)
+let node2 = Node(51)
+let node3 = Node(151)
+let node4 = Node(21)
+let node5 = Node(71)
+let node6 = Node(121)
+let node7 = Node(171)
+let node8 = Node(11)
+let node9 = Node(201)
 node1.left = node2
 node1.right = node3
 node2.left = node4
@@ -176,7 +178,10 @@ func isFullBinaryTree(tree: Node) -> Bool {
     89
  */
 // With buffer.
-func levelOrderTreeTraversal(root: Node) {
+func levelOrderTreeTraversal(root: Node?) {
+  guard let root = root else {
+    return
+  }
   var queue = [root]
   var childCount = 0
   var nextRowCount = 1
@@ -208,7 +213,10 @@ func maxDepth(_ root: Node?) -> Int {
 }
 //print(maxDepth(node1))
 // Without buffer.
-func levelOrderTreeTraversalWithNoBuffer(_ root: Node) {
+func levelOrderTreeTraversalWithNoBuffer(_ root: Node?) {
+    guard let root = root else {
+      return
+    }
     for level in 1...maxDepth(root) {
         traverseAlevel(root, level)
         print("")
@@ -282,7 +290,7 @@ extension Tree {
   
     func insertNode(newValue: Int) {
       guard let root = root else {
-        self.root = Node(value: newValue)
+        self.root = Node(newValue)
         return
       }
       insertNode(current: root, newValue: newValue)
@@ -293,13 +301,13 @@ extension Tree {
         if let left = current.left {
           insertNode(current: left, newValue: newValue)
         } else {
-          current.left = Node(value: newValue)
+          current.left = Node(newValue)
         }
       } else {
         if let right = current.right {
           insertNode(current: right, newValue: newValue)
         } else {
-          current.right = Node(value: newValue)
+          current.right = Node(newValue)
         }
       }
     }

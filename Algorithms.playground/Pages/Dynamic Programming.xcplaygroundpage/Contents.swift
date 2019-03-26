@@ -169,7 +169,7 @@ func findMinRec(array: [Int], sumCalculated: Int, sumTotal: Int) -> Int {
                   sumTotal: sumTotal)].min()!
 }
 func findMinSum(array: [Int]) -> Int {
-  var sumTotal = array.reduce(0) { $0 + $1 }
+  let sumTotal = array.reduce(0) { $0 + $1 }
   return findMinRec(array: array, sumCalculated: 0, sumTotal: sumTotal)
 }
 //print(findMinSum(array: [1, 6, 11, 5]))

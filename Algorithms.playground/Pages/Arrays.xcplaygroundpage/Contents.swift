@@ -340,4 +340,67 @@ class Words {
 //let words = Words(words: ["Apple", "Ball", "Cat", "Dog", "Apple", "Ele", "Fish"])
 //print(words.distance(firstWord: "Ball", secondWord: "Fish"))
 //: ---
+/*:
+ ## 12. Print out all sub set of given set
+ 
+    Input: [1, 2, 3]
+    Output: {}, {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3}
+ */
+// Recursive.
+func allSubsetsRecursive(ofArray array: [Int]) {
+  let subset: [Int?] = Array(repeating: nil, count: array.count)
+  subsetHelper(array: array, subset: subset, index: 0)
+}
+func subsetHelper(array: [Int], subset: [Int?], index: Int) {
+  var subset = subset
+  if index == array.count {
+    print(subset)
+  } else {
+    subset[index] = nil
+    subsetHelper(array: array, subset: subset, index: index + 1)
+    subset[index] = array[index]
+    subsetHelper(array: array, subset: subset, index: index + 1)
+  }
+}
+//allSubsetsRecursive(ofArray: [1, 2, 3])
+// Iterative.
+func allSubsetsIterative(ofArray array: [Int]) -> [[Int]] {
+  var subsets = [[Int]]()
+  if array.count == 0 {
+    return subsets
+  }
+  subsets.append([])
+  for element in array {
+    var tempSets = [[Int]]()
+    for subset in subsets {
+      var subset = subset
+      subset.append(element)
+      tempSets.append(subset)
+    }
+    subsets.append(contentsOf: tempSets)
+  }
+  return subsets
+}
+//print(allSubsetsIterative(ofArray: [1, 2, 3]))
+//: ---
+//: ## 13. Find sets of numbers that add up to SUM
+func countSets(array: [Int], sum: Int) -> Int {
+  return recursiveCount(array: array, total: sum, index: array.count-1)
+}
+func recursiveCount(array: [Int], total: Int, index: Int) -> Int {
+  if total == 0 {
+    return 1
+  } else if total < 0 {
+    return 0
+  } else if index < 0 {
+    return 0
+  } else if total < array[index] {
+    return recursiveCount(array: array, total: total, index: index-1)
+  } else {
+    return recursiveCount(array: array, total: total - array[index], index: index-1) +
+      recursiveCount(array: array, total: total, index: index-1)
+  }
+}
+//print(countSets(array: [8, 2, 4, 6, 10], sum: 10))
+//: ---
 //: [Next](@next)
