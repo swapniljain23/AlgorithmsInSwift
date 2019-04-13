@@ -243,7 +243,7 @@ func partitionList(head: Node?, x: Int) -> Node? {
   var afterEnd: Node?
   
   while node != nil {
-    var next = node?.next
+    let next = node?.next
     node?.next = nil
     if node!.data < x {
       if let _ = beforeStart {

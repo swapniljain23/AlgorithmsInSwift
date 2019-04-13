@@ -9,6 +9,7 @@ class Node {
   var value: Int
   var left: Node?
   var right: Node?
+  var depth = 0
   init(_ value: Int, left: Node? = nil, right: Node? = nil) {
     self.value = value
     self.left = left
@@ -474,5 +475,36 @@ func updateBST(root: Node?) {
 //inorderTraversal(node1)
 //updateBST(root: node1)
 //inorderTraversal(node1)
+//: ---
+//: ## 8. Given the root to a binary tree, return the deepest node
+func findDeepestNode(root: Node) -> Node {
+  if root.left == nil && root.right == nil {
+    return incrementDepth(node: root)
+  }
+  if let left = root.left, root.right == nil {
+    return incrementDepth(node: findDeepestNode(root: left))
+  }
+  if let right = root.right, root.left == nil {
+    return incrementDepth(node: findDeepestNode(root: right))
+  }
+  return incrementDepth(node: [findDeepestNode(root: root.left!),
+                               findDeepestNode(root: root.right!)].max(by: { $0.depth < $1.depth })!)
+}
+func incrementDepth(node: Node) -> Node {
+  node.depth += 1
+  return node
+}
+let root = Node(1,
+                left: Node(2, left: Node(4), right: Node(5)),
+                right: Node(3,
+                            left: Node(6, left: Node(8), right: nil),
+                            right: Node(7,
+                                        left: nil,
+                                        right: Node(9,
+                                                    left: Node(10,
+                                                               left: nil,
+                                                               right: Node(11)),
+                                                    right: nil))))
+//print(findDeepestNode(root: root).value)
 //: ---
 //: [Next](@next)

@@ -243,7 +243,7 @@ func isSubstring(s1: String, s2: String) -> Bool {
 //: ## 7. Convert a string into integer
 func stringToInt(_ string: String) -> Int {
     var number = 0
-    var multipler = 1
+    let multipler = 1
     for char in string {
         if char >= "0" && char <= "9" {
             number = number * 10 + Int(String(char))!

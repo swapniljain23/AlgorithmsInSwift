@@ -313,7 +313,7 @@ class Words {
   var wordCount = 0
   init(words: [String]) {
     for (index, word) in words.enumerated() {
-      if let element = dictionary[word] {
+      if let _ = dictionary[word] {
         dictionary[word]!.append(index)
       } else {
         dictionary[word] = [index]
