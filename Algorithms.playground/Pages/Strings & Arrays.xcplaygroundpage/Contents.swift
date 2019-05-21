@@ -391,5 +391,6 @@ func stockBuySell(stocks: [Int]) -> [Index] {
   return solution
 }
 //print(stockBuySell(stocks: [100, 180, 260, 310, 40, 535, 695]))
+//print(stockBuySell(stocks: [9, 11, 8, 5, 7, 10]))
 //: ---
 //: [Next](@next)

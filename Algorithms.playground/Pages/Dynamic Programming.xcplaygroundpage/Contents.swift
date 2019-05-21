@@ -141,6 +141,7 @@ func editDistance(string1: String, string2: String) -> Int {
 //print(editDistance(string1: "geek", string2: "gesek"))
 //print(editDistance(string1: "cat", string2: "cut"))
 //print(editDistance(string1: "sunday", string2: "saturday"))
+//print(editDistance(string1: "kitten", string2: "sitting"))
 //: ---
 /*:
  ##  #4. Partition a set into two subsets such that the difference of subset sums is minimum

@@ -306,6 +306,8 @@ func findMaxSumOfConsecutiveSubSequence(array: [Int]) -> Int {
 //print(findMaxSumOfConsecutiveSubSequence(array: [1, 2, 9, 5, 3]))
 //print(findMaxSumOfConsecutiveSubSequence(array: []))
 //print(findMaxSumOfConsecutiveSubSequence(array: [-1]))
+//print(findMaxSumOfConsecutiveSubSequence(array: [34, -50, 42, 14, -5, 86]))
+//print(findMaxSumOfConsecutiveSubSequence(array: [-5, -1, -8, -9]))
 //: ---
 //: ## 11. Minimum distance between two elements
 class Words {
@@ -398,9 +400,65 @@ func recursiveCount(array: [Int], total: Int, index: Int) -> Int {
     return recursiveCount(array: array, total: total, index: index-1)
   } else {
     return recursiveCount(array: array, total: total - array[index], index: index-1) +
-      recursiveCount(array: array, total: total, index: index-1)
+        recursiveCount(array: array, total: total, index: index-1)
   }
 }
 //print(countSets(array: [8, 2, 4, 6, 10], sum: 10))
+//: ---
+//: ## 14.
+func arrayToArc(array: [Int]) {
+  var x = 0, y = x + 1
+  while x < array.count {
+    if y == array.count {
+      if array[x] == 1 && array[0] == 1 {
+        drawArc(x: x, y: 0)
+      } else if y - x > 1 {
+        drawArc(x: x, y: y-1)
+      }
+      break
+    }
+    if array[x] == 1 && array[y] == 1 {
+      y += 1
+      continue
+    } else if y - x > 1 {
+      drawArc(x: x, y: y-1)
+      x = y - 1
+    }
+    x += 1
+    y += 1
+  }
+}
+func drawArc(x: Int, y: Int) {
+  print("Arc between index \(x) and \(y)")
+}
+//arrayToArc(array: [1, 1, 1, 1, 1]) // 0.0
+//arrayToArc(array: [1, 1, 1, 1, 0]) // 0.3
+//arrayToArc(array: [0, 1, 1, 1, 1]) // 1.4
+//arrayToArc(array: [1, 0, 1, 0, 1]) // 4.0
+//arrayToArc(array: [1, 1, 0, 1, 1]) // 0.1, 3.0
+//arrayToArc(array: [0, 0, 0, 0, 0]) // 
+//: ---
+/*:
+ ## 15. Remove duplicates from sorted list and return unique element count.
+    Input: [1, 2, 2, 2, 3, 4, 4, 5, 5]
+    Output: [1, 2, 3, 4, 5, ?, ?, ?, ?], 5
+ */
+func removeDuplicates(sortedList: inout [Int]) -> Int {
+  var readIndex = 1, writeIndex = 1
+  while readIndex < sortedList.count {
+    if sortedList[readIndex] != sortedList[readIndex-1] {
+      sortedList[writeIndex] = sortedList[readIndex]
+      writeIndex += 1
+    }
+    readIndex += 1
+  }
+  return writeIndex
+}
+//var list = [1, 2, 2, 2, 3, 4, 4, 5, 5]
+//print(removeDuplicates(sortedList: &list))
+//print(list)
+//list = [1, 2, 3, 4, 5, 5, 5, 5, 5]
+//print(removeDuplicates(sortedList: &list))
+//print(list)
 //: ---
 //: [Next](@next)

@@ -2,6 +2,14 @@
 //: ## Daily Coding Problem
 //: ---
 import Foundation
+struct CellIndex {
+  var row: Int
+  var column: Int
+  init(_ row: Int, _ column: Int) {
+    self.row = row
+    self.column = column
+  }
+}
 /*:
  ### Problem #1 [Easy, Google]
  ### Given a list of numbers and a number k, return whether any two numbers from the list add up to k.
@@ -702,11 +710,296 @@ func adjustWords(words: [String], lineLength: Int) -> String {
 //                  lineLength: 3))
 //: ---
 /*:
- ### Problem #29 [Easy]
+ ### Problem #29 [Easy, Amazon]
+ ### String encoding.
+    Input: "AAAABBBCCDAA"
+    Output: "4A3B2C1D2A"
+ */
+// See problem #5 in String page.
+//: ---
+/*:
+ ### Problem #30 [Medium, Facebook]
+ 
  */
 //: ---
 /*:
- ### Problem #30 [Easy]
+ ### Problem #31 [Easy, Google]
+ ### Given two strings, compute the edit distance between them.
+ The edit distance between two strings refers to the minimum number of character insertions, deletions, and substitutions required to change one string to the other.
+    Input: "kitten", "sitting"
+    Output: 3
+ */
+// See problem #3 in Dynamic programming.
+//: ---
+/*:
+ ### Problem #32 [Easy, Google]
+ 
  */
 //: ---
+/*:
+ ### Problem #33 [Easy, Microsoft]
+ ### Compute the running median of a sequence of numbers.
+ That is, given a stream of numbers, print out the median of the list so far on each new element.
+    Input:  [2, 1, 5, 7, 2, 0, 5]
+    Output: 2, 1.5, 2, 3.5, 2, 2, 2.
+ */
+class Sequence {
+  // Keeps track of SMALL numbers.
+  var maxHeap = [Int]() // 1, 2
+  // Keep track of LARGE numbers.
+  var minHeap = [Int]() // 5, 7
+  
+  func addNumber(number: Int) {
+    if maxHeap.isEmpty {
+      maxHeap.append(number)
+    } else if maxHeap.count == minHeap.count {
+      if number < minHeap.first! {
+        maxHeap.append(number)
+      } else {
+        minHeap.append(number)
+        maxHeap.append(minHeap.removeFirst())
+      }
+    } else if maxHeap.count > minHeap.count {
+      if number > maxHeap.first! {
+        minHeap.append(number)
+      } else {
+        maxHeap.append(number)
+        minHeap.append(maxHeap.removeFirst())
+      }
+    }
+    // maxHeap will never have fewer element than minHeap.
+  }
+  
+  func getMedian() -> Double {
+    guard maxHeap.count > 0 else {
+      return 0.0
+    }
+    if maxHeap.count == minHeap.count {
+      return Double(maxHeap.last! + minHeap.first!) / 2.0
+    } else {
+      return Double(maxHeap.last!)
+    }
+  }
+  
+  func testSequence(sequence: [Int]) -> [Double] {
+    var result = [Double]()
+    for element in sequence {
+      addNumber(number: element)
+      result.append(getMedian())
+    }
+    return result
+  }
+}
+//let sequence = Sequence()
+//print(sequence.testSequence(sequence: [2, 1, 5, 7, 2, 0, 5]))
+// TODO: Fix it.
+//: ---
+/*:
+ ### Problem #34 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #35 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #36 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #37 [Easy, Google]
+ ### Write a function that, given a set, generates its power set.
+ The power set of a set is the set of all its subsets.
+ */
+// See problem #12 in Arrays page.
+//: ---
+/*:
+ ### Problem #38 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #39 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #40 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #41 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #42 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #43 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #44 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #45 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #46 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #47 [Easy, Facebook]
+ ### Given a array of numbers representing the stock prices of a company in chronological order, write a function that calculates the maximum profit you could have made from buying and selling that stock once. You must buy before you can sell it.
+ */
+// See problem #10 in String & Arrays page.
+//: ---
+/*:
+ ### Problem #48 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #49 [Medium, Amazon]
+ ### Given an array of numbers, find the maximum sum of any contiguous subarray of the array.
+ */
+// See problem #10 in Arrays page.
+//: ---
+/*:
+ ### Problem #50 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #51 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #52 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #53 [Medium, Apple]
+ ### Implement a queue using two stacks.
+ */
+// See problem #3 in StackQueue page.
+//: ---
+/*:
+ ### Problem #54 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #55 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #56 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #57 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #58 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #59 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #60 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #61 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #62 [Medium, Facebook]
+ ### There is an N by M matrix of zeroes. Given N and M, write a function to count the number of ways of starting at the top-left corner and getting to the bottom-right corner. You can only move right or down.
+ */
+func numberOfWays(rows: Int, columns: Int) -> Int {
+  var array = Array(repeating: Array(repeating: 0, count: rows),
+                        count: columns)
+  return updateCell(array: &array, rowIndex: 0, columnIndex: 0)
+}
+
+func updateCell(array: inout [[Int]], rowIndex: Int, columnIndex: Int) -> Int {
+  if rowIndex >= array.count || columnIndex >= array[rowIndex].count {
+    return 0
+  }
+
+  if (rowIndex == array.count - 1 && columnIndex == array[rowIndex].count - 1) {
+    array[rowIndex][columnIndex] = 0
+  } else if rowIndex == array.count - 1 || columnIndex == array[rowIndex].count - 1 {
+    array[rowIndex][columnIndex] = 1
+  } else if array[rowIndex][columnIndex] == 0 {
+    array[rowIndex][columnIndex] =
+        updateCell(array: &array, rowIndex: rowIndex, columnIndex: columnIndex+1) +
+            updateCell(array: &array, rowIndex: rowIndex+1, columnIndex: columnIndex)
+  }
+  return array[rowIndex][columnIndex]
+}
+//print(numberOfWays(rows: 3, columns: 3)) // 6.
+//print(numberOfWays(rows: 4, columns: 4)) // 20.
+//print(numberOfWays(rows: 5, columns: 5)) // 70.
+//: ---
+/*:
+ ### Problem #63 [Easy, Microsoft]
+ ### Given a 2D matrix of characters and a target word, write a function that returns whether the word can be found in the matrix by going left-to-right, or up-to-down.
+ */
+func findWord(matrix: [[Character]], cellIndex: CellIndex, word: [Character], charIndex: Int) -> Bool {
+  if cellIndex.row >= matrix.count || cellIndex.column >= matrix[cellIndex.row].count {
+    return false
+  }
+  var charIndex = charIndex
+  if matrix[cellIndex.row][cellIndex.column] == word[charIndex] {
+    if charIndex == word.count - 1 {
+      return true
+    }
+    charIndex += 1
+  } else {
+    charIndex = 0
+  }
+  var cellIndex1 = CellIndex(cellIndex.row + 1, cellIndex.column)
+  var cellIndex2 = CellIndex(cellIndex.row, cellIndex.column + 1)
+  return findWord(matrix: matrix, cellIndex: cellIndex1, word: word, charIndex: charIndex) ||
+      findWord(matrix: matrix, cellIndex: cellIndex2, word: word, charIndex: charIndex)
+}
+//print(findWord(matrix: [["F", "A", "C", "I"],
+//                        ["O", "B", "Q", "P"],
+//                        ["A", "N", "O", "B"],
+//                        ["M", "A", "S", "S"]],
+//            cellIndex: CellIndex(0, 0),
+//                 //word: ["F", "O", "A", "M"],
+//                 //word: ["M", "A", "S", "S"],
+//                 word: ["F", "O", "B", "N", "O", "S", "S", "T"],
+//            charIndex: 0))
+//: ---
+
 //: [Next](@next)

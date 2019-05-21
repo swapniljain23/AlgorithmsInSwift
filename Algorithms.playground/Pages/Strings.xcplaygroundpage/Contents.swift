@@ -243,7 +243,6 @@ func isSubstring(s1: String, s2: String) -> Bool {
 //: ## 7. Convert a string into integer
 func stringToInt(_ string: String) -> Int {
     var number = 0
-    let multipler = 1
     for char in string {
         if char >= "0" && char <= "9" {
             number = number * 10 + Int(String(char))!
@@ -483,5 +482,42 @@ func addOrSubtract(arithmeticString: String) -> Int {
 //print(addOrSubtract(arithmeticString: "10-20+10-700")) // -700
 //print(addOrSubtract(arithmeticString: "10-20+5")) // -5
 //print(addOrSubtract(arithmeticString: "21-31-41-51")) // -102
+//: ---
+/*:
+ ## 13. Convert a string into number.
+ */
+func stringToNumber(string: String) -> Double {
+  var result = 0.0
+  var isNegative = false
+  var isDecimal = false
+  var divideBy = 10.0
+  for (index, value) in string.enumerated() {
+    if index == 0 && value == "-" {
+      isNegative = true
+      continue
+    }
+    if value >= "0" && value <= "9" {
+      if isDecimal {
+        result += Double(String(value))! / divideBy
+        divideBy *= 10
+      } else {
+        result = result * 10 + Double(String(value))!
+      }
+    } else if value == "." && !isDecimal {
+      isDecimal = true
+    } else {
+      return 0.0
+    }
+  }
+  return isNegative ? result * -1 : result
+}
+//print(stringToNumber(string: "1224"))
+//print(stringToNumber(string: "1224.1224"))
+//print(stringToNumber(string: "-7654"))
+//print(stringToNumber(string: "-1.1"))
+//print(stringToNumber(string: "-1-11."))
+//print(stringToNumber(string: "123.123.123"))
+//: ---
+
 //: ---
 //: [Next](@next)
