@@ -123,11 +123,9 @@ func reverseSubArray(array: [Int], startIndex: Int, endIndex: Int) -> [Int] {
     var startIndex = startIndex
     var endIndex = endIndex
     var array = array
-    if startIndex >= array.count-1 ||
-      startIndex < 0 ||
-      endIndex <= 0 ||
-      endIndex > array.count-1 ||
-      startIndex >= endIndex {
+    guard array.indices.contains(startIndex),
+            array.indices.contains(endIndex),
+            startIndex < endIndex else {
         return array
     }
     while startIndex < endIndex {
@@ -137,7 +135,7 @@ func reverseSubArray(array: [Int], startIndex: Int, endIndex: Int) -> [Int] {
     }
     return array
 }
-//let array = [1, 4, 7, 3, 2, 9]
+let array = [1, 4, 7, 3, 2, 9]
 //print(reverseSubArray(array: array, startIndex: 0, endIndex: 2))
 //: ---
 //: ## 6. Generate 2D spiral array
@@ -460,5 +458,44 @@ func removeDuplicates(sortedList: inout [Int]) -> Int {
 //list = [1, 2, 3, 4, 5, 5, 5, 5, 5]
 //print(removeDuplicates(sortedList: &list))
 //print(list)
+//: ---
+/*
+ ## 16. Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
+    Input: [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
+    Output: 6
+ */
+func computeWaterElevation(array: [Int]) -> Int {
+  var index = 0
+  var finalCount = 0
+  // Scan for leading zeros.
+  while index < array.count && array[index] == 0 {
+    index += 1
+  }
+  // Scan for rest of the array.
+  while index < array.count {
+    var tempArray = [Int]()
+    let value = array[index]
+    var innerIndex = index + 1
+    while innerIndex < array.count && array[innerIndex] < value {
+      tempArray.append(array[innerIndex])
+      innerIndex += 1
+    }
+    
+    if tempArray.count > 0 && innerIndex < array.count {
+      for element in tempArray {
+        finalCount += (value - element)
+      }
+      index = innerIndex
+    } else {
+      index += 1
+    }
+  }
+  return finalCount
+}
+//print(computeWaterElevation(array: [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1])) // 6
+//print(computeWaterElevation(array: [0, 1, 1, 1, 0])) // 0
+//print(computeWaterElevation(array: [0, 0, 1, 0, 0])) // 0
+//print(computeWaterElevation(array: [1, 0, 0, 0, 1])) // 3
+
 //: ---
 //: [Next](@next)

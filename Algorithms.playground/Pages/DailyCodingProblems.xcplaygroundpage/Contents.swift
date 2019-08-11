@@ -73,7 +73,6 @@ func testSerializeDeserialize() {
   var serializedArray = [Int]()
   serialize(root: Node(5, left: Node(10, left: Node(15)), right: Node(20)),
   serializedArray: &serializedArray)
-  print(serializedArray)
   var index = 0
   let node = deserialize(root: Node(0), serializedArray: &serializedArray, index: &index)
   if let value = node?.left?.left?.value {
@@ -920,9 +919,10 @@ class Sequence {
  */
 //: ---
 /*:
- ### Problem #58 [Easy, Google]
- 
+ ### Problem #58 [Medium, Amazon]
+ ### An sorted array of integers was rotated an unknown number of times. Given such an array, find the index of the element in the array in faster than linear time.
  */
+// See problem #2 in page Sorting and Searching.
 //: ---
 /*:
  ### Problem #59 [Easy, Google]
@@ -935,9 +935,24 @@ class Sequence {
  */
 //: ---
 /*:
- ### Problem #61 [Easy, Google]
- 
+ ### Problem #61 [Medium, Google]
+ ### Implement the pow(x, y) function, where x and y are integers and returns x^y.
+ Do this faster than the naive method of repeated multiplication.
  */
+func power(x: Int, y: Int) -> Int {
+  print("Power")
+  if y == 0 { return 1 }
+  if y == 1 { return x }
+  
+  if y % 2 == 0 {
+    let result = power(x: x, y: y/2)
+    return result * result
+  } else {
+    let result = power(x: x, y: y/2)
+    return x * result * result
+  }
+}
+//print(power(x: 2, y: 10))
 //: ---
 /*:
  ### Problem #62 [Medium, Facebook]
@@ -986,8 +1001,8 @@ func findWord(matrix: [[Character]], cellIndex: CellIndex, word: [Character], ch
   } else {
     charIndex = 0
   }
-  var cellIndex1 = CellIndex(cellIndex.row + 1, cellIndex.column)
-  var cellIndex2 = CellIndex(cellIndex.row, cellIndex.column + 1)
+  let cellIndex1 = CellIndex(cellIndex.row + 1, cellIndex.column)
+  let cellIndex2 = CellIndex(cellIndex.row, cellIndex.column + 1)
   return findWord(matrix: matrix, cellIndex: cellIndex1, word: word, charIndex: charIndex) ||
       findWord(matrix: matrix, cellIndex: cellIndex2, word: word, charIndex: charIndex)
 }
@@ -1001,5 +1016,72 @@ func findWord(matrix: [[Character]], cellIndex: CellIndex, word: [Character], ch
 //                 word: ["F", "O", "B", "N", "O", "S", "S", "T"],
 //            charIndex: 0))
 //: ---
-
+/*:
+ ### Problem #64 [Easy, Google]
+ 
+ */
+//: ---
+/*:
+ ### Problem #65 [Easy, Amazon]
+ ### Given a N by M matrix of numbers, print out the matrix in a clockwise spiral.
+ */
+func printClockwiseSpiral(array: [[Int]]) {
+  var startRowIndex = 0, startColumnIndex = 0
+  var endRowIndex = array.count - 1, endColumnIndex = array[0].count - 1
+  while startRowIndex < endRowIndex && startColumnIndex < endColumnIndex {
+    for index in startColumnIndex...endColumnIndex {
+      print(array[startRowIndex][index])
+    }
+    startRowIndex += 1
+    for index in startRowIndex...endRowIndex {
+      print(array[index][endColumnIndex])
+    }
+    endColumnIndex -= 1
+    
+    if startColumnIndex < endColumnIndex {
+      for index in stride(from: endColumnIndex, through: startColumnIndex, by: -1) {
+        print(array[endRowIndex][index])
+      }
+      endRowIndex -= 1
+    }
+    if startRowIndex < endRowIndex {
+      for index in stride(from: endRowIndex, through: startRowIndex, by: -1) {
+        print(array[index][startColumnIndex])
+      }
+      startColumnIndex += 1
+    }
+  }
+}
+//printClockwiseSpiral(array: [[1, 2, 3, 4, 5],
+//                            [6, 7, 8, 9, 10],
+//                            [11, 12, 13, 14, 15],
+//                            [16, 17, 18, 19, 20]])
+//: ---
+/*:
+ ### Problem #135 [Easy, Apple]
+ ### Given a binary tree, find a minimum path sum from root to a leaf.
+ */
+func findMinimumPath(root: Node, runningSum: Int) -> Int {
+  if root.left == nil && root.right == nil {
+    return runningSum + root.value
+  }
+  if root.left == nil && root.right != nil {
+    return findMinimumPath(root: root.right!, runningSum: runningSum + root.value)
+  }
+  if root.right == nil && root.left != nil {
+    return findMinimumPath(root: root.left!, runningSum: runningSum + root.value)
+  }
+  return min(findMinimumPath(root: root.left!, runningSum: runningSum + root.value),
+          findMinimumPath(root: root.right!, runningSum: runningSum + root.value))
+}
+let root = Node(10,
+                left: Node(5, left: nil, right: Node(2)),
+                right: Node(5,
+                            left: nil,
+                            right: Node(1, left: Node(-1), right: nil)))
+//print(findMinimumPath(root: root, runningSum: 0)) //15.
+/*:
+ ### Problem #135 [Easy, Apple]
+ ###
+ */
 //: [Next](@next)

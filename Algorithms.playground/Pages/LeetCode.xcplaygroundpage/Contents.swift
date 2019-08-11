@@ -492,6 +492,154 @@ func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
 //print(removeNthFromEnd(l1, 1)!.traverse())
 //print(removeNthFromEnd(l1, 8)!.traverse())
 //: ---
+//: ## 6.
+/**
+ * On an NxN chessboard, a knight starts at the r-th row and c-th column and attempts to make exactly K moves. The rows and columns are 0 indexed, so the top-left square is (0, 0), and the bottom-right square is (N-1, N-1).
+ * A chess knight has 8 possible moves it can make, as illustrated below. Each move is two squares in a cardinal direction, then one square in an orthogonal direction.
+ * Each time the knight is to move, it chooses one of eight possible moves uniformly at random (even if the piece would go off the chessboard) and moves there.
+ * The knight continues moving until it has made exactly K moves or has moved off the chessboard. Return the probability that the knight remains on the board after it has stopped moving.
+ */
+// TODO:
+func knightProbability(_ N: Int, _ K: Int, _ r: Int, _ c: Int) -> Double {
+  if K <= 0 {
+    return 1.0
+  }
+  var newPossibleMoves = possibleMoves(row: r, column: c)
+  let number = numberOfValidAndIvalidMoves(moves: newPossibleMoves, N: N)
+  var probability = Double(number.0) / Double(number.0 + number.1)
+  newPossibleMoves = newPossibleMoves.filter {
+    return !($0.0 < 0 || $0.0 >= N || $0.1 < 0 || $0.1 >= N)
+  }
+  if K > 1 && !newPossibleMoves.isEmpty {
+    for _ in 2...K {
+      var toAppend = [(Int, Int)]()
+      for moves in newPossibleMoves {
+        toAppend.append(contentsOf: possibleMoves(row: moves.0, column: moves.1))
+      }
+      let number = numberOfValidAndIvalidMoves(moves: toAppend, N: N)
+      probability = probability * (Double(number.0) / Double(number.0 + number.1))
+      let filtered = toAppend.filter {
+        return !($0.0 < 0 || $0.0 >= N || $0.1 < 0 || $0.1 >= N)
+      }
+      newPossibleMoves.append(contentsOf: filtered)
+    }
+  }
+  return probability
+}
+
+func possibleMoves(row: Int, column: Int) -> [(Int, Int)] {
+  var array = [(Int, Int)]()
+  array.append((row-2, column-1))
+  array.append((row-2, column+1))
+  array.append((row+2, column-1))
+  array.append((row+2, column+1))
+  array.append((row+1, column-2))
+  array.append((row+1, column+2))
+  array.append((row-1, column+2))
+  array.append((row-1, column-2))
+  return array
+}
+
+func numberOfValidAndIvalidMoves(moves: [(Int, Int)], N: Int) -> (Int, Int) {
+  var validMoves = 0
+  var invalidMoves = 0
+  for move in moves {
+    if move.0 < 0 || move.0 >= N || move.1 < 0 || move.1 >= N {
+      invalidMoves += 1
+    } else {
+      validMoves += 1
+    }
+  }
+  return (validMoves, invalidMoves)
+}
+
+//print(knightProbability(3, 2, 0, 0))
+//print(knightProbability(1, 0, 0, 0))
+//print(knightProbability(3, 2, 1, 1))
+//: ## 7.
+/**
+ * Given the root of a binary tree, each node in the tree has a distinct value.
+ * After deleting all nodes with a value in to_delete, we are left with a forest (a disjoint union of trees).
+ * Return the roots of the trees in the remaining forest.  You may return the result in any order.
+ *
+ * Input: root = [1,2,3,4,5,6,7], to_delete = [3,5]
+ * Output: [[1,2,null,4],[6],[7]]
+ */
+func delNodes(_ root: TreeNode?, _ to_delete: [Int]) -> [TreeNode?] {
+  var queue = [TreeNode]()
+  var treeNodes = [TreeNode?]()
+  guard let node = root else {
+    return treeNodes
+  }
+  queue.append(node)
+  treeNodes.append(node)
+  while !queue.isEmpty {
+    let node = queue.removeFirst()
+    if to_delete.contains(node.val) {
+      treeNodes.removeAll(where: { $0?.val == node.val })
+      if let left = node.left {
+        treeNodes.append(left)
+      }
+      if let right = node.right {
+        treeNodes.append(right)
+      }
+    }
+    if let left = node.left {
+      queue.append(left)
+      if to_delete.contains(left.val) {
+        node.left = nil
+      }
+    }
+    if let right = node.right {
+      queue.append(right)
+      if to_delete.contains(right.val) {
+        node.right = nil
+      }
+    }
+  }
+  return treeNodes
+}
+public class TreeNode {
+  public var val: Int
+  public var left: TreeNode?
+  public var right: TreeNode?
+  
+  public init(_ val: Int) {
+    self.val = val
+    self.left = nil
+    self.right = nil
+  }
+}
+// Preorder - Root, Left, Right
+func preorderTraversal(_ root: TreeNode?) {
+  guard let root = root else {
+    return
+  }
+  print(root.val, separator: "", terminator: " ")
+  preorderTraversal(root.left)
+  preorderTraversal(root.right)
+  print("")
+}
+
+let one = TreeNode(1)
+let two = TreeNode(2)
+let thr = TreeNode(3)
+let fou = TreeNode(4)
+let fiv = TreeNode(5)
+let six = TreeNode(6)
+let sev = TreeNode(7)
+
+one.left = two
+one.right = thr
+two.left = fou
+two.right = fiv
+thr.left = six
+thr.right = sev
+
+let nodes = delNodes(one, [1, 3, 5])
+for node in nodes {
+  preorderTraversal(node)
+}
 //: ## Difficulty: Hard
 //: ---
 //: ## 1. Median of two sorted array
@@ -499,3 +647,5 @@ func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
 //
 //}
 //: [Next](@next)
+
+

@@ -417,9 +417,10 @@ class MyControl {
  ["AA": ["A", "B", "D"], "No Teacher": ["J", "K"], "BB": ["A", "E", "F"],"CC": ["G", "H", "I"]]
  */
 func assignKidsToTeachers(kids: [String],
-                      teachers: [String],
-                  maxClassSize: Int,
-             teacherPreference: Dictionary<String,[String]>) -> Dictionary<String, [String]> {
+                          teachers: [String],
+                          maxClassSize: Int,
+                          teacherPreference: Dictionary<String,[String]>
+) -> Dictionary<String, [String]> {
     let kidsCount = kids.count
     let teachersCount = teachers.count
     
@@ -606,8 +607,8 @@ func bagHoldingDescription(_ holdings: [BagItem]) {
 //: ---
 //: ## 18. Closest X destinations
 func closestXdestinations(numDestinations: Int,
-                             allLocations: [[Int]],
-                            numDeliveries: Int) -> [[Int]] {
+                          allLocations: [[Int]],
+                          numDeliveries: Int) -> [[Int]] {
   var listOfElements = [[Int]]()
   // Return empty list if numDeliveries are more than numDestinations.
   if numDeliveries > numDestinations {
@@ -640,8 +641,9 @@ func closestXdestinations(numDestinations: Int,
 //: ---
 //: ## 19. Optimal utilization
 func optimalUtilization(deviceCapacity: Int,
-                     foregroundAppList: [[Int]],
-                     backgroundAppList: [[Int]]) -> [[Int]] {
+                        foregroundAppList: [[Int]],
+                        backgroundAppList: [[Int]]
+) -> [[Int]] {
   var finalList = [[Int]]()
   var maxCapacity = 0
   for fgApp in foregroundAppList {
@@ -711,4 +713,36 @@ func getPeakPopulationYear(people: [Person]) -> Int {
 //                                     Person(birthYear: 1803, deathYear: 1921),
 //                                     Person(birthYear: 1894, deathYear: 1921)]))
 //: ---
+
+struct Item {
+  var title: String
+  var description: String
+  var category: String
+}
+
+let items = [
+  Item(title: "A", description: "Aaa", category: "Alphabet"),
+  Item(title: "$", description: "$#@", category: "Special"),
+  Item(title: "X", description: "Xxx", category: "Alphabet"),
+  Item(title: "B", description: "Bbb", category: "Alphabet"),
+  Item(title: "Z", description: "Zzz", category: "Alphabet"),
+  Item(title: "1", description: "100", category: "Number"),
+]
+
+// Array of dictionary
+var dataSource = Dictionary<String, [Item]>()
+
+for item in items {
+  if let _ = dataSource[item.category] {
+    dataSource[item.category]?.append(item)
+  } else {
+    dataSource[item.category] = [item]
+  }
+}
+
+let categories = dataSource.keys.sorted(by: >)
+
+//print(dataSource)
+//print(categories)
+
 //: [Next](@next)

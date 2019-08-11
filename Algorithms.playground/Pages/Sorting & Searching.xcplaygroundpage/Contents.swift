@@ -14,9 +14,9 @@ import Foundation
 var unSortedArray = [2, 225, 17, 10, 220, 108, 109, 293, 83]
 let sortedArray = [2, 10, 17, 99, 105, 108, 109, 220, 225]
 func binarySearch(_ sortedArray: [Int],
-               _ numberToSearch: Int,
-                   _ lowerIndex: Int,
-                   _ upperIndex: Int) -> Int? {
+                  _ numberToSearch: Int,
+                  _ lowerIndex: Int,
+                  _ upperIndex: Int) -> Int? {
     if lowerIndex > upperIndex {
         return nil
     }

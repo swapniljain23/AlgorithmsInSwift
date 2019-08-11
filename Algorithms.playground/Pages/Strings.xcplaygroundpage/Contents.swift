@@ -518,6 +518,67 @@ func stringToNumber(string: String) -> Double {
 //print(stringToNumber(string: "-1-11."))
 //print(stringToNumber(string: "123.123.123"))
 //: ---
+/*:
+ ## 14. Arithmetic multiplication of strings.
+ Assumption: Inputs are valid positive numbers.
+ */
+func multiply(operand1: String, operand2: String) -> String {
+  var resultArray = [String]()
+  var trailingZero = 0
+  for char2 in operand2.reversed() {
+    var unitMultiplication = ""
+    var carryForward = 0
+    let int2 = Int(String(char2))!
+    for char1 in operand1.reversed() {
+      let int1 = Int(String(char1))!
+      let unitMultiple = (int1 * int2) + carryForward
+      carryForward = unitMultiple / 10
+      unitMultiplication.insert(Character(String(unitMultiple % 10)),
+                                at: unitMultiplication.startIndex)
+    }
+    if carryForward > 0 {
+      unitMultiplication.insert(Character(String(carryForward)),
+                                at: unitMultiplication.startIndex)
+    }
+    for _ in 0..<trailingZero {
+      unitMultiplication.append("0")
+    }
+    resultArray.append(unitMultiplication)
+    trailingZero += 1
+  }
+  return sumupStrings(unitMultiplications: resultArray)
+}
 
+func sumupStrings(unitMultiplications: [String]) -> String {
+  guard unitMultiplications.count > 0 else {
+    return "Invalid input"
+  }
+  var finalString = ""
+  let maxStringSize = unitMultiplications.last!.count
+  var carryForward = 0
+  for index in 1...maxStringSize {
+    var runningSum = 0
+    for string in unitMultiplications {
+      if string.count >= index {
+        let char = string[string.index(string.endIndex, offsetBy: -index)]
+        let charInt = Int(String(char))!
+        runningSum += charInt
+      }
+    }
+    runningSum += carryForward
+    finalString.insert(Character(String(runningSum % 10)), at: finalString.startIndex)
+    carryForward = runningSum / 10
+  }
+  if (carryForward > 0) {
+    finalString.append(String(carryForward))
+  }
+  return finalString
+}
+print(multiply(operand1: "9", operand2: "9"))
+print(multiply(operand1: "9", operand2: "0"))
+print(multiply(operand1: "0", operand2: "9"))
+print(multiply(operand1: "100", operand2: "100"))
+print(multiply(operand1: "123", operand2: "456"))
+print(multiply(operand1: "99999", operand2: "99999"))
 //: ---
 //: [Next](@next)
