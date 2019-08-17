@@ -138,9 +138,9 @@ func canRepresentBST(items: [Int]) -> Bool {
 //print(canRepresentBST(items: [40, 30, 35, 20, 80, 100]))
 //: ---
 /*:
- ## #4. Check whether a binary tree is a full binary tree or not
+ ## #4. Check whether a binary tree is a FULL binary tree or not
  A full binary tree is defined as a binary tree in which all nodes have either zero
- or two child nodes. 
+ or two child nodes.
  */
 func isFullBinaryTree(tree: Node) -> Bool {
   // Return  true, if tree doesn't have any left and right node.
@@ -507,4 +507,22 @@ let root = Node(1,
                                                     right: nil))))
 //print(findDeepestNode(root: root).value)
 //: ---
+//: ## 9. Convert sorted array into a balanced binary tree.
+func balancedBinaryTree(sortedArray: [Int]) -> Node? {
+  guard sortedArray.count > 0 else {
+    return nil
+  }
+  if sortedArray.count == 1 {
+    return Node(sortedArray[0])
+  }
+  let length = sortedArray.count
+  let middleIndex = length / 2
+  let node = Node(sortedArray[middleIndex])
+  node.left = balancedBinaryTree(sortedArray: Array(sortedArray[0..<middleIndex]))
+  node.right = balancedBinaryTree(sortedArray: Array(sortedArray[middleIndex+1..<length]))
+  return node
+}
+//levelOrderTreeTraversal(root: balancedBinaryTree(sortedArray: [1, 2, 3, 4, 5, 6, 7, 8, 9]))
+//: ---
+
 //: [Next](@next)

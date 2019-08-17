@@ -2,6 +2,7 @@
 //: ## Daily Coding Problem
 //: ---
 import Foundation
+
 struct CellIndex {
   var row: Int
   var column: Int
@@ -1080,8 +1081,64 @@ let root = Node(10,
                             left: nil,
                             right: Node(1, left: Node(-1), right: nil)))
 //print(findMinimumPath(root: root, runningSum: 0)) //15.
+//: ---
 /*:
- ### Problem #135 [Easy, Apple]
- ###
+ ### Problem #153 [Hard, ?]
+ ### Find the smallest distance (measured in number of words) between any two given words in a string.
+    Input: "dog cat hello cat dog dog hello cat world", "hello", "world"
+    Output: 1
  */
+func smallestDistance(content: String, wordA: String, wordB: String) -> Int {
+  let words = content.split(separator: " ")
+  var smallestDistance = Int.max
+  var index = 0
+  while index < words.count {
+    var runningDistance = 0
+    let word = words[index]
+    index += 1
+    if word == wordA {
+      while index < words.count {
+        if words[index] == wordA {
+          runningDistance = 0
+        } else if words[index] == wordB {
+          smallestDistance = min(runningDistance, smallestDistance)
+          break
+        } else {
+          runningDistance += 1
+        }
+        index += 1
+      }
+    } else if word == wordB {
+      while index < words.count {
+        if words[index] == wordB {
+          runningDistance = 0
+        } else if words[index] == wordA {
+          smallestDistance = min(runningDistance, smallestDistance)
+          break
+        } else {
+          runningDistance += 1
+        }
+        index += 1
+      }
+    }
+  }
+  return smallestDistance
+}
+//print(smallestDistance(content: "dog cat hello cat dog dog hello cat world",
+//                       wordA: "hello",
+//                       wordB: "world")) // 1
+//print(smallestDistance(content: "dog cat hello cat dog world hello world cat",
+//                       wordA: "hello",
+//                       wordB: "world")) // 0
+//print(smallestDistance(content: "hello cat dog cat dog cat cat world cat",
+//                       wordA: "hello",
+//                       wordB: "world")) // 6
+//print(smallestDistance(content: "dog cat world cat dog dog world cat hello",
+//                       wordA: "hello",
+//                       wordB: "world")) // 1
+//print(smallestDistance(content: "dog cat world cat hello dog dog cat world",
+//                       wordA: "hello",
+//                       wordB: "world")) // 1
+//: ---
+
 //: [Next](@next)

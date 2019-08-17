@@ -713,7 +713,25 @@ func getPeakPopulationYear(people: [Person]) -> Int {
 //                                     Person(birthYear: 1803, deathYear: 1921),
 //                                     Person(birthYear: 1894, deathYear: 1921)]))
 //: ---
+/*:
+ ## 21.
+ */
+typealias TimeRange = (startTime: Int, endTime: Int)
+func isConflict(A: TimeRange, B: TimeRange) -> Bool {
+  return (A.startTime < B.startTime && A.endTime > B.startTime) ||
+      (A.startTime > B.startTime && A.startTime < B.endTime)
+}
+print(isConflict(A: (10, 14), B: (11, 16))) // True.
+print(isConflict(A: (10, 14), B: (12, 13))) // True.
+print(isConflict(A: (10, 14), B: (16, 19))) // False.
 
+print(isConflict(A: (10, 14), B: (4, 8))) // False.
+print(isConflict(A: (10, 14), B: (6, 12))) // True.
+print(isConflict(A: (10, 14), B: (8, 16))) // True.
+
+print(isConflict(A: (10, 14), B: (14, 16))) // False.
+print(isConflict(A: (10, 14), B: (6, 10))) // False.
+//: ---
 struct Item {
   var title: String
   var description: String

@@ -1,7 +1,9 @@
 //: [Previous](@previous)
 
 import Foundation
+
 public struct HashTable<Key: Hashable, Value> {
+  
   private typealias Element = (key: Key, value: Value)
   private typealias Bucket = [Element]
   private var buckets: [Bucket]
@@ -60,7 +62,6 @@ public struct HashTable<Key: Hashable, Value> {
     }
     // This key isn't in the bucket yet, add it to the chain.
     buckets[index].append((key: key, value: value))
-    print(buckets.description)
     count += 1
     return nil
   }
@@ -83,11 +84,13 @@ public struct HashTable<Key: Hashable, Value> {
     return nil
   }
   
-//  // Remove all key-value pairs from the hash table.
-//  public mutating func removeAll() {
-//    buckets.removeAll()
-//    count = 0
-//  }
+  // Remove all key-value pairs from the hash table.
+  public mutating func removeAll() {
+    for index in 0..<buckets.count {
+      buckets[index] = []
+    }
+    count = 0
+  }
   
   // Return the given key's array index.
   private func index(forKey key: Key) -> Int {
@@ -121,6 +124,10 @@ let _ = {
   hashTable["spouseLastName"] = "Jain"
   hashTable["occupation"] = "Senior Software Engineer"
   hashTable["passion"] = "TODO"
+  hashTable["passion"] = "TODO_TODO"
+  print(hashTable.description)
+  print(hashTable.debugDescription)
+  hashTable.removeAll()
   print(hashTable.description)
   print(hashTable.debugDescription)
 }()

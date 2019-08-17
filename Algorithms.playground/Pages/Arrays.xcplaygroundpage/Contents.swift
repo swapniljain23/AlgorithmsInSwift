@@ -496,6 +496,52 @@ func computeWaterElevation(array: [Int]) -> Int {
 //print(computeWaterElevation(array: [0, 1, 1, 1, 0])) // 0
 //print(computeWaterElevation(array: [0, 0, 1, 0, 0])) // 0
 //print(computeWaterElevation(array: [1, 0, 0, 0, 1])) // 3
-
+//: ---
+//: ## 17. Find the 2nd largest element in an array.
+func findSecondLargestElement(array: [Int]) -> Int {
+  guard array.count > 1 else { return 0 }
+  var largest = array[0] > array[1] ? array[0] : array[1]
+  var ndLargest = array[0] > array[1] ? array[1] : array[0]
+  for index in 2..<array.count {
+    if array[index] > largest {
+      ndLargest = largest
+      largest = array[index]
+    } else if array[index] > ndLargest {
+      ndLargest = array[index]
+    }
+  }
+  return ndLargest
+}
+//print(findSecondLargestElement(array: [5, 7, 9, 2, 11, 56, 32, 1, 88, 0]))
+//: ---
+/*:
+ ## 18. Find the largest sum in subsequent subarray.
+    Input: [-2, 1, 5, 2, -1, 4, -2]
+    Output: 11 ([1, 5, 2, -1, 4])
+ */
+func theLargestSum(array: [Int]) -> Int {
+  guard array.count > 0 else {
+    return 0
+  }
+  if array.count == 1 {
+    return array[0]
+  }
+  var runningSum = array[0]
+  var largestSum = array[0]
+  for index in 1..<array.count {
+    let element = array[index]
+    if element > runningSum + element {
+      runningSum = element
+    } else {
+      runningSum += element
+    }
+    if runningSum > largestSum {
+      largestSum = runningSum
+    }
+  }
+  return largestSum
+}
+//print(theLargestSum(array: [-2, 1, 5, 2, -1, 4, -2])) // 11
+//print(theLargestSum(array: [-2, 1, 5, 2, -111, 4, 5, -2])) //9
 //: ---
 //: [Next](@next)
